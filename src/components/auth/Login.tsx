@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import React, { useState, ChangeEvent, FormEvent } from 'react';
-import { Form, Button } from 'react-bootstrap';
+import { Form, Button, Spinner } from 'react-bootstrap';
 import authenticate from '../../api/authenticate';
 import { RouteComponentProps } from 'react-router-dom';
 import { updateSession } from '../../redux/auth/actions';
@@ -23,6 +23,7 @@ interface LoginProps extends RouteComponentProps {
 const Login: React.FC<LoginProps> = (props): JSX.Element => {
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleEmailChange = (e: ChangeEvent<HTMLInputElement>): void => {
         setEmail(e.target.value);
@@ -47,6 +48,7 @@ const Login: React.FC<LoginProps> = (props): JSX.Element => {
                     isLoggedIn: true,
                     user: user,
                 });
+                setIsLoading(false);
 
                 if (user) {
                     if (props.location.state === undefined) {
@@ -78,7 +80,6 @@ const Login: React.FC<LoginProps> = (props): JSX.Element => {
                         </div>
                         <div className="inputBox mb-4">
                             <Form.Group>
-                                {/* <Form.Label>Email</Form.Label> */}
                                 <Form.Control
                                     type="text"
                                     value={email}
@@ -89,7 +90,6 @@ const Login: React.FC<LoginProps> = (props): JSX.Element => {
                         </div>
                         <div className="inputBox mb-4 password">
                             <Form.Group>
-                                {/* <Form.Label>Password</Form.Label> */}
                                 <Form.Control
                                     type="password"
                                     value={password}
@@ -100,6 +100,9 @@ const Login: React.FC<LoginProps> = (props): JSX.Element => {
                         </div>
                         <div className="inputBox mb-4">
                             <Button type="submit" bsPrefix="lgBtn" className="btn btn-default btn-block" block>
+                                {isLoading && (
+                                    <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" />
+                                )}
                                 Sign In
                             </Button>
                         </div>

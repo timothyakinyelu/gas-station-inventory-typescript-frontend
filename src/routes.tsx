@@ -14,7 +14,9 @@ export const Routes = (): JSX.Element => {
     const location = useLocation();
     return (
         <>
-            {location.pathname !== '/login' && <Navbar />}
+            {location.pathname !== NonAuthRoutes.login && location.pathname !== NonAuthRoutes.unauthorized && (
+                <Navbar />
+            )}
             <Switch>
                 <Route path={NonAuthRoutes.login} component={Login} />
                 <AuthRoute
