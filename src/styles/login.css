@@ -1,0 +1,104 @@
+.login {
+    background: url("https://images.pexels.com/photos/34088/pexels-photo.jpg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
+    background-size: cover;
+    background-position: center;
+}
+.formWrapper {
+    width: 300px;
+    margin: auto;
+}
+.loginWrapper {
+    background: #17a2b81f;
+    background: rgba(0, 0, 0, 0.38);
+    box-shadow: -1px 4px 28px 0px rgba(0, 0, 0, 0.75)
+}
+.loginWrapper .inputBox label {
+    color: #495057;
+    font-weight: 600;
+    font-family: "Montserrat", "Sans-Serif";
+}
+.loginWrapper .inputBox input {
+    border: 0;
+    background: none;
+    display: block;
+    margin: 20px auto;
+    text-align: center;
+    border: 2px solid #00c4cc;
+    padding: 14px 10px;
+    width: 210px;
+    outline: none;
+    font-family: "Montserrat", "Sans-Serif";
+    font-size: 1rem;
+    color: white;
+    border-radius: 24px;
+    transition: 0.25s;
+}
+.loginWrapper .inputBox input:focus{
+    width: 250px;
+    border-color: #ff914d;
+}
+.loginWrapper .inputBox button[type="submit"]:active, button[type="submit"] {
+    border: 0;
+    background: none;
+    display: block;
+    margin: 20px auto;
+    text-align: center;
+    border: 2px solid #ff914d;
+    padding: 14px 40px;
+    outline: none;
+    font-family: "Philosopher", "Sans-Serif";
+    font-weight: 600;
+    font-size: 1.5rem;
+    color: white;
+    border-radius: 24px;
+    transition: 0.25s;
+    cursor: pointer;
+}
+.loginWrapper .inputBox button[type="submit"]:hover{
+    background: #00c4cc;
+}
+.loginWrapper p a {
+    color: #ff4747;
+}
+.form-control {
+    height: inherit;
+}
+.form-control:focus {
+    box-shadow: unset;
+}
+.form-control::-webkit-input-placeholder { /* Edge */
+    color: #ffffff;
+}
+.form-control::-ms-input-placeholder { /* Internet Explorer */
+    color: #ffffff;
+}
+.form-control::placeholder {
+    color: #ffffff;
+}
+.btn-block {
+    width: auto;
+}
+
+.col-sm-5 {
+    margin: auto;
+}
+.password .show-hide {
+    position: absolute;
+    /* right: 50px;
+    bottom: 120px; */
+    margin-top: -17px;
+    margin-left: 220px;
+    transform: translateY(-50%);
+}
+.show-hide i {
+    font-size: 19px;
+    color: #343a40;
+    cursor: pointer;
+    display: none;
+}
+.show-hide i.hide::before {
+    content: "\f070";
+}
+input:valid ~ .show-hide i {
+    display: block;
+}
