@@ -15,3 +15,44 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Montserrat", sans-serif;
+}
+.spinner-border-sm {
+    font-size: 5px;
+    padding: 10px;
+    margin-right: 5px;
+}
+.main {
+    position: relative;
+    top: 60px;
+    height: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    z-index: 0;
+    overflow: hidden;
+}
+.switch-wrapper {
+    height: 100%;
+    min-width: 0;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+.switch-wrapper-inner {
+    flex-grow: 1;
+    position: relative;
+}
+.data-main-wrapper {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+}
+.data-main {
+    height: 100%;
+    width: 100%;
+}

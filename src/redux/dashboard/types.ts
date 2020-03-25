@@ -17,14 +17,6 @@ export interface MetricState {
     cMonthExpenses?: ExpensesMetric[];
 }
 
-// export interface CurrentMonthSalesState {
-//     cMonthSales: SalesMetric[];
-// }
-
-// export interface CurrentMonthExpensesState {
-//     cMonthExpenses: ExpensesMetric[];
-// }
-
 export const CURRENT_MONTH_SALES = 'CURRENT_MONTH_SALES';
 export const CURRENT_MONTH_EXPENSES = 'CURRENT_MONTH_EXPENSES';
 export const ALL_MONTH_SALES = 'ALL_MONTH_SALES';

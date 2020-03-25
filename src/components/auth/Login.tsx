@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import { Form, Button, Spinner } from 'react-bootstrap';
 import authenticate from '../../api/authenticate';
@@ -8,22 +7,26 @@ import { updateSession } from '../../redux/auth/actions';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import cookie from 'js-cookie';
-import { AppState } from '../../redux';
 import { redirect } from '../../reusables/redirect';
 import '../../styles/login.css';
 import logo from '../../images/inTree.png';
+import { addToast } from '../../redux/toast/actions';
 
 interface LoginProps extends RouteComponentProps {
     updateSession: typeof updateSession;
     history: any;
     location: any;
-    isLoggedIn: boolean;
+    addToast: typeof addToast;
 }
 
 const Login: React.FC<LoginProps> = (props): JSX.Element => {
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const [isLoading, setIsLoading] = useState(false);
+    const [hidden, setHidden] = useState<boolean>(true);
+    const [show, setShow] = useState<boolean>(false);
+    const [eye, setEye] = useState<boolean>(true);
+    const count = Math.floor(Math.random() * 100 + 1);
 
     const handleEmailChange = (e: ChangeEvent<HTMLInputElement>): void => {
         setEmail(e.target.value);
@@ -31,6 +34,7 @@ const Login: React.FC<LoginProps> = (props): JSX.Element => {
 
     const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>): void => {
         setPassword(e.target.value);
+        setShow(true);
     };
 
     const handleLogin = (e: FormEvent<HTMLFormElement>): void => {
@@ -61,7 +65,18 @@ const Login: React.FC<LoginProps> = (props): JSX.Element => {
             })
             .catch((err) => {
                 console.log(err);
+                props.addToast({
+                    id: count,
+                    message: err.response.data.error,
+                });
             });
+        setIsLoading(true);
+    };
+
+    const toggleShow = (e: React.MouseEvent<HTMLElement, MouseEvent>): void => {
+        e.preventDefault();
+        setHidden(!hidden);
+        setEye(!eye);
     };
 
     return (
@@ -91,11 +106,20 @@ const Login: React.FC<LoginProps> = (props): JSX.Element => {
                         <div className="inputBox mb-4 password">
                             <Form.Group>
                                 <Form.Control
-                                    type="password"
+                                    type={hidden ? 'password' : 'text'}
                                     value={password}
                                     onChange={handlePasswordChange}
                                     placeholder="Password"
                                 />
+                                {show && (
+                                    <span className="show-hide">
+                                        {eye ? (
+                                            <i className="fa fa-eye" onClick={toggleShow}></i>
+                                        ) : (
+                                            <i className="fa fa-eye-slash" onClick={toggleShow}></i>
+                                        )}
+                                    </span>
+                                )}
                             </Form.Group>
                         </div>
                         <div className="inputBox mb-4">
@@ -117,11 +141,7 @@ Login.propTypes = {
     updateSession: PropTypes.any.isRequired,
     history: PropTypes.any.isRequired,
     location: PropTypes.any.isRequired,
-    isLoggedIn: PropTypes.bool.isRequired,
+    addToast: PropTypes.any.isRequired,
 };
 
-const mapStateToProps = (state: AppState) => ({
-    isLoggedIn: state.auth.isLoggedIn,
-});
-
-export default connect(mapStateToProps, { updateSession })(Login);
+export default connect(null, { updateSession, addToast })(Login);

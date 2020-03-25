@@ -55,7 +55,8 @@
     cursor: pointer;
 }
 .loginWrapper .inputBox button[type="submit"]:hover{
-    background: #00c4cc;
+    background: #ff914d;
+    color: #ffffff;
 }
 .loginWrapper p a {
     color: #ff4747;
@@ -84,15 +85,13 @@
 }
 .password .show-hide {
     position: absolute;
-    /* right: 50px;
-    bottom: 120px; */
-    margin-top: -17px;
-    margin-left: 220px;
+    margin-top: -47px;
+    margin-left: 200px;
     transform: translateY(-50%);
 }
 .show-hide i {
     font-size: 19px;
-    color: #343a40;
+    color: #ffffff;
     cursor: pointer;
     display: none;
 }
