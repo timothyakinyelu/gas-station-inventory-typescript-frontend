@@ -1,15 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import {
-    // MetricState,
-    DashboardActionTypes,
-    CURRENT_MONTH_SALES,
-    MetricState,
-    CURRENT_MONTH_EXPENSES,
-    ALL_MONTH_SALES,
-} from './types';
+import { DashboardActionTypes, CURRENT_MONTH_SALES, MetricState, CURRENT_MONTH_EXPENSES, CHART_INFO } from './types';
 
 const initialState: MetricState = {
-    monthSales: [],
+    chartInfo: [],
     cMonthSales: [],
     cMonthExpenses: [],
 };
@@ -26,10 +19,10 @@ export function DashboardReducer(state = initialState, actions: DashboardActionT
                 ...state.cMonthExpenses,
                 cMonthExpenses: actions.payload,
             };
-        case ALL_MONTH_SALES:
+        case CHART_INFO:
             return {
-                ...state.monthSales,
-                monthSales: actions.payload,
+                ...state.chartInfo,
+                chartInfo: actions.payload,
             };
         default:
             return state;

@@ -1,25 +1,28 @@
-export interface SalesMetric {
-    total_Sale?: number;
+/* eslint-disable @typescript-eslint/no-explicit-any */
+export interface Data {
+    totalSale?: string;
+    totalExpense?: string;
     month?: string;
     product_code?: number;
     product_type?: number;
     product_type_id?: number;
 }
 
-export interface ExpensesMetric {
-    total_expense?: number;
-    month?: string;
+export interface Metric {
+    id: number;
+    name: string;
+    data: Data[];
 }
 
 export interface MetricState {
-    monthSales?: SalesMetric[];
-    cMonthSales: SalesMetric[];
-    cMonthExpenses?: ExpensesMetric[];
+    chartInfo: Metric[];
+    cMonthSales?: Metric[];
+    cMonthExpenses?: Metric[];
 }
 
 export const CURRENT_MONTH_SALES = 'CURRENT_MONTH_SALES';
 export const CURRENT_MONTH_EXPENSES = 'CURRENT_MONTH_EXPENSES';
-export const ALL_MONTH_SALES = 'ALL_MONTH_SALES';
+export const CHART_INFO = 'CHART_INFO';
 
 export interface CurrentMonthSalesAction {
     type: typeof CURRENT_MONTH_SALES;
@@ -31,9 +34,9 @@ export interface CurrentMonthExpensesAction {
     payload: MetricState;
 }
 
-export interface AllMonthSalesAction {
-    type: typeof ALL_MONTH_SALES;
+export interface ChartInfoAction {
+    type: typeof CHART_INFO;
     payload: MetricState;
 }
 
-export type DashboardActionTypes = CurrentMonthSalesAction | CurrentMonthExpensesAction | AllMonthSalesAction;
+export type DashboardActionTypes = CurrentMonthSalesAction | CurrentMonthExpensesAction | ChartInfoAction;

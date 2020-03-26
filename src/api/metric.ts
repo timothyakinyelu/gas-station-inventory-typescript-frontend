@@ -8,7 +8,7 @@ export default {
     getExpensesByCurrentMonth: async function (): Promise<any> {
         return await inTreeApi.get('/sum-currentmonth-expenses');
     },
-    getAllMonthsSale: async function (): Promise<any> {
-        return await inTreeApi.get('/allsalesbymonth');
+    getDataByMonth: async function (): Promise<any> {
+        return await inTreeApi.get('/chartDataBymonth');
     },
 };

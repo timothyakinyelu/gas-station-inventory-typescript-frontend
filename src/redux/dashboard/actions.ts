@@ -1,10 +1,5 @@
-import {
-    DashboardActionTypes,
-    CURRENT_MONTH_SALES,
-    MetricState,
-    CURRENT_MONTH_EXPENSES,
-    ALL_MONTH_SALES,
-} from './types';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { DashboardActionTypes, CURRENT_MONTH_SALES, MetricState, CURRENT_MONTH_EXPENSES, CHART_INFO } from './types';
 
 export function currentMonthSales(cMonthSalesMetric: MetricState): DashboardActionTypes {
     return {
@@ -20,9 +15,9 @@ export function currentMonthExpenses(cMonthExpensesMetric: MetricState): Dashboa
     };
 }
 
-export function monthSales(monthSalesMetric: MetricState): DashboardActionTypes {
+export function chartInfo(chartMetric: MetricState): DashboardActionTypes {
     return {
-        type: ALL_MONTH_SALES,
-        payload: monthSalesMetric,
+        type: CHART_INFO,
+        payload: chartMetric,
     };
 }
