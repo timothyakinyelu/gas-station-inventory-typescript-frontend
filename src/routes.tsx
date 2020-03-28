@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import { Switch, Route, useLocation } from 'react-router-dom';
 import { NonAuthRoutes, AuthRoutes, UserRoles } from './constants';
@@ -9,40 +10,45 @@ import CheckResponse from './reusables/guards/checkResponse';
 import AuthRoute from './reusables/guards/AuthRoute';
 import { Unauthorized } from './pages/Unauthorized';
 
-export const Routes = (): JSX.Element => {
+const Routes: React.FC = (): JSX.Element => {
     CheckResponse();
     const location = useLocation();
+
     return (
         <>
-            {location.pathname !== NonAuthRoutes.login && location.pathname !== NonAuthRoutes.unauthorized && (
-                <Navbar />
-            )}
-            <Route path={NonAuthRoutes.login} component={Login} />
-            <div className="main">
-                <section className="switch-wrapper">
-                    <div className="switch-wrapper-inner">
-                        <div className="data-main-wrapper">
-                            <main className="data-main">
-                                <Switch>
-                                    <AuthRoute
-                                        exact
-                                        path={AuthRoutes.dashboard}
-                                        component={Dashboard}
-                                        requiredRoles={[String(UserRoles.admin)]}
-                                    />
-                                    <AuthRoute
-                                        exact
-                                        path={AuthRoutes.newsale}
-                                        component={NewSale}
-                                        requiredRoles={[String(UserRoles.user)]}
-                                    />
-                                    <Route path={NonAuthRoutes.unauthorized} component={Unauthorized} />
-                                </Switch>
-                            </main>
+            {location.pathname === NonAuthRoutes.login ? (
+                <Route exact path={NonAuthRoutes.login} component={Login} />
+            ) : (
+                <>
+                    {location.pathname !== NonAuthRoutes.login && location.pathname !== NonAuthRoutes.unauthorized && (
+                        <Navbar />
+                    )}
+                    <div className="appWrapper" style={{ minHeight: '429px' }}>
+                        <div className="container-fluid">
+                            <Switch>
+                                <AuthRoute
+                                    exact
+                                    path={`${AuthRoutes.dashboard}:company`}
+                                    component={Dashboard}
+                                    requiredRoles={[String(UserRoles.admin)]}
+                                />
+                                <AuthRoute
+                                    exact
+                                    path={`${AuthRoutes.dashboard}:company${AuthRoutes.newsale}`}
+                                    component={NewSale}
+                                    requiredRoles={[String(UserRoles.user)]}
+                                />
+                                <Route
+                                    path={`${AuthRoutes.dashboard}:company${NonAuthRoutes.unauthorized}`}
+                                    component={Unauthorized}
+                                />
+                            </Switch>
                         </div>
                     </div>
-                </section>
-            </div>
+                </>
+            )}
         </>
     );
 };
+
+export default Routes;

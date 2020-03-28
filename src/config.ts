@@ -5,10 +5,10 @@ let url = '';
 
 switch (process.env.NODE_ENV) {
     case 'development':
-        url = `http://localhost:8000/api/v1`;
+        url = `http://localhost:8000/api/v2`;
         break;
     case 'production':
-        url = `/api/v1`;
+        url = `/api/v2`;
         break;
     default:
         break;

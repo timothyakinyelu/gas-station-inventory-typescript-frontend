@@ -3,6 +3,10 @@
     background-size: cover;
     background-position: center;
 }
+.login form {
+    margin: 0 auto;
+    /* max-width: 320px; */
+}
 .formWrapper {
     width: 300px;
     margin: auto;

@@ -43,8 +43,8 @@ const Login: React.FC<LoginProps> = (props): JSX.Element => {
         authenticate
             .Login(email, password)
             .then((res) => {
-                const accessToken = res.data.access_token;
-                const user = res.data.user.original;
+                const accessToken = res.data.token;
+                const user = res.data.user;
 
                 cookie.set('token', accessToken);
 
@@ -55,12 +55,7 @@ const Login: React.FC<LoginProps> = (props): JSX.Element => {
                 setIsLoading(false);
 
                 if (user) {
-                    if (props.location.state === undefined) {
-                        props.history.push(redirect(user.permission));
-                    } else {
-                        const { requestedPath } = props.location.state;
-                        props.history.push(requestedPath);
-                    }
+                    props.history.push(redirect(user.permission, user.company));
                 }
             })
             .catch((err) => {

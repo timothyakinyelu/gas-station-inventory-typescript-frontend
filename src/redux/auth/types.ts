@@ -1,12 +1,14 @@
 export interface User {
+    id?: number;
     name?: string;
     email?: string;
     role?: string;
     permission?: string;
     station?: string;
     stationId?: number;
-    id?: number;
     stationName?: string;
+    company?: string;
+    companyID?: string;
     permissionID?: number;
 }
 

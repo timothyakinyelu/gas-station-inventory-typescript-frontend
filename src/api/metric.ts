@@ -3,10 +3,10 @@ import { inTreeApi } from '../config';
 
 export default {
     getSalesByCurrentMonth: async function (): Promise<any> {
-        return await inTreeApi.get('/sum-currentmonth');
+        return await inTreeApi.get('/currentMonthSalesSum');
     },
     getExpensesByCurrentMonth: async function (): Promise<any> {
-        return await inTreeApi.get('/sum-currentmonth-expenses');
+        return await inTreeApi.get('/currentMonthExpensesSum');
     },
     getDataByMonth: async function (): Promise<any> {
         return await inTreeApi.get('/chartDataBymonth');

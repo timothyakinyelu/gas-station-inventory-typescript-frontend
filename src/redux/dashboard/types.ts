@@ -3,9 +3,9 @@ export interface Data {
     totalSale?: string;
     totalExpense?: string;
     month?: string;
-    product_code?: number;
-    product_type?: number;
-    product_type_id?: number;
+    productCode?: number;
+    productType?: number;
+    productTypeId?: number;
 }
 
 export interface Metric {
@@ -15,7 +15,7 @@ export interface Metric {
 }
 
 export interface MetricState {
-    chartInfo: Metric[];
+    chartInfo?: Metric[];
     cMonthSales?: Metric[];
     cMonthExpenses?: Metric[];
 }

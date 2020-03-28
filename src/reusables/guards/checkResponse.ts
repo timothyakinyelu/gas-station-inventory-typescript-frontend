@@ -22,7 +22,6 @@ function CheckResponse(): void {
                     });
                     break;
                 case 403:
-                    console.log(2);
                     authHelper.remove();
                     history.push({
                         pathname: NonAuthRoutes.login,
