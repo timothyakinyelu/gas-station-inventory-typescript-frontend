@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-import { Switch, Route, useLocation } from 'react-router-dom';
+import { Switch, Route, useLocation, Redirect } from 'react-router-dom';
 import { NonAuthRoutes, AuthRoutes, UserRoles } from './constants';
 import Navbar from './reusables/navigation/Navbar';
 import Login from './components/auth/Login';
@@ -16,6 +16,7 @@ const Routes: React.FC = (): JSX.Element => {
 
     return (
         <>
+            <Redirect from="/" to={NonAuthRoutes.login} />
             {location.pathname === NonAuthRoutes.login ? (
                 <Route exact path={NonAuthRoutes.login} component={Login} />
             ) : (
