@@ -1,5 +1,6 @@
 .outlet-name {
     margin: 10px;
+    font-weight: 600;
 }
 
 /* .card.mb-3 {
@@ -183,6 +184,6 @@
 }
 
 .divider {
-    margin: 10px !important;
+    margin: 5px !important;
     border: 1px solid #e9ecef;
 }

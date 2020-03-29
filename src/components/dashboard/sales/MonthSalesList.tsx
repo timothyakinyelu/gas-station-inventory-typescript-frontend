@@ -7,6 +7,7 @@ import MonthSales from './MonthSales';
 interface MonthSalesListProps {
     currentsales: Metric[];
 }
+
 const MonthSalesList: React.FC<MonthSalesListProps> = ({ currentsales }): JSX.Element => {
     const [sales, setSales] = useState<Metric[]>([]);
     // const [key, setkey] = useState(false);

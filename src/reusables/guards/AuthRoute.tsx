@@ -24,7 +24,7 @@ const AuthRoute: React.FC<AuthRouteProps> = ({ path, requiredRoles, ...props }) 
         if (userHasRequiredRole) {
             return <Route exact path={path} {...props} />;
         }
-        return <Redirect to={{ pathname: NonAuthRoutes.unauthorized }} />;
+        return <Redirect to={{ pathname: '/' + `${props.user.company}` + NonAuthRoutes.unauthorized }} />;
     } else {
         return (
             <Redirect

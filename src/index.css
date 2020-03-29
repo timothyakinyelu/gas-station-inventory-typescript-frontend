@@ -13,7 +13,6 @@ body {
 }
 #root {
     width: 100%;
-    overflow: hidden;
 }
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
@@ -34,6 +33,7 @@ h1, h2, h3, h4, h5, h6 {
     background: #383f48;
     padding-bottom: 60px;
     position: relative;
+    overflow: hidden;
 }
 @media (min-width: 768px) {
     .mini-sidebar .appWrapper {

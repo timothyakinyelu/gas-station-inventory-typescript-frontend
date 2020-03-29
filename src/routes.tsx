@@ -16,7 +16,6 @@ const Routes: React.FC = (): JSX.Element => {
 
     return (
         <>
-            <Redirect from="/" to={NonAuthRoutes.login} />
             {location.pathname === NonAuthRoutes.login ? (
                 <Route exact path={NonAuthRoutes.login} component={Login} />
             ) : (
@@ -43,6 +42,7 @@ const Routes: React.FC = (): JSX.Element => {
                                     path={`${AuthRoutes.dashboard}:company${NonAuthRoutes.unauthorized}`}
                                     component={Unauthorized}
                                 />
+                                {location.key === undefined && <Redirect to={NonAuthRoutes.login} />}
                             </Switch>
                         </div>
                     </div>
