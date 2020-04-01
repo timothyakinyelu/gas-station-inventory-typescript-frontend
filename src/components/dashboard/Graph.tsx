@@ -35,8 +35,8 @@ const Graph: React.FC<GraphProps> = ({ chartInfo }): JSX.Element => {
                     dataSet.map((d: Metric) => (
                         <Chart
                             key={d.id}
-                            width={'100%'}
-                            height={'100%'}
+                            width={'400px'}
+                            height={'80%'}
                             chartType="AreaChart"
                             data={[
                                 ['Month', 'Sales', 'Expenses'],
@@ -47,7 +47,7 @@ const Graph: React.FC<GraphProps> = ({ chartInfo }): JSX.Element => {
                                 hAxis: { title: 'Month', titleTextStyle: { color: '#333' } },
                                 vAxis: { minValue: 0 },
                                 // For the legend to fit, we make the chart area smaller
-                                chartArea: { width: '50%', height: '70%' },
+                                chartArea: { width: '50%', height: '60%' },
                                 backgroundColor: 'transparent',
                                 overflowX: 'scroll',
                                 // lineWidth: 25
