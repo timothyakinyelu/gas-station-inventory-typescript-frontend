@@ -157,7 +157,7 @@
     background: #ffffff;
     height: 100%;
 }
-.fix-sidebar .left-sidebar {
+.fixed-sidebar .left-sidebar {
     position: fixed;
 }
 .left-sidebar {
@@ -173,6 +173,12 @@
 .scroll-sidebar {
     position: relative;
     height: calc(100% - 20px);
+}
+.scroller {
+    transition: all .3s ease-out;
+    overflow: scroll;
+    -webkit-overflow-scrolling: touch;
+    position: absolute;
 }
 .sidebar-nav {
     background: #fff;
@@ -341,6 +347,9 @@
 @media (max-width: 990px) {
     .sidebar-nav ul li ul li > a:hover {
         color: #ffffff;
+    }
+    .scroller {
+        overflow: unset;
     }
 }
 

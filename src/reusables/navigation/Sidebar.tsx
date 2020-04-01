@@ -35,7 +35,7 @@ const Sidebar: React.FC = () => {
 
     return (
         <aside className="left-sidebar">
-            <div className="scroll-sidebar">
+            <div className="scroll-sidebar scroller">
                 <nav className="sidebar-nav active">
                     <ul id="sidebarnav" className="in">
                         <li className="listItem" onClick={toggleLink} data-id="nav-item1">
