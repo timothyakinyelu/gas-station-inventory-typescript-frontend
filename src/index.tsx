@@ -10,18 +10,30 @@ import { Provider } from 'react-redux';
 import authHelper from './authHelper';
 import { UPDATE_SESSION } from './redux/auth/types';
 import authenticate from './api/authenticate';
+import { useWindowResize } from './useWindowResize';
 
 const store = configureStore();
 
-const Root = (): JSX.Element => (
-    <Provider store={store}>
-        <Router>
-            <React.StrictMode>
-                <App />
-            </React.StrictMode>
-        </Router>
-    </Provider>
-);
+const Root = (): JSX.Element => {
+    const { width } = useWindowResize();
+
+    const side = document.getElementById('root');
+
+    if (width < 990) {
+        side?.classList.add('mini-sidebar');
+    } else {
+        side?.classList.remove('mini-sidebar');
+    }
+    return (
+        <Provider store={store}>
+            <Router>
+                <React.StrictMode>
+                    <App />
+                </React.StrictMode>
+            </Router>
+        </Provider>
+    );
+};
 
 const render = () => {
     ReactDOM.render(<Root />, document.getElementById('root'));

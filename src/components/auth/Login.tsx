@@ -109,9 +109,9 @@ const Login: React.FC<LoginProps> = (props): JSX.Element => {
                                 {show && (
                                     <span className="show-hide">
                                         {eye ? (
-                                            <i className="fa fa-eye" onClick={toggleShow}></i>
+                                            <i className="mdi mdi-eye-outline" onClick={toggleShow}></i>
                                         ) : (
-                                            <i className="fa fa-eye-slash" onClick={toggleShow}></i>
+                                            <i className="mdi mdi-eye-off-outline" onClick={toggleShow}></i>
                                         )}
                                     </span>
                                 )}

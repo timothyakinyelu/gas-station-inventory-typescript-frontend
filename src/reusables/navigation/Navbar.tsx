@@ -4,11 +4,13 @@ import { Dropdown } from 'react-bootstrap';
 import { User, AuthState } from '../../redux/auth/types';
 import { Link } from 'react-router-dom';
 import navLogo from '../../images/logo.png';
+import mobileLogo from '../../images/inTree.png';
 import Logout from '../../components/auth/Logout';
 import { AppState } from '../../redux';
 import { connect } from 'react-redux';
 import authHelper from '../../authHelper';
 import PropTypes from 'prop-types';
+import { useWindowResize } from '../../useWindowResize';
 import '../../styles/navbar.css';
 
 interface NavbarProps {
@@ -18,6 +20,7 @@ interface NavbarProps {
 }
 
 const Navbar: React.FC<NavbarProps> = ({ updateSession, isLoggedIn, user }): JSX.Element => {
+    const { width } = useWindowResize();
     const [letter, setLetter] = useState<string | undefined>('');
     const [str, setStr] = useState<string | undefined>('');
     useEffect(() => {
@@ -54,7 +57,11 @@ const Navbar: React.FC<NavbarProps> = ({ updateSession, isLoggedIn, user }): JSX
                     align-items-center w-100"
                 >
                     <Link to="{name: 'home'}" aria-label="logo" className="navbar-brand brand-logo">
-                        <img src={navLogo} alt="logo" />
+                        {width > 990 ? (
+                            <img src={navLogo} alt="logo" />
+                        ) : (
+                            <img className="mobile-logo" src={mobileLogo} alt="logo" />
+                        )}
                     </Link>
                 </div>
             </div>

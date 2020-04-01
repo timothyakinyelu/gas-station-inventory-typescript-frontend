@@ -9,10 +9,13 @@ import NewSale from './pages/NewSale';
 import CheckResponse from './reusables/guards/checkResponse';
 import AuthRoute from './reusables/guards/AuthRoute';
 import { Unauthorized } from './pages/Unauthorized';
+import Sidebar from './reusables/navigation/Sidebar';
+import { useWindowResize } from './useWindowResize';
 
 const Routes: React.FC = (): JSX.Element => {
     CheckResponse();
     const location = useLocation();
+    const { height } = useWindowResize();
 
     return (
         <>
@@ -23,7 +26,8 @@ const Routes: React.FC = (): JSX.Element => {
                     {location.pathname !== NonAuthRoutes.login && location.pathname !== NonAuthRoutes.unauthorized && (
                         <Navbar />
                     )}
-                    <div className="appWrapper" style={{ minHeight: '429px' }}>
+                    <Sidebar />
+                    <div className="appWrapper" style={{ minHeight: height }}>
                         <div className="container-fluid">
                             <Switch>
                                 <AuthRoute
@@ -32,11 +36,11 @@ const Routes: React.FC = (): JSX.Element => {
                                     component={Dashboard}
                                     requiredRoles={[String(UserRoles.admin)]}
                                 />
-                                <AuthRoute
+                                <Route
                                     exact
                                     path={`${AuthRoutes.dashboard}:company${AuthRoutes.newsale}`}
                                     component={NewSale}
-                                    requiredRoles={[String(UserRoles.user)]}
+                                    // requiredRoles={[String(UserRoles.user)]}
                                 />
                                 <Route
                                     path={`${AuthRoutes.dashboard}:company${NonAuthRoutes.unauthorized}`}

@@ -1,9 +1,10 @@
 .navbar {
     font-weight: 400;
     transition: background 0.25s ease;
+    background: #2e4152;
 }
 .navbar .navbar-brand-wrapper {
-    background: #ffffff;
+    background: transparent;
     border-bottom: 1px solid #e3e3e3;
     transition: width 0.25s ease, background 0.25s ease;
     width: 257px;
@@ -26,8 +27,12 @@
     margin: auto;
     vertical-align: middle;
 }
+img.mobile-logo {
+    width: 20% !important;
+    border-radius: 20%;
+}
 .navbar .navbar-menu-wrapper {
-    background: #ffffff;
+    background: transparent;
     transition: width 0.25s ease;
     -webkit-transition: width 0.25s ease;
     -moz-transition: width 0.25s ease;
