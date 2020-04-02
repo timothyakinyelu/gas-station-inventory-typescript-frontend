@@ -32,19 +32,15 @@ const Routes: React.FC = (): JSX.Element => {
                             <Switch>
                                 <AuthRoute
                                     exact
-                                    path={`${AuthRoutes.dashboard}:company`}
+                                    path={`${AuthRoutes.dashboard}:companyID/:company`}
                                     component={Dashboard}
                                     requiredRoles={[String(UserRoles.admin)]}
                                 />
-                                <Route
+                                <AuthRoute
                                     exact
-                                    path={`${AuthRoutes.dashboard}:company${AuthRoutes.newsale}`}
+                                    path={`${AuthRoutes.dashboard}:companyID/:company${AuthRoutes.newsale}`}
                                     component={NewSale}
-                                    // requiredRoles={[String(UserRoles.user)]}
-                                />
-                                <Route
-                                    path={`${AuthRoutes.dashboard}:company${NonAuthRoutes.unauthorized}`}
-                                    component={Unauthorized}
+                                    requiredRoles={[String(UserRoles.user)]}
                                 />
                                 {location.key === undefined && <Redirect to={NonAuthRoutes.login} />}
                             </Switch>
@@ -52,6 +48,7 @@ const Routes: React.FC = (): JSX.Element => {
                     </div>
                 </>
             )}
+            <Route path={`${AuthRoutes.dashboard}${NonAuthRoutes.unauthorized}`} component={Unauthorized} />
         </>
     );
 };

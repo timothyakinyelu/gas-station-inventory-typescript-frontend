@@ -5,9 +5,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Graph from '../components/dashboard/Graph';
 import Loader from '../reusables/Loader';
+import Performance from '../components/dashboard/Performance';
+import { useParams } from 'react-router-dom';
 import '../styles/dashboard.css';
 import '../styles/loader.css';
-import Performance from '../components/dashboard/Performance';
 
 interface DashboardProps {
     currentMonthSales: typeof currentMonthSales;
@@ -16,27 +17,28 @@ interface DashboardProps {
 }
 
 const Dashboard: React.FC<DashboardProps> = ({ currentMonthExpenses, currentMonthSales, chartInfo }): JSX.Element => {
+    const { companyID } = useParams();
     const [isSet, setIsSet] = useState<boolean>(false);
     const [hasLoaded, setHasLoaded] = useState(false);
 
     const getCurrentSales = useCallback((): void => {
-        metric.getSalesByCurrentMonth().then((res) => {
+        metric.getSalesByCurrentMonth(companyID).then((res) => {
             currentMonthSales(res.data);
         });
-    }, [currentMonthSales]);
+    }, [currentMonthSales, companyID]);
 
     const getExpensesByCurrentMonth = useCallback((): void => {
-        metric.getExpensesByCurrentMonth().then((res) => {
+        metric.getExpensesByCurrentMonth(companyID).then((res) => {
             currentMonthExpenses(res.data);
         });
-    }, [currentMonthExpenses]);
+    }, [currentMonthExpenses, companyID]);
 
     const getDataByMonth = useCallback((): void => {
-        metric.getDataByMonth().then((res) => {
+        metric.getDataByMonth(companyID).then((res) => {
             chartInfo(res.data);
             setIsSet(true);
         });
-    }, [chartInfo]);
+    }, [chartInfo, companyID]);
 
     useEffect(() => {
         const ac = new AbortController();

@@ -4,7 +4,7 @@ import { RouteComponentProps, Redirect, Route } from 'react-router-dom';
 import React from 'react';
 import { connect } from 'react-redux';
 import { AppState } from '../../redux';
-import { NonAuthRoutes } from '../../constants';
+import { NonAuthRoutes, AuthRoutes } from '../../constants';
 import { User } from '../../redux/auth/types';
 
 interface AuthRouteProps {
@@ -24,7 +24,7 @@ const AuthRoute: React.FC<AuthRouteProps> = ({ path, requiredRoles, ...props }) 
         if (userHasRequiredRole) {
             return <Route exact path={path} {...props} />;
         }
-        return <Redirect to={{ pathname: `/${props.user.company}${NonAuthRoutes.unauthorized}` }} />;
+        return <Redirect to={{ pathname: `${AuthRoutes.dashboard}${NonAuthRoutes.unauthorized}` }} />;
     } else {
         return (
             <Redirect

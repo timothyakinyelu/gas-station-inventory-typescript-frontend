@@ -4,6 +4,7 @@ import { AuthReducer } from './auth/reducers';
 import thunkMiddleware from 'redux-thunk';
 import { DashboardReducer } from './dashboard/reducers';
 import { ToastReducer } from './toast/reducers';
+import { CentralReducer } from './central/reducers';
 
 declare global {
     interface Window {
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
     auth: AuthReducer,
     metric: DashboardReducer,
     toast: ToastReducer,
+    center: CentralReducer,
 });
 
 export type AppState = ReturnType<typeof rootReducer>;

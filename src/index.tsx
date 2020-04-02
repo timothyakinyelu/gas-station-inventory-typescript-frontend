@@ -11,6 +11,8 @@ import authHelper from './authHelper';
 import { UPDATE_SESSION } from './redux/auth/types';
 import authenticate from './api/authenticate';
 import { useWindowResize } from './useWindowResize';
+import center from './api/center';
+import { FETCH_STATIONS } from './redux/central/types';
 
 const store = configureStore();
 
@@ -39,6 +41,15 @@ const render = () => {
     ReactDOM.render(<Root />, document.getElementById('root'));
 };
 
+const getStations = (id: string) => {
+    center.getStations(id).then((res) => {
+        store.dispatch({
+            type: FETCH_STATIONS,
+            payload: res.data,
+        });
+    });
+};
+
 const token = authHelper.get();
 if (token) {
     authenticate
@@ -51,6 +62,9 @@ if (token) {
                     user: res.data,
                 },
             });
+            console.log(res.data);
+            const companyID = res.data.companyID;
+            getStations(companyID);
             render();
         })
         .catch((err) => {

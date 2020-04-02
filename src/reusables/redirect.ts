@@ -1,13 +1,13 @@
 import { UserRoles, AuthRoutes, NonAuthRoutes } from '../constants';
 
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-export const redirect = (role: string, company: string) => {
+export const redirect = (role: string, company: string, companyID: string) => {
     //decide routes based on role
     if (role === UserRoles.admin) {
-        return `${AuthRoutes.dashboard}${company}`;
+        return `${AuthRoutes.dashboard}${companyID}/${company}`;
     } else if (role === UserRoles.user) {
-        return `${AuthRoutes.dashboard}${company}${AuthRoutes.newsale}`;
+        return `${AuthRoutes.dashboard}${companyID}/${company}${AuthRoutes.newsale}`;
     } else {
-        return `${AuthRoutes.dashboard}${company}${NonAuthRoutes.unauthorized}`;
+        return `${AuthRoutes.dashboard}${NonAuthRoutes.unauthorized}`;
     }
 };

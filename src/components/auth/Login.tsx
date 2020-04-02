@@ -55,7 +55,7 @@ const Login: React.FC<LoginProps> = (props): JSX.Element => {
                 setIsLoading(false);
 
                 if (user) {
-                    props.history.push(redirect(user.permission, user.company));
+                    props.history.push(redirect(user.permission, user.company, user.companyID));
                 }
             })
             .catch((err) => {
