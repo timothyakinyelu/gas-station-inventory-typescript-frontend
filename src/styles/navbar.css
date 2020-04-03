@@ -101,8 +101,8 @@ a:not([href]) {
 button.alt-out {
     border-bottom: unset;
     font-weight: 600;
-    color: #6c757d;
-    display: grid;
+    color: #495057;
+    display: flex;
     cursor: pointer;
 }
 button.alt-out:hover {

@@ -10,9 +10,10 @@ const Logout: React.FC<LogOutProps> = (props) => {
         <button
             onClick={props.handleLogOut}
             className="alt-out"
-            style={{ position: 'relative', left: '50px', border: 'none' }}
+            style={{ position: 'relative', margin: 'auto', border: 'none' }}
         >
-            Sign Out
+            <i className="mdi mdi-logout"></i>
+            LogOut
         </button>
     );
 };

@@ -12,12 +12,9 @@ import authHelper from '../../authHelper';
 import PropTypes from 'prop-types';
 import { useWindowResize } from '../../useWindowResize';
 import '../../styles/navbar.css';
-import { fetchStations, setStation } from '../../redux/central/actions';
 
 interface NavbarProps {
     endSession: typeof endSession;
-    fetchStations: typeof fetchStations;
-    setStation: typeof setStation;
     isLoggedIn: boolean;
     user: User;
 }
@@ -104,8 +101,6 @@ Navbar.propTypes = {
     endSession: PropTypes.any.isRequired,
     isLoggedIn: PropTypes.bool.isRequired,
     user: PropTypes.object.isRequired,
-    fetchStations: PropTypes.any,
-    setStation: PropTypes.any,
 };
 
 const mapStateToProps = (state: AppState): AuthState => {
@@ -115,4 +110,4 @@ const mapStateToProps = (state: AppState): AuthState => {
     };
 };
 
-export default connect(mapStateToProps, { endSession, fetchStations, setStation })(Navbar);
+export default connect(mapStateToProps, { endSession })(Navbar);
