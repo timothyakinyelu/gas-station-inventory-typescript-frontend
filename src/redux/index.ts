@@ -6,6 +6,7 @@ import thunkMiddleware from 'redux-thunk';
 import { DashboardReducer } from './dashboard/reducers';
 import { ToastReducer } from './toast/reducers';
 import { CentralReducer } from './central/reducers';
+import { SalesReducer } from './sales/reducers';
 
 declare global {
     interface Window {
@@ -18,6 +19,7 @@ const appReducer = combineReducers({
     metric: DashboardReducer,
     toast: ToastReducer,
     center: CentralReducer,
+    salesRoot: SalesReducer,
 });
 
 const rootReducer = (state: any, actions: any) => {
