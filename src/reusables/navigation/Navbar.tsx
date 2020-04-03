@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { updateSession } from '../../redux/auth/actions';
+import { endSession } from '../../redux/auth/actions';
 import { Dropdown } from 'react-bootstrap';
 import { User, AuthState } from '../../redux/auth/types';
 import { Link } from 'react-router-dom';
@@ -12,14 +12,17 @@ import authHelper from '../../authHelper';
 import PropTypes from 'prop-types';
 import { useWindowResize } from '../../useWindowResize';
 import '../../styles/navbar.css';
+import { fetchStations, setStation } from '../../redux/central/actions';
 
 interface NavbarProps {
-    updateSession: typeof updateSession;
+    endSession: typeof endSession;
+    fetchStations: typeof fetchStations;
+    setStation: typeof setStation;
     isLoggedIn: boolean;
     user: User;
 }
 
-const Navbar: React.FC<NavbarProps> = ({ updateSession, isLoggedIn, user }): JSX.Element => {
+const Navbar: React.FC<NavbarProps> = ({ endSession, isLoggedIn, user }): JSX.Element => {
     const { width } = useWindowResize();
     const [letter, setLetter] = useState<string | undefined>('');
     const [str, setStr] = useState<string | undefined>('');
@@ -38,7 +41,7 @@ const Navbar: React.FC<NavbarProps> = ({ updateSession, isLoggedIn, user }): JSX
         setLetter('');
 
         authHelper.remove();
-        updateSession({
+        endSession({
             isLoggedIn: false,
             user: {},
         });
@@ -98,9 +101,11 @@ const Navbar: React.FC<NavbarProps> = ({ updateSession, isLoggedIn, user }): JSX
 };
 
 Navbar.propTypes = {
-    updateSession: PropTypes.any.isRequired,
+    endSession: PropTypes.any.isRequired,
     isLoggedIn: PropTypes.bool.isRequired,
     user: PropTypes.object.isRequired,
+    fetchStations: PropTypes.any,
+    setStation: PropTypes.any,
 };
 
 const mapStateToProps = (state: AppState): AuthState => {
@@ -110,4 +115,4 @@ const mapStateToProps = (state: AppState): AuthState => {
     };
 };
 
-export default connect(mapStateToProps, { updateSession })(Navbar);
+export default connect(mapStateToProps, { endSession, fetchStations, setStation })(Navbar);

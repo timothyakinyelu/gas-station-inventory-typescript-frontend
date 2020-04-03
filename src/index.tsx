@@ -8,7 +8,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import configureStore from './redux';
 import { Provider } from 'react-redux';
 import authHelper from './authHelper';
-import { UPDATE_SESSION } from './redux/auth/types';
+import { START_SESSION, END_SESSION } from './redux/auth/types';
 import authenticate from './api/authenticate';
 import { useWindowResize } from './useWindowResize';
 import center from './api/center';
@@ -45,7 +45,9 @@ const getStations = (id: string) => {
     center.getStations(id).then((res) => {
         store.dispatch({
             type: FETCH_STATIONS,
-            payload: res.data,
+            payload: {
+                stations: res.data,
+            },
         });
     });
 };
@@ -56,7 +58,7 @@ if (token) {
         .getUser()
         .then((res) => {
             store.dispatch({
-                type: UPDATE_SESSION,
+                type: START_SESSION,
                 payload: {
                     isLoggedIn: true,
                     user: res.data,
@@ -71,7 +73,7 @@ if (token) {
             if (err.response.data.message) {
                 authHelper.remove();
                 store.dispatch({
-                    type: UPDATE_SESSION,
+                    type: END_SESSION,
                     payload: {
                         isLoggedIn: false,
                         user: {},

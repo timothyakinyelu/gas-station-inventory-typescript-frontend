@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { combineReducers, createStore, compose, applyMiddleware } from 'redux';
 import { AuthReducer } from './auth/reducers';
@@ -12,12 +13,19 @@ declare global {
     }
 }
 
-const rootReducer = combineReducers({
+const appReducer = combineReducers({
     auth: AuthReducer,
     metric: DashboardReducer,
     toast: ToastReducer,
     center: CentralReducer,
 });
+
+const rootReducer = (state: any, actions: any) => {
+    if (actions.type === 'END_SESSION') {
+        state = undefined;
+    }
+    return appReducer(state, actions);
+};
 
 export type AppState = ReturnType<typeof rootReducer>;
 

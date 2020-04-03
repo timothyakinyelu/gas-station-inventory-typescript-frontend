@@ -120,6 +120,7 @@ button.alt-out:hover {
     border-color: #ffffff;
 }
 .btn-success:not(:disabled):not(.disabled).active, .btn-success:not(:disabled):not(.disabled):active, .show>.btn-success.dropdown-toggle {
+    color: #495057;
     background-color: #ffffff;
     border-color: #ffffff;
 }

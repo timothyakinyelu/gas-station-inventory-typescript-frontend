@@ -1,4 +1,4 @@
-import { UPDATE_SESSION, AuthState, AuthActionTypes } from './types';
+import { START_SESSION, AuthState, AuthActionTypes, END_SESSION } from './types';
 
 const initialState: AuthState = {
     isLoggedIn: false,
@@ -7,7 +7,13 @@ const initialState: AuthState = {
 
 export function AuthReducer(state = initialState, actions: AuthActionTypes): AuthState {
     switch (actions.type) {
-        case UPDATE_SESSION: {
+        case START_SESSION: {
+            return {
+                ...state,
+                ...actions.payload,
+            };
+        }
+        case END_SESSION: {
             return {
                 ...state,
                 ...actions.payload,

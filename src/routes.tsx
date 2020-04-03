@@ -37,11 +37,11 @@ const Routes: React.FC = (): JSX.Element => {
                                     component={Dashboard}
                                     requiredRoles={[String(UserRoles.admin)]}
                                 />
-                                <Route
+                                <AuthRoute
                                     exact
                                     path={`${AuthRoutes.dashboard}:companyID/:company${AuthRoutes.sales}`}
                                     component={Sales}
-                                    // requiredRoles={[String(UserRoles.admin)]}
+                                    requiredRoles={[String(UserRoles.admin)]}
                                 />
                                 <AuthRoute
                                     exact

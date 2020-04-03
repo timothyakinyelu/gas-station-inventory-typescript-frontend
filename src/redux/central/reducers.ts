@@ -2,7 +2,6 @@
 import { CentralState, CentralActionTypes, FETCH_STATIONS, SET_STATION } from './types';
 
 const initialState: CentralState = {
-    isClicked: false,
     stations: [],
     station: {},
 };
@@ -11,13 +10,12 @@ export function CentralReducer(state = initialState, actions: CentralActionTypes
     switch (actions.type) {
         case FETCH_STATIONS:
             return {
-                ...state.stations,
-                stations: actions.payload,
+                ...state,
+                ...actions.payload,
             };
         case SET_STATION:
             return {
                 ...state,
-                isClicked: true,
                 station: actions.payload,
             };
         default:

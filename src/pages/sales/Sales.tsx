@@ -23,6 +23,7 @@ const Sales: React.FC<SalesProps> = (props): JSX.Element => {
         props.setStation({
             id: value,
             slug: station,
+            isClicked: true,
         });
     };
 

@@ -17,11 +17,17 @@ export interface AuthState {
     user: User;
 }
 
-export const UPDATE_SESSION = 'UPDATE_SESSION';
+export const START_SESSION = 'UPDATE_SESSION';
+export const END_SESSION = 'END_SESSION';
 
-export interface UpdateSessionAction {
-    type: typeof UPDATE_SESSION;
+export interface StartSessionAction {
+    type: typeof START_SESSION;
     payload: AuthState;
 }
 
-export type AuthActionTypes = UpdateSessionAction;
+export interface EndSessionAction {
+    type: typeof END_SESSION;
+    payload: AuthState;
+}
+
+export type AuthActionTypes = StartSessionAction | EndSessionAction;

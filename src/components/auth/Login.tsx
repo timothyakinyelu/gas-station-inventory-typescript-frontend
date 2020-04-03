@@ -3,7 +3,7 @@ import React, { useState, ChangeEvent, FormEvent } from 'react';
 import { Form, Button, Spinner } from 'react-bootstrap';
 import authenticate from '../../api/authenticate';
 import { RouteComponentProps } from 'react-router-dom';
-import { updateSession } from '../../redux/auth/actions';
+import { startSession } from '../../redux/auth/actions';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import cookie from 'js-cookie';
@@ -16,7 +16,7 @@ import { fetchStations } from '../../redux/central/actions';
 import { UserRoles } from '../../constants';
 
 interface LoginProps extends RouteComponentProps {
-    updateSession: typeof updateSession;
+    startSession: typeof startSession;
     fetchStations: typeof fetchStations;
     history: any;
     location: any;
@@ -43,7 +43,9 @@ const Login: React.FC<LoginProps> = (props): JSX.Element => {
 
     const handleStations = (companyID?: string): void => {
         center.getStations(companyID).then((res) => {
-            props.fetchStations(res.data);
+            props.fetchStations({
+                stations: res.data,
+            });
         });
     };
 
@@ -58,7 +60,7 @@ const Login: React.FC<LoginProps> = (props): JSX.Element => {
 
                 cookie.set('token', accessToken);
 
-                props.updateSession({
+                props.startSession({
                     isLoggedIn: true,
                     user: user,
                 });
@@ -146,11 +148,11 @@ const Login: React.FC<LoginProps> = (props): JSX.Element => {
 };
 
 Login.propTypes = {
-    updateSession: PropTypes.any.isRequired,
+    startSession: PropTypes.any.isRequired,
     history: PropTypes.any.isRequired,
     location: PropTypes.any.isRequired,
     addToast: PropTypes.any.isRequired,
     fetchStations: PropTypes.any,
 };
 
-export default connect(null, { updateSession, addToast, fetchStations })(Login);
+export default connect(null, { startSession, addToast, fetchStations })(Login);

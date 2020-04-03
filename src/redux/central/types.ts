@@ -2,10 +2,10 @@ export interface Station {
     id?: number;
     name?: string;
     slug?: string;
+    isClicked?: boolean;
 }
 
 export interface CentralState {
-    isClicked?: boolean;
     stations?: Station[];
     station?: Station;
 }
