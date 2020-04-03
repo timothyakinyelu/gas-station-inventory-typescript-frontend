@@ -11,6 +11,7 @@ export const userRoles = {
 
 export enum AuthRoutes {
     dashboard = '/',
+    sales = '/sales/',
     newsale = '/newsale',
 }
 

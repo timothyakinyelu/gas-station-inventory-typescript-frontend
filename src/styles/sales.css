@@ -1,0 +1,17 @@
+.signage {
+    font-weight: 600;
+    justify-content: center;
+    display: grid;
+    padding: 8px;
+    background: #00c4cc;
+    color: #ffffff;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+.sales-header, .list-table{
+    padding: 20px 20px 20px 20px;
+    position: relative;
+    z-index: 1;
+    background: #ffffff;
+    border-radius: 5px;
+}

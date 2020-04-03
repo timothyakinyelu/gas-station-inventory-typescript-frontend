@@ -11,6 +11,7 @@ import AuthRoute from './reusables/guards/AuthRoute';
 import { Unauthorized } from './pages/Unauthorized';
 import Sidebar from './reusables/navigation/Sidebar';
 import { useWindowResize } from './useWindowResize';
+import Sales from './pages/sales/Sales';
 
 const Routes: React.FC = (): JSX.Element => {
     CheckResponse();
@@ -35,6 +36,12 @@ const Routes: React.FC = (): JSX.Element => {
                                     path={`${AuthRoutes.dashboard}:companyID/:company`}
                                     component={Dashboard}
                                     requiredRoles={[String(UserRoles.admin)]}
+                                />
+                                <Route
+                                    exact
+                                    path={`${AuthRoutes.dashboard}:companyID/:company${AuthRoutes.sales}`}
+                                    component={Sales}
+                                    // requiredRoles={[String(UserRoles.admin)]}
                                 />
                                 <AuthRoute
                                     exact

@@ -11,9 +11,13 @@ import { redirect } from '../../reusables/redirect';
 import '../../styles/login.css';
 import logo from '../../images/inTree.png';
 import { addToast } from '../../redux/toast/actions';
+import center from '../../api/center';
+import { fetchStations } from '../../redux/central/actions';
+import { UserRoles } from '../../constants';
 
 interface LoginProps extends RouteComponentProps {
     updateSession: typeof updateSession;
+    fetchStations: typeof fetchStations;
     history: any;
     location: any;
     addToast: typeof addToast;
@@ -37,6 +41,12 @@ const Login: React.FC<LoginProps> = (props): JSX.Element => {
         setShow(true);
     };
 
+    const handleStations = (companyID?: string): void => {
+        center.getStations(companyID).then((res) => {
+            props.fetchStations(res.data);
+        });
+    };
+
     const handleLogin = (e: FormEvent<HTMLFormElement>): void => {
         e.preventDefault();
 
@@ -55,6 +65,9 @@ const Login: React.FC<LoginProps> = (props): JSX.Element => {
                 setIsLoading(false);
 
                 if (user) {
+                    if (user.permission === UserRoles.admin) {
+                        handleStations(user.companyID);
+                    }
                     props.history.push(redirect(user.permission, user.company, user.companyID));
                 }
             })
@@ -137,6 +150,7 @@ Login.propTypes = {
     history: PropTypes.any.isRequired,
     location: PropTypes.any.isRequired,
     addToast: PropTypes.any.isRequired,
+    fetchStations: PropTypes.any,
 };
 
-export default connect(null, { updateSession, addToast })(Login);
+export default connect(null, { updateSession, addToast, fetchStations })(Login);

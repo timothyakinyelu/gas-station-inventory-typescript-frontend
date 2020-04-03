@@ -62,7 +62,7 @@ if (token) {
                     user: res.data,
                 },
             });
-            console.log(res.data);
+
             const companyID = res.data.companyID;
             getStations(companyID);
             render();

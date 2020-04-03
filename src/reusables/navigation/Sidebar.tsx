@@ -2,8 +2,24 @@
 import React from 'react';
 import { useWindowResize } from '../../useWindowResize';
 import '../../styles/sidebar.css';
+import { Link } from 'react-router-dom';
+import { AuthRoutes, UserRoles } from '../../constants';
+import { connect } from 'react-redux';
+import { AppState } from '../../redux';
+import { AuthState, User } from '../../redux/auth/types';
+import PropTypes from 'prop-types';
 
-const Sidebar: React.FC = () => {
+interface SidebarProps {
+    user: User;
+}
+
+const Sidebar: React.FC<SidebarProps> = ({ user }) => {
+    const isAdmin = user.permission === UserRoles.admin;
+    // const isUser = user.permission == UserRoles.user;
+
+    const company = user.company;
+    const companyID = user.companyID;
+
     const { width } = useWindowResize();
     const toggleLink = (event: React.MouseEvent<HTMLLIElement, MouseEvent>): void => {
         event.preventDefault();
@@ -52,9 +68,16 @@ const Sidebar: React.FC = () => {
                                 <span className="hide-menu">Sales</span>
                             </a>
                             <ul className="collapse">
-                                <li>
-                                    <a href="index.html">Minimal </a>
-                                </li>
+                                {isAdmin && (
+                                    <li className="nav-item">
+                                        <Link
+                                            to={`${AuthRoutes.dashboard}${companyID}/${company}${AuthRoutes.sales}`}
+                                            className="nav-link"
+                                        >
+                                            Sales
+                                        </Link>
+                                    </li>
+                                )}
                                 <li>
                                     <a href="index2.html">Analytical</a>
                                 </li>
@@ -159,4 +182,15 @@ const Sidebar: React.FC = () => {
     );
 };
 
-export default Sidebar;
+Sidebar.propTypes = {
+    user: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state: AppState): AuthState => {
+    return {
+        isLoggedIn: state.auth.isLoggedIn,
+        user: state.auth.user,
+    };
+};
+
+export default connect(mapStateToProps)(Sidebar);
