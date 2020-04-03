@@ -20,7 +20,7 @@ const MonthExpensesList: React.FC<MonthExpensesListProps> = ({ currentexpenses }
         if (currentexpenses === undefined) {
             return;
         }
-        setExpenses(figs);
+        setExpenses(figs());
     }, [currentexpenses]);
 
     return (

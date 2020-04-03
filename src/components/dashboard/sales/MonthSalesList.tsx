@@ -20,7 +20,7 @@ const MonthSalesList: React.FC<MonthSalesListProps> = ({ currentsales }): JSX.El
         if (currentsales === undefined) {
             return;
         }
-        setSales(figs);
+        setSales(figs());
     }, [currentsales]);
 
     return (
