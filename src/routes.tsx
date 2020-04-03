@@ -25,9 +25,11 @@ const Routes: React.FC = (): JSX.Element => {
             ) : (
                 <>
                     {location.pathname !== NonAuthRoutes.login && location.pathname !== NonAuthRoutes.unauthorized && (
-                        <Navbar />
+                        <>
+                            <Navbar />
+                            <Sidebar />
+                        </>
                     )}
-                    <Sidebar />
                     <div className="appWrapper" style={{ minHeight: height }}>
                         <div className="container-fluid">
                             <Switch>
@@ -54,13 +56,13 @@ const Routes: React.FC = (): JSX.Element => {
                                     component={NewSale}
                                     requiredRoles={[String(UserRoles.user)]}
                                 />
-                                {location.key === undefined && <Redirect to={NonAuthRoutes.login} />}
+                                <Route path={`${NonAuthRoutes.unauthorized}`} component={Unauthorized} />
+                                {location.key === undefined && <Redirect to={`${NonAuthRoutes.unauthorized}`} />}
                             </Switch>
                         </div>
                     </div>
                 </>
             )}
-            <Route path={`${AuthRoutes.dashboard}${NonAuthRoutes.unauthorized}`} component={Unauthorized} />
         </>
     );
 };
