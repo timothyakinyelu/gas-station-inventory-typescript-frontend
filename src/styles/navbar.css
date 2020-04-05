@@ -141,3 +141,9 @@ button.alt-out:focus {
         width: calc(100% - 70px);
     }
 }
+
+@media (max-width: 768px) {
+    .navbar .navbar-brand-wrapper {
+        background-color: #00c4cc;
+    }
+}

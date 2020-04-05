@@ -44,3 +44,9 @@ select {
 .select:hover::after {
     color: #ff914d;
 }
+
+@media (max-width: 768px) {
+    .select {
+        width: 100%;
+    }
+}
