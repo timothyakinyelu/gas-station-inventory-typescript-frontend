@@ -37,6 +37,7 @@
     position: fixed;
     right: 24px;
     width: 350px;
+    z-index: 999
 }
 
 .toast p {

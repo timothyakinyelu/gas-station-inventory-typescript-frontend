@@ -3,7 +3,7 @@ import React, { useEffect, useCallback } from 'react';
 import { Station } from '../../redux/central/types';
 import PropTypes from 'prop-types';
 import { AppState } from '../../redux';
-import { SalesState, SalesSum, FETCH_STATION_SALES } from '../../redux/sales/types';
+import { SalesState, Sales, FETCH_STATION_SALES } from '../../redux/sales/types';
 import { connect, useDispatch } from 'react-redux';
 import DataTable from '../../reusables/partials/DataTable';
 import sale from '../../api/sale';
@@ -12,7 +12,7 @@ import { fetchStationSales } from '../../redux/sales/actions';
 
 interface SalesListProps {
     station?: Station;
-    sales?: SalesSum;
+    sales?: Sales;
     fetchStationSales: typeof fetchStationSales;
 }
 const SalesList: React.FC<SalesListProps> = ({ station, sales }): JSX.Element => {
@@ -42,6 +42,7 @@ const SalesList: React.FC<SalesListProps> = ({ station, sales }): JSX.Element =>
                             sales: res.data,
                         },
                     });
+                    console.log(res);
                 })
                 .catch((e) => {
                     console.error(e);
@@ -65,7 +66,7 @@ const SalesList: React.FC<SalesListProps> = ({ station, sales }): JSX.Element =>
 
     useEffect(() => {
         const ac = new AbortController();
-        if (page === undefined) {
+        if (!page) {
             return;
         }
 
@@ -74,7 +75,7 @@ const SalesList: React.FC<SalesListProps> = ({ station, sales }): JSX.Element =>
         return function cleanup(): void {
             ac.abort();
         };
-    }, [page, changePage, fetchData]);
+    }, [sales, page, changePage, fetchData]);
 
     const showDaySales = (date: any, id?: number, code?: string): void => {
         history.push(
@@ -91,9 +92,7 @@ const SalesList: React.FC<SalesListProps> = ({ station, sales }): JSX.Element =>
                 '/' +
                 code +
                 '/' +
-                date +
-                '?page=' +
-                page,
+                date,
         );
     };
 

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState, useEffect } from 'react';
-import { SalesSum } from '../../redux/sales/types';
+import { Sales } from '../../redux/sales/types';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { AppState } from '../../redux';
@@ -10,7 +10,7 @@ import { Button } from 'react-bootstrap';
 import { UserRoles } from '../../constants';
 
 interface DataTableProps {
-    items?: SalesSum;
+    items?: Sales;
     name?: string;
     user: User;
     changePage?: (value: number) => void;
@@ -25,7 +25,7 @@ const DataTable: React.FC<DataTableProps> = (props): JSX.Element => {
     const [offset] = useState(4);
 
     const [checkedItems, setCheckedItems] = useState<any[]>([]);
-    const [stateObject, setObjectState] = useState<SalesSum>({
+    const [stateObject, setObjectState] = useState<Sales>({
         allChecked: false,
         checkboxes: [],
     });
@@ -241,7 +241,7 @@ const DataTable: React.FC<DataTableProps> = (props): JSX.Element => {
         });
         const peg = key.split('_').join(' ').toLowerCase();
 
-        if (peg !== 'isChecked' && peg !== 'id' && peg !== 'assigned') {
+        if (key !== 'isChecked' && key !== 'id' && key !== 'assigned') {
             return (
                 <td data-label={peg} key={index}>
                     {key === 'total_sale' ? formatter.format(data[key]) : data[key]}
@@ -272,7 +272,7 @@ const DataTable: React.FC<DataTableProps> = (props): JSX.Element => {
                         {isAdmin && data.id ? (
                             <td>
                                 <i
-                                    className="fa fa-edit"
+                                    className="mdi mdi-square-edit-outline btnDetail"
                                     data-label="edit"
                                     onClick={(): void => handleEdit(data.id)}
                                 ></i>
@@ -346,7 +346,11 @@ const DataTable: React.FC<DataTableProps> = (props): JSX.Element => {
                         <span style={{ paddingRight: '10px', paddingTop: '2px' }}>
                             <p>{checkedItems.length} selected</p>
                         </span>
-                        <Button onClick={(): void => handleDelete(checkedItems)} className="btn-delete">
+                        <Button
+                            bsPrefix="lgBtn"
+                            onClick={(): void => handleDelete(checkedItems)}
+                            className="btn-delete"
+                        >
                             Delete
                         </Button>
                     </div>

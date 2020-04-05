@@ -41,7 +41,14 @@ const Stations: React.FC<StationsProps> = ({ stations, selectedStation, handleSe
     return (
         <>
             <div className="select">
-                <select name="slct" id="slct" value={selectedStation?.id || ''} onChange={(e): void => handleSelect(e)}>
+                <select
+                    name="slct"
+                    id="slct"
+                    value={selectedStation?.id || ''}
+                    onChange={(e): void => {
+                        handleSelect(e);
+                    }}
+                >
                     <option disabled value="">
                         Choose an option to view
                     </option>

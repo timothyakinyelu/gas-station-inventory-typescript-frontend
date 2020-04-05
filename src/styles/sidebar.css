@@ -229,7 +229,8 @@
     font-weight: 400;
 }
 .sidebar-nav ul li ul li a {
-    color: #687384;
+    color: #adb5bd;
+    font-weight: 200;
 }
 .sidebar-nav ul li a.active, .sidebar-nav ul li a:hover, .sidebar-nav ul li a:hover > i {
     color: #00c4cc;
@@ -326,17 +327,17 @@
     .mini-sidebar .sidebar-nav #sidebarnav > li > ul {
         position: absolute;
         left: 70px;
-        top: 60px;
+        top: 50px;
         width: 220px;
         padding-bottom: 10px;
         z-index: 1001;
-        background: #242a33;
+        background: #364453;
         display: none;
         padding-left: 1px;
     }
     .mini-sidebar .sidebar-nav > ul > li.active > a {
         width: 290px !important;
-        background: #242a33;
+        background: #364453;
         color: #ffffff !important;
     }
     .mini-sidebar .sidebar-nav > ul > li.active > a > i {
@@ -347,6 +348,7 @@
 @media (max-width: 990px) {
     .sidebar-nav ul li ul li > a:hover {
         color: #ffffff;
+        font-weight: 600;
     }
     .scroller {
         overflow: unset;

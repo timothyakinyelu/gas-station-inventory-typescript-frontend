@@ -23,7 +23,7 @@ interface SalesProps {
 const Sales: React.FC<SalesProps> = ({ setStation, station, history, fetchStationSales }): JSX.Element => {
     const { company, companyID, stationName, stationID } = useParams();
     const [isFetched, setIsFetched] = useState(true);
-    const isClicked = station?.isClicked;
+    // const isClicked = station?.isClicked;
 
     const getSalesByStation = useCallback(
         (id: number): void => {
@@ -40,25 +40,28 @@ const Sales: React.FC<SalesProps> = ({ setStation, station, history, fetchStatio
     useEffect(() => {
         const ac = new AbortController();
 
-        if (!isClicked && stationID === undefined) {
-            setStation({
-                id: Number(),
-                slug: '',
-            });
+        if (stationID === undefined) {
+            // setStation({
+            //     id: Number(),
+            //     slug: '',
+            //     isClicked: false,
+            // });
             return;
         }
 
         setStation({
             id: Number(stationID),
             slug: stationName,
+            isClicked: true,
         });
         getSalesByStation(Number(stationID));
         setIsFetched(false);
 
         return function cleanup(): void {
+            setIsFetched(true);
             ac.abort();
         };
-    }, [isClicked, stationID, setStation, stationName, getSalesByStation]);
+    }, [stationID, setStation, stationName, getSalesByStation]);
 
     const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>): void => {
         e.preventDefault();

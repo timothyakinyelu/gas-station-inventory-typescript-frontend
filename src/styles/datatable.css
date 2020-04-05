@@ -103,6 +103,7 @@
 .btnDetail, .btnDetail:hover, .btnDetail.btn-primary:focus {
     font-size: 1.5em; 
     color: #052154;
+    cursor: pointer;
 }
 .data-table .row {
     justify-content: unset;
@@ -122,6 +123,7 @@
     border-color: beige;
     font-weight: 600;
     color: #ffffff;
+    border-radius: 5px;
 }
 
 @media screen and (min-width: 768px) {

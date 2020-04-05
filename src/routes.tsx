@@ -5,13 +5,14 @@ import { NonAuthRoutes, AuthRoutes, UserRoles } from './constants';
 import Navbar from './reusables/navigation/Navbar';
 import Login from './components/auth/Login';
 import Dashboard from './pages/Dashboard';
-import NewSale from './pages/NewSale';
+import NewSale from './pages/sales/NewSale';
 import CheckResponse from './reusables/guards/checkResponse';
 import AuthRoute from './reusables/guards/AuthRoute';
 import { Unauthorized } from './pages/Unauthorized';
 import Sidebar from './reusables/navigation/Sidebar';
 import { useWindowResize } from './useWindowResize';
 import Sales from './pages/sales/Sales';
+import SalesDetail from './pages/sales/SalesDetail';
 
 const Routes: React.FC = (): JSX.Element => {
     CheckResponse();
@@ -46,8 +47,15 @@ const Routes: React.FC = (): JSX.Element => {
                                     requiredRoles={[String(UserRoles.admin)]}
                                 />
                                 <AuthRoute
+                                    exact
                                     path={`${AuthRoutes.dashboard}:companyID/:company${AuthRoutes.sales}:stationID/:stationName`}
                                     component={Sales}
+                                    requiredRoles={[String(UserRoles.admin)]}
+                                />
+                                <AuthRoute
+                                    exact
+                                    path={`${AuthRoutes.dashboard}:companyID/:company${AuthRoutes.sales}:stationID/:stationName/:codeID/:code/:date`}
+                                    component={SalesDetail}
                                     requiredRoles={[String(UserRoles.admin)]}
                                 />
                                 <AuthRoute
