@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { Station } from '../../redux/central/types';
 import PropTypes from 'prop-types';
 import { AppState } from '../../redux';
-import { SalesState, SalesSum } from '../../redux/sales/types';
-import { connect } from 'react-redux';
+import { SalesState, SalesSum, FETCH_STATION_SALES } from '../../redux/sales/types';
+import { connect, useDispatch } from 'react-redux';
 import DataTable from '../../reusables/partials/DataTable';
 import sale from '../../api/sale';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
@@ -17,13 +17,13 @@ interface SalesListProps {
 }
 const SalesList: React.FC<SalesListProps> = ({ station, sales }): JSX.Element => {
     const str = station?.slug;
-    const stationId = station?.id;
 
     const name = str?.replace(/-/, ' ').toLocaleUpperCase();
     const items = sales;
-    const [currentPage, setCurrentPage] = useState<number>(1);
+
     const history = useHistory();
-    const { companyID, company } = useParams();
+    const dispatch = useDispatch();
+    const { companyID, company, stationID, stationName } = useParams();
 
     function useQuery(): any {
         return new URLSearchParams(useLocation().search);
@@ -32,31 +32,40 @@ const SalesList: React.FC<SalesListProps> = ({ station, sales }): JSX.Element =>
     const query = useQuery();
     const page = query.get('page');
 
-    const fetchData = useCallback((pageNumber: number): any => {
-        sale.getSalesByStation(stationId, pageNumber)
-            .then((res) => {
-                fetchStationSales({
-                    sales: res.data,
+    const fetchData = useCallback(
+        (pageNumber: number): any => {
+            sale.getSalesByStation(Number(stationID), pageNumber)
+                .then((res) => {
+                    dispatch({
+                        type: FETCH_STATION_SALES,
+                        payload: {
+                            sales: res.data,
+                        },
+                    });
+                })
+                .catch((e) => {
+                    console.error(e);
                 });
-            })
-            .catch((e) => {
-                console.error(e);
-            });
 
-        history.push('/' + companyID + '/' + company + '/sales/' + stationId + '/' + str + '?page=' + pageNumber);
-    }, []);
+            history.push(
+                '/' + companyID + '/' + company + '/sales/' + stationID + '/' + stationName + '?page=' + pageNumber,
+            );
+        },
+        [dispatch, history, companyID, company, stationID, stationName],
+    );
 
-    const changePage = useCallback((pageNumber: number): void => {
-        setCurrentPage(pageNumber);
-
-        if (currentPage === pageNumber) {
-            fetchData(pageNumber);
-        }
-    }, []);
+    const changePage = useCallback(
+        (pageNumber: number): void => {
+            if (pageNumber) {
+                fetchData(pageNumber);
+            }
+        },
+        [fetchData],
+    );
 
     useEffect(() => {
         const ac = new AbortController();
-        if (!page) {
+        if (page === undefined) {
             return;
         }
 
@@ -74,9 +83,9 @@ const SalesList: React.FC<SalesListProps> = ({ station, sales }): JSX.Element =>
                 '/' +
                 company +
                 '/sales/' +
-                stationId +
+                stationID +
                 '/' +
-                str +
+                stationName +
                 '/' +
                 id +
                 '/' +

@@ -330,7 +330,9 @@ const DataTable: React.FC<DataTableProps> = (props): JSX.Element => {
         return pages().map((page: number) => {
             return (
                 <li className={page === items?.current_page ? 'page-item active' : 'page-item'} key={page}>
-                    <button className="page-link">{page}</button>
+                    <button className="page-link" onClick={(): void => handlePageChange(page)}>
+                        {page}
+                    </button>
                 </li>
             );
         });
@@ -374,7 +376,7 @@ const DataTable: React.FC<DataTableProps> = (props): JSX.Element => {
                     <tbody>{dataList()}</tbody>
                 </table>
                 {items?.last_page !== undefined && items?.current_page !== undefined
-                    ? items?.last_page > items?.current_page && (
+                    ? items?.last_page >= items?.current_page && (
                           <nav style={{ float: 'right' }}>
                               <ul className="pagination">
                                   <li className="page-item">

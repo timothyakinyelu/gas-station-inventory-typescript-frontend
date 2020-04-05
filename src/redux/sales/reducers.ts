@@ -8,7 +8,7 @@ export function SalesReducer(state = initialState, actions: SalesActionTypes): S
     switch (actions.type) {
         case FETCH_STATION_SALES:
             return {
-                ...state,
+                ...state.sales,
                 ...actions.payload,
             };
         default:
