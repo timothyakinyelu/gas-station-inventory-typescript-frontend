@@ -74,27 +74,23 @@ const Sidebar: React.FC<SidebarProps> = ({ user }) => {
                                             to={`${AuthRoutes.dashboard}${companyID}/${company}${AuthRoutes.sales}`}
                                             className="nav-link"
                                         >
-                                            Sales
+                                            All Sales
                                         </Link>
                                     </li>
                                 )}
-                                <li>
-                                    <a href="index2.html">Analytical</a>
-                                </li>
-                                <li>
-                                    <a href="index3.html">Demographical</a>
-                                </li>
-                                <li>
-                                    <a href="index4.html">Modern</a>
-                                </li>
                             </ul>
                         </li>
-                        <li className="listItem" onClick={toggleLink} data-id="navItem3">
-                            <a className="waves-effect waves-dark" href="#products">
-                                <i className="mdi mdi-gas-station-outline"></i>
-                                <span className="hide-menu">Products</span>
-                            </a>
-                        </li>
+                        {isAdmin && (
+                            <li className="listItem" onClick={toggleLink} data-id="navItem3">
+                                <Link
+                                    to={`${AuthRoutes.dashboard}${companyID}/${company}${AuthRoutes.products}`}
+                                    className="waves-effect waves-dark"
+                                >
+                                    <i className="mdi mdi-gas-station-outline"></i>
+                                    <span className="hide-menu">Products</span>
+                                </Link>
+                            </li>
+                        )}
                         <li className="listItem" onClick={toggleLink} data-id="navItem4">
                             <a className="has-arrow waves-effect waves-dark" href="#stocks">
                                 <i className="mdi mdi-gauge"></i>
