@@ -1,18 +1,25 @@
 export interface Data {
     id?: number;
-    pump_code?: string;
-    start_metre?: number;
-    end_metre?: number;
     product_code_id?: number;
     product_code?: string;
     product?: string;
+    total_sale?: number;
+    date?: Date;
+    assigned?: string;
+    isChecked?: boolean;
+}
+
+export interface Sale {
+    id?: number;
+    pump_code?: string;
+    start_metre?: number;
+    end_metre?: number;
+    product_id?: number;
     quantity_sold?: number;
     unit_price?: number;
     total_sale?: number;
     amount?: number;
-    date?: Date;
-    assigned?: string;
-    isChecked?: boolean;
+    date_of_entry?: string;
 }
 
 export interface Sales {
@@ -29,10 +36,12 @@ export interface Sales {
 export interface SalesState {
     sales?: Sales;
     salesDetail?: Sales;
+    editSale?: Sale;
 }
 
 export const FETCH_STATION_SALES = 'FETCH_STATION_SALES';
 export const FETCH_SALES_DETAILS = 'FETCH_SALES_DETAILS';
+export const FETCH_SALE_TO_EDIT = 'FETCH_SALE_TO_EDIT';
 
 export interface SalesAvgAction {
     type: typeof FETCH_STATION_SALES;
@@ -44,4 +53,9 @@ export interface SalesDetailAction {
     payload: SalesState;
 }
 
-export type SalesActionTypes = SalesAvgAction | SalesDetailAction;
+export interface EditSaleAction {
+    type: typeof FETCH_SALE_TO_EDIT;
+    payload: SalesState;
+}
+
+export type SalesActionTypes = SalesAvgAction | SalesDetailAction | EditSaleAction;

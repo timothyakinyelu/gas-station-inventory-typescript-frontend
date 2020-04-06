@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useCallback, useEffect, useState } from 'react';
-import { fetchSalesDetails } from '../../redux/sales/actions';
+import { fetchSalesDetails, fetchSaleToEdit } from '../../redux/sales/actions';
 import { useParams } from 'react-router-dom';
 import sale from '../../api/sale';
 import PropTypes from 'prop-types';
@@ -10,17 +10,28 @@ import { Sales, SalesState } from '../../redux/sales/types';
 import DataTable from '../../reusables/partials/DataTable';
 import Loader from '../../reusables/Loader';
 import { addToast } from '../../redux/toast/actions';
+import EditSaleModal from '../../components/sales/EditSaleModal';
+import { Sale } from '../../redux/sales/types';
+import product from '../../api/product';
 
 interface SalesDetailProps {
     fetchSalesDetails: typeof fetchSalesDetails;
     addToast: typeof addToast;
+    fetchSaleToEdit: typeof fetchSaleToEdit;
     salesDetail?: Sales;
+    editSale?: Sale;
 }
 
 const SalesDetail: React.FC<SalesDetailProps> = (props): JSX.Element => {
-    const { fetchSalesDetails, salesDetail } = props;
+    const { fetchSalesDetails, salesDetail, fetchSaleToEdit, editSale } = props;
+
     const { stationID, codeID, code, date } = useParams();
+
     const [isFetched, setIsFetched] = useState(false);
+    const [editModalShow, setEditModalShow] = useState(false);
+    const [products, setProducts] = useState<any[]>([]);
+    const [loading, setLoading] = useState(true);
+
     const count = Math.floor(Math.random() * 100 + 1);
 
     const items = salesDetail;
@@ -39,6 +50,12 @@ const SalesDetail: React.FC<SalesDetailProps> = (props): JSX.Element => {
             });
     }, [fetchSalesDetails, stationID, codeID, date]);
 
+    const getProducts = useCallback(() => {
+        product.getProducts().then((res) => {
+            setProducts(res.data.data);
+        });
+    }, []);
+
     useEffect(() => {
         const ac = new AbortController();
 
@@ -47,12 +64,41 @@ const SalesDetail: React.FC<SalesDetailProps> = (props): JSX.Element => {
         }
 
         getSalesDetail();
+        getProducts();
 
         return function cleanup(): void {
             setIsFetched(false);
             ac.abort();
         };
-    }, [codeID, getSalesDetail]);
+    }, [codeID, getSalesDetail, getProducts]);
+
+    const handleEdit = (id?: number): void => {
+        setEditModalShow(true);
+        setLoading(true);
+        try {
+            sale.editDaySale(id)
+                .then((res) => {
+                    // console.log(res.data.user)
+                    fetchSaleToEdit({
+                        editSale: res.data.sale,
+                    });
+                    setLoading(false);
+                })
+                .catch((err) => {
+                    props.addToast({
+                        id: count,
+                        message: err.response.data.error,
+                    });
+                });
+        } catch (e) {
+            console.log(e.response);
+        }
+    };
+
+    const handleHide = (): void => {
+        setEditModalShow(false);
+        setLoading(true);
+    };
 
     const deleteSelected = (data?: any[]): void => {
         sale.deleteSale(data).then((res) => {
@@ -76,11 +122,20 @@ const SalesDetail: React.FC<SalesDetailProps> = (props): JSX.Element => {
                         </h5>
                         <div className="list-table-inner">
                             {items?.data !== undefined ? (
-                                <DataTable items={items} deleteSelected={deleteSelected} />
+                                <DataTable items={items} deleteSelected={deleteSelected} handleEdit={handleEdit} />
                             ) : (
                                 <h4>{items?.message}</h4>
                             )}
                         </div>
+                        {!loading && (
+                            <EditSaleModal
+                                show={editModalShow}
+                                onHide={handleHide}
+                                showEdit={editSale}
+                                handleLoad={getSalesDetail}
+                                products={products}
+                            />
+                        )}
                     </div>
                 </>
             )}
@@ -91,11 +146,14 @@ const SalesDetail: React.FC<SalesDetailProps> = (props): JSX.Element => {
 SalesDetail.propTypes = {
     fetchSalesDetails: PropTypes.any,
     salesDetail: PropTypes.any,
+    fetchSaleToEdit: PropTypes.any,
     addToast: PropTypes.any,
+    editSale: PropTypes.any,
 };
 
 const mapStateToProps = (state: AppState): SalesState => ({
     salesDetail: state.salesRoot.salesDetail,
+    editSale: state.salesRoot.editSale,
 });
 
-export default connect(mapStateToProps, { fetchSalesDetails, addToast })(SalesDetail);
+export default connect(mapStateToProps, { fetchSalesDetails, fetchSaleToEdit, addToast })(SalesDetail);
