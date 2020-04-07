@@ -11,9 +11,11 @@ import { useParams, useHistory, useLocation } from 'react-router-dom';
 
 interface ProductsListProp {
     products?: Products;
-    addToast: typeof addToast;
+    addToast?: typeof addToast;
     getProducts: () => void;
+    handleEdit: (value?: number) => void;
 }
+
 const ProductsList: React.FC<ProductsListProp> = (props): JSX.Element => {
     const { products } = props;
 
@@ -71,7 +73,7 @@ const ProductsList: React.FC<ProductsListProp> = (props): JSX.Element => {
 
     const deleteSelected = (data?: any[]): void => {
         product.deleteProduct(data).then((res) => {
-            props.addToast({
+            addToast({
                 id: count,
                 message: res.data.status,
             });
@@ -82,7 +84,9 @@ const ProductsList: React.FC<ProductsListProp> = (props): JSX.Element => {
     return (
         <div className="list-table">
             <div className="list-table-inner">
-                {items?.data && <DataTable items={items} deleteSelected={deleteSelected} />}
+                {items?.data && (
+                    <DataTable items={items} deleteSelected={deleteSelected} handleEdit={props.handleEdit} />
+                )}
             </div>
         </div>
     );
@@ -92,6 +96,7 @@ ProductsList.propTypes = {
     products: PropTypes.object,
     addToast: PropTypes.any,
     getProducts: PropTypes.any,
+    handleEdit: PropTypes.any,
 };
 
 const mapStateToProps = (state: AppState): ProductsState => ({

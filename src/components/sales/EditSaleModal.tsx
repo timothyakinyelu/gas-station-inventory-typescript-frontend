@@ -127,6 +127,7 @@ const EditSaleModal: React.FC<EditSaleModalProps> = (props): JSX.Element => {
                         <Form.Group className="col-lg-6 col-sm-12" controlId="2">
                             <Form.Label>Product</Form.Label>
                             <Form.Control
+                                className="modalSelect"
                                 value={productID?.toString() || ''}
                                 as="select"
                                 onChange={(e: React.ChangeEvent<HTMLInputElement>): void =>

@@ -42,6 +42,9 @@ h1, h2, h3, h4, h5, h6 {
     position: relative;
     overflow: hidden;
 }
+.modalSelect {
+    border: 1px solid #ced4da !important;
+}
 @media (max-width: 767px) {
     .mini-sidebar .appWrapper {
         margin-left: 0px;

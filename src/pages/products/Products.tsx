@@ -8,20 +8,25 @@ import Loader from '../../reusables/Loader';
 import { AddButton } from '../../reusables/partials/Buttons';
 import { addToast } from '../../redux/toast/actions';
 import ProductModal from '../../components/products/ProductModal';
+import { AppState } from '../../redux';
+import { ProductsState, Product } from '../../redux/products/types';
 
 interface ProductsProp {
     fetchProducts: typeof fetchProducts;
     fetchProductToEdit: typeof fetchProductToEdit;
+    editProduct?: Product;
     addToast: typeof addToast;
 }
 
 const Products: React.FC<ProductsProp> = (props): JSX.Element => {
-    const { fetchProducts, fetchProductToEdit } = props;
+    const { fetchProducts, fetchProductToEdit, editProduct } = props;
 
     const [isLoading, setIsLoading] = useState(true);
     const [isFetched, setIsFetched] = useState(false);
     const [modalShow, setModalShow] = useState(false);
     const [loading, setLoading] = useState(true);
+    const [productCodes, setProductCodes] = useState([]);
+    const [productTypes, setProductTypes] = useState([]);
 
     const count = Math.random() * 100 + 1;
 
@@ -34,22 +39,44 @@ const Products: React.FC<ProductsProp> = (props): JSX.Element => {
         });
     }, [fetchProducts]);
 
+    const getProductTypes = useCallback(() => {
+        product.getProductTypes().then((res) => {
+            setProductTypes(res.data);
+        });
+    }, []);
+
+    const getProductCodes = useCallback(() => {
+        product.getProductCodes().then((res) => {
+            setProductCodes(res.data);
+        });
+    }, []);
+
     useEffect(() => {
         const ac = new AbortController();
 
         getProducts();
+        getProductCodes();
+        getProductTypes();
         setIsFetched(true);
 
         return function cleanup(): void {
             setIsFetched(false);
             ac.abort();
         };
-    }, [getProducts]);
+    }, [getProducts, getProductTypes, getProductCodes]);
 
     function handleShow(): void {
         setModalShow(true);
         setLoading(false);
     }
+
+    const handleHide = (): void => {
+        setModalShow(false);
+        setLoading(true);
+        fetchProductToEdit({
+            editProduct: {},
+        });
+    };
 
     const handleEdit = (id?: number): void => {
         setModalShow(true);
@@ -85,8 +112,17 @@ const Products: React.FC<ProductsProp> = (props): JSX.Element => {
                 ) : (
                     <>
                         <AddButton handleShow={handleShow} />
-                        {!isLoading && <ProductsList getProducts={getProducts} />}
-                        {!loading && <ProductModal show={modalShow} />}
+                        {!isLoading && <ProductsList getProducts={getProducts} handleEdit={handleEdit} />}
+                        {!loading && (
+                            <ProductModal
+                                show={modalShow}
+                                onHide={handleHide}
+                                getProducts={getProducts}
+                                productCodes={productCodes}
+                                productTypes={productTypes}
+                                editProduct={editProduct}
+                            />
+                        )}
                     </>
                 )}
             </div>
@@ -98,6 +134,11 @@ Products.propTypes = {
     fetchProducts: PropTypes.any,
     fetchProductToEdit: PropTypes.any,
     addToast: PropTypes.any,
+    editProduct: PropTypes.object,
 };
 
-export default connect(null, { fetchProducts, fetchProductToEdit, addToast })(Products);
+const mapStateToProps = (state: AppState): ProductsState => ({
+    editProduct: state.productsRoot.editProduct,
+});
+
+export default connect(mapStateToProps, { fetchProducts, fetchProductToEdit, addToast })(Products);

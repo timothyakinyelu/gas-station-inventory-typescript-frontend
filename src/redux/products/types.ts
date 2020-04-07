@@ -1,6 +1,8 @@
 export interface Product {
     id?: number;
+    name?: string;
     product_code?: number;
+    product_code_id?: number;
     product?: string;
     price?: number;
     date?: Date;
