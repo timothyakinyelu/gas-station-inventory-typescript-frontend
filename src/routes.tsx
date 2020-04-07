@@ -13,6 +13,7 @@ import Sidebar from './reusables/navigation/Sidebar';
 import { useWindowResize } from './useWindowResize';
 import Sales from './pages/sales/Sales';
 import SalesDetail from './pages/sales/SalesDetail';
+import Products from './pages/products/Products';
 
 const Routes: React.FC = (): JSX.Element => {
     CheckResponse();
@@ -56,6 +57,12 @@ const Routes: React.FC = (): JSX.Element => {
                                     exact
                                     path={`${AuthRoutes.dashboard}:companyID/:company${AuthRoutes.sales}:stationID/:stationName/:codeID/:code/:date`}
                                     component={SalesDetail}
+                                    requiredRoles={[String(UserRoles.admin)]}
+                                />
+                                <AuthRoute
+                                    exact
+                                    path={`${AuthRoutes.dashboard}:companyID/:company${AuthRoutes.products}`}
+                                    component={Products}
                                     requiredRoles={[String(UserRoles.admin)]}
                                 />
                                 <AuthRoute

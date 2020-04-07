@@ -7,6 +7,7 @@ import { DashboardReducer } from './dashboard/reducers';
 import { ToastReducer } from './toast/reducers';
 import { CentralReducer } from './central/reducers';
 import { SalesReducer } from './sales/reducers';
+import { ProductsReducer } from './products/reducers';
 
 declare global {
     interface Window {
@@ -20,6 +21,7 @@ const appReducer = combineReducers({
     toast: ToastReducer,
     center: CentralReducer,
     salesRoot: SalesReducer,
+    productsRoot: ProductsReducer,
 });
 
 const rootReducer = (state: any, actions: any) => {

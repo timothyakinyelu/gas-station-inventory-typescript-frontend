@@ -10,7 +10,7 @@ import { Button } from 'react-bootstrap';
 import { UserRoles } from '../../constants';
 
 interface DataTableProps {
-    items?: Sales;
+    items?: any;
     name?: string;
     user: User;
     changePage?: (value: number) => void;
@@ -38,7 +38,7 @@ const DataTable: React.FC<DataTableProps> = (props): JSX.Element => {
         setObjectState({
             allChecked: false,
             checkboxes: items?.data?.map(
-                (options, option) => ({
+                (options: any, option: number) => ({
                     ...options,
                     isChecked: false,
                     assigned: 'item' + option,
@@ -253,7 +253,7 @@ const DataTable: React.FC<DataTableProps> = (props): JSX.Element => {
     function dataList(): any {
         if (items?.data === undefined) return;
         if (items.data.length) {
-            return items.data.map((data, index) => {
+            return items.data.map((data: any, index: number) => {
                 return (
                     <tr key={index}>
                         {isAdmin && data.id && (
@@ -356,7 +356,7 @@ const DataTable: React.FC<DataTableProps> = (props): JSX.Element => {
                     </div>
                 )}
                 <table id="myTable" className="table responsive-table">
-                    <caption>{props.name} Sales Table</caption>
+                    <caption>{props.name} Data Table</caption>
                     <thead className="table-header">
                         <tr>
                             {keys !== undefined

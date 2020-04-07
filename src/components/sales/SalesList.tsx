@@ -34,19 +34,14 @@ const SalesList: React.FC<SalesListProps> = ({ station, sales }): JSX.Element =>
 
     const fetchData = useCallback(
         (pageNumber: number): any => {
-            sale.getSalesByStation(Number(stationID), pageNumber)
-                .then((res) => {
-                    dispatch({
-                        type: FETCH_STATION_SALES,
-                        payload: {
-                            sales: res.data,
-                        },
-                    });
-                    console.log(res);
-                })
-                .catch((e) => {
-                    console.error(e);
+            sale.getSalesByStation(Number(stationID), pageNumber).then((res) => {
+                dispatch({
+                    type: FETCH_STATION_SALES,
+                    payload: {
+                        sales: res.data,
+                    },
                 });
+            });
 
             history.push(
                 '/' + companyID + '/' + company + '/sales/' + stationID + '/' + stationName + '?page=' + pageNumber,
@@ -75,7 +70,7 @@ const SalesList: React.FC<SalesListProps> = ({ station, sales }): JSX.Element =>
         return function cleanup(): void {
             ac.abort();
         };
-    }, [sales, page, changePage, fetchData]);
+    }, [page, changePage, fetchData]);
 
     const showDaySales = (date: any, id?: number, code?: string): void => {
         history.push(

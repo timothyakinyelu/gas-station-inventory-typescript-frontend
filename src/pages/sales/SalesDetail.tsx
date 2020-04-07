@@ -32,7 +32,7 @@ const SalesDetail: React.FC<SalesDetailProps> = (props): JSX.Element => {
     const [products, setProducts] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
 
-    const count = Math.floor(Math.random() * 100 + 1);
+    const count = Math.random() * 100 + 1;
 
     const items = salesDetail;
 
