@@ -167,13 +167,9 @@ const Sidebar: React.FC<SidebarProps> = ({ user }) => {
                                     </Link>
                                 </li>
                                 <li>
-                                    <a href="index2.html">Analytical</a>
-                                </li>
-                                <li>
-                                    <a href="index3.html">Demographical</a>
-                                </li>
-                                <li>
-                                    <a href="index4.html">Modern</a>
+                                    <Link to="/settings/send-password-reset-link" className="nav-link">
+                                        Reset User Passwords
+                                    </Link>
                                 </li>
                             </ul>
                         </li>
