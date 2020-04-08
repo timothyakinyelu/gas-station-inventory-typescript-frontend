@@ -8,8 +8,8 @@ export default {
     getProductCodes: async function (): Promise<any> {
         return await inTreeApi.get('/product-codes');
     },
-    getProducts: async function (currentPage?: number): Promise<any> {
-        return await inTreeApi.get('/products?page=' + currentPage);
+    getProducts: async function (companyID?: string, currentPage?: number): Promise<any> {
+        return await inTreeApi.get('/products/' + companyID + '?page=' + currentPage);
     },
     storeProduct: async function (type?: any, code?: any, name?: any, price?: any): Promise<any> {
         const fd = new FormData();

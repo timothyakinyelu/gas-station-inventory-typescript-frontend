@@ -13,8 +13,6 @@ interface GraphProps {
 const Graph: React.FC<GraphProps> = ({ chartInfo }): JSX.Element => {
     const [isLoading, setIsloading] = useState<boolean>(true);
     const [dataSet, setDataSet] = useState<Metric[]>([]);
-    // const [key, setkey] = useState(false);
-    // const size = useWindowSize();
 
     const charts = (): any => {
         return chartInfo?.map((charts: Metric) => charts);

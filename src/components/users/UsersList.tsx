@@ -1,25 +1,25 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useCallback, useEffect } from 'react';
-import { connect, useDispatch } from 'react-redux';
-import { AppState } from '../../redux';
-import { ProductsState, Products, FETCH_PRODUCTS } from '../../redux/products/types';
-import DataTable from '../../reusables/partials/DataTable';
+import React, { useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
-import product from '../../api/product';
 import { addToast } from '../../redux/toast/actions';
-import { useParams, useHistory, useLocation } from 'react-router-dom';
+import { Users, FETCH_USERS, UsersState } from '../../redux/users/types';
+import { connect, useDispatch } from 'react-redux';
+import user from '../../api/user';
+import { useLocation, useParams, useHistory } from 'react-router-dom';
+import DataTable from '../../reusables/partials/DataTable';
+import { AppState } from '../../redux';
 
-interface ProductsListProp {
-    products?: Products;
+interface UsersListProp {
+    users?: Users;
     addToast?: typeof addToast;
-    getProducts: () => void;
+    getUsers: () => void;
     handleEdit: (value?: number) => void;
 }
 
-const ProductsList: React.FC<ProductsListProp> = (props): JSX.Element => {
-    const { products } = props;
+const UsersList: React.FC<UsersListProp> = (props): JSX.Element => {
+    const { users } = props;
 
-    const items = products;
+    const items = users;
     const count = Math.random() * 100 + 1;
 
     const history = useHistory();
@@ -35,9 +35,9 @@ const ProductsList: React.FC<ProductsListProp> = (props): JSX.Element => {
 
     const fetchData = useCallback(
         (pageNumber: number): any => {
-            product.getProducts(companyID, pageNumber).then((res) => {
+            user.getUsers(companyID, pageNumber).then((res) => {
                 dispatch({
-                    type: FETCH_PRODUCTS,
+                    type: FETCH_USERS,
                     payload: {
                         products: res.data,
                     },
@@ -72,12 +72,12 @@ const ProductsList: React.FC<ProductsListProp> = (props): JSX.Element => {
     }, [page, changePage, fetchData]);
 
     const deleteSelected = (data?: any[]): void => {
-        product.deleteProduct(data).then((res) => {
+        user.deleteUser(data).then((res) => {
             addToast({
                 id: count,
                 message: res.data.status,
             });
-            props.getProducts();
+            props.getUsers();
         });
     };
 
@@ -92,15 +92,15 @@ const ProductsList: React.FC<ProductsListProp> = (props): JSX.Element => {
     );
 };
 
-ProductsList.propTypes = {
-    products: PropTypes.object,
+UsersList.propTypes = {
+    users: PropTypes.object,
     addToast: PropTypes.any,
-    getProducts: PropTypes.any,
+    getUsers: PropTypes.any,
     handleEdit: PropTypes.any,
 };
 
-const mapStateToProps = (state: AppState): ProductsState => ({
-    products: state.productsRoot.products,
+const mapStateToProps = (state: AppState): UsersState => ({
+    users: state.usersRoot.users,
 });
 
-export default connect(mapStateToProps, { addToast })(ProductsList);
+export default connect(mapStateToProps, { addToast })(UsersList);

@@ -158,7 +158,13 @@ const Sidebar: React.FC<SidebarProps> = ({ user }) => {
                             </a>
                             <ul className="collapse">
                                 <li>
-                                    <a href="index.html">Minimal </a>
+                                    <Link
+                                        to={`${AuthRoutes.dashboard}${companyID}/${company}${AuthRoutes.users}`}
+                                        className="nav-link"
+                                    >
+                                        {' '}
+                                        All Users{' '}
+                                    </Link>
                                 </li>
                                 <li>
                                     <a href="index2.html">Analytical</a>

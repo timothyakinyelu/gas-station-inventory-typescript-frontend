@@ -10,6 +10,7 @@ import { addToast } from '../../redux/toast/actions';
 import ProductModal from '../../components/products/ProductModal';
 import { AppState } from '../../redux';
 import { ProductsState, Product } from '../../redux/products/types';
+import { useParams } from 'react-router-dom';
 
 interface ProductsProp {
     fetchProducts: typeof fetchProducts;
@@ -27,17 +28,18 @@ const Products: React.FC<ProductsProp> = (props): JSX.Element => {
     const [loading, setLoading] = useState(true);
     const [productCodes, setProductCodes] = useState([]);
     const [productTypes, setProductTypes] = useState([]);
+    const { companyID } = useParams();
 
     const count = Math.random() * 100 + 1;
 
     const getProducts = useCallback(() => {
-        product.getProducts().then((res) => {
+        product.getProducts(companyID).then((res) => {
             fetchProducts({
                 products: res.data,
             });
             setIsLoading(false);
         });
-    }, [fetchProducts]);
+    }, [fetchProducts, companyID]);
 
     const getProductTypes = useCallback(() => {
         product.getProductTypes().then((res) => {

@@ -5,7 +5,7 @@ export interface User {
     role?: string;
     permission?: string;
     station?: string;
-    stationId?: number;
+    stationID?: number;
     stationName?: string;
     company?: string;
     companyID?: string;
