@@ -41,11 +41,11 @@ const Sales: React.FC<SalesProps> = ({ setStation, station, history, fetchStatio
         const ac = new AbortController();
 
         if (stationID === undefined) {
-            // setStation({
-            //     id: Number(),
-            //     slug: '',
-            //     isClicked: false,
-            // });
+            setStation({
+                id: Number(),
+                slug: '',
+                isClicked: false,
+            });
             return;
         }
 

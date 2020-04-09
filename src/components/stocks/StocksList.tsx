@@ -3,21 +3,27 @@ import React, { useEffect, useCallback } from 'react';
 import { Station } from '../../redux/central/types';
 import PropTypes from 'prop-types';
 import { AppState } from '../../redux';
-import { SalesState, Sales, FETCH_STATION_SALES } from '../../redux/sales/types';
+import { StocksState, Stocks, FETCH_STATION_STOCKS } from '../../redux/stocks/types';
 import { connect, useDispatch } from 'react-redux';
 import DataTable from '../../reusables/partials/DataTable';
-import sale from '../../api/sale';
+import stock from '../../api/stock';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
+import { addToast } from '../../redux/toast/actions';
 
-interface SalesListProps {
+interface StocksListProps {
     station?: Station;
-    sales?: Sales;
+    stocks?: Stocks;
+    getStocks: (value?: number) => void;
+    handleEdit: (value?: number) => void;
+    addToast: typeof addToast;
 }
-const SalesList: React.FC<SalesListProps> = ({ station, sales }): JSX.Element => {
+const StocksList: React.FC<StocksListProps> = (props): JSX.Element => {
+    const { stocks, station } = props;
     const str = station?.slug;
 
     const name = str?.replace(/-/, ' ').toLocaleUpperCase();
-    const items = sales;
+    const items = stocks;
+    const count = Math.random() * 100 + 1;
 
     const history = useHistory();
     const dispatch = useDispatch();
@@ -32,17 +38,17 @@ const SalesList: React.FC<SalesListProps> = ({ station, sales }): JSX.Element =>
 
     const fetchData = useCallback(
         (pageNumber: number): any => {
-            sale.getSalesByStation(Number(stationID), pageNumber).then((res) => {
+            stock.getStocksByStation(Number(stationID), pageNumber).then((res) => {
                 dispatch({
-                    type: FETCH_STATION_SALES,
+                    type: FETCH_STATION_STOCKS,
                     payload: {
-                        sales: res.data,
+                        stocks: res.data,
                     },
                 });
             });
 
             history.push(
-                '/' + companyID + '/' + company + '/sales/' + stationID + '/' + stationName + '?page=' + pageNumber,
+                '/' + companyID + '/' + company + '/stocks/' + stationID + '/' + stationName + '?page=' + pageNumber,
             );
         },
         [dispatch, history, companyID, company, stationID, stationName],
@@ -70,23 +76,14 @@ const SalesList: React.FC<SalesListProps> = ({ station, sales }): JSX.Element =>
         };
     }, [page, changePage, fetchData]);
 
-    const showDaySales = (date: any, id?: number, code?: string): void => {
-        history.push(
-            '/' +
-                companyID +
-                '/' +
-                company +
-                '/sales/' +
-                stationID +
-                '/' +
-                stationName +
-                '/' +
-                id +
-                '/' +
-                code +
-                '/' +
-                date,
-        );
+    const deleteSelected = (data?: any[]): void => {
+        stock.deleteStock(data).then((res) => {
+            addToast({
+                id: count,
+                message: res.data.status,
+            });
+            props.getStocks();
+        });
     };
 
     return (
@@ -94,13 +91,19 @@ const SalesList: React.FC<SalesListProps> = ({ station, sales }): JSX.Element =>
             {name && (
                 <>
                     <h5 title={name} className="sales-table-header">
-                        {name} Sales Table
+                        {name} Stocks Table
                     </h5>
                     <div className="list-table-inner">
                         {items?.data === undefined || items?.data.length < 0 ? (
                             <h5>No Records Available!</h5>
                         ) : (
-                            <DataTable items={items} name={name} changePage={changePage} getDetails={showDaySales} />
+                            <DataTable
+                                items={items}
+                                name={name}
+                                changePage={changePage}
+                                deleteSelected={deleteSelected}
+                                handleEdit={props.handleEdit}
+                            />
                         )}
                     </div>
                 </>
@@ -109,13 +112,16 @@ const SalesList: React.FC<SalesListProps> = ({ station, sales }): JSX.Element =>
     );
 };
 
-SalesList.propTypes = {
+StocksList.propTypes = {
     station: PropTypes.any,
-    sales: PropTypes.any,
+    stocks: PropTypes.any,
+    addToast: PropTypes.any,
+    getStocks: PropTypes.any,
+    handleEdit: PropTypes.any,
 };
 
-const mapStateToProps = (state: AppState): SalesState => ({
-    sales: state.salesRoot.sales,
+const mapStateToProps = (state: AppState): StocksState => ({
+    stocks: state.stocksRoot.stocks,
 });
 
-export default connect(mapStateToProps)(SalesList);
+export default connect(mapStateToProps, { addToast })(StocksList);

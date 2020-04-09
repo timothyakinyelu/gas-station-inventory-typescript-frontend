@@ -54,14 +54,24 @@ const Sidebar: React.FC<SidebarProps> = ({ user }) => {
             <div className="scroll-sidebar scroller">
                 <nav className="sidebar-nav active">
                     <ul id="sidebarnav" className="in">
-                        <li className="listItem" onClick={toggleLink} data-id="nav-item1">
-                            <a className="waves-effect waves-dark" href="#dashboard">
-                                <i className="mdi mdi-chart-line"></i>
-                                <span id="show-span" className="hide-menu">
-                                    Dashboard
-                                </span>
-                            </a>
-                        </li>
+                        {isAdmin && (
+                            <li className="listItem" onClick={toggleLink} data-id="navItem1">
+                                <a className="has-arrow waves-effect waves-dark" href="#dashboard">
+                                    <i className="mdi mdi-chart-line"></i>
+                                    <span className="hide-menu">Dashboard</span>
+                                </a>
+                                <ul className="collapse">
+                                    <li className="nav-item">
+                                        <Link
+                                            to={`${AuthRoutes.dashboard}${companyID}/${company}`}
+                                            className="nav-link"
+                                        >
+                                            Charts
+                                        </Link>
+                                    </li>
+                                </ul>
+                            </li>
+                        )}
                         <li className="listItem" onClick={toggleLink} data-id="navItem2">
                             <a className="has-arrow waves-effect waves-dark" href="#sales">
                                 <i className="mdi mdi-cash-register"></i>
@@ -82,24 +92,38 @@ const Sidebar: React.FC<SidebarProps> = ({ user }) => {
                         </li>
                         {isAdmin && (
                             <li className="listItem" onClick={toggleLink} data-id="navItem3">
-                                <Link
-                                    to={`${AuthRoutes.dashboard}${companyID}/${company}${AuthRoutes.products}`}
-                                    className="waves-effect waves-dark"
-                                >
+                                <a className="has-arrow waves-effect waves-dark" href="#products">
                                     <i className="mdi mdi-gas-station-outline"></i>
                                     <span className="hide-menu">Products</span>
-                                </Link>
+                                </a>
+                                <ul className="collapse">
+                                    <li className="nav-item">
+                                        <Link
+                                            to={`${AuthRoutes.dashboard}${companyID}/${company}${AuthRoutes.products}`}
+                                            className="nav-link"
+                                        >
+                                            All Products
+                                        </Link>
+                                    </li>
+                                </ul>
                             </li>
                         )}
                         {isAdmin && (
                             <li className="listItem" onClick={toggleLink} data-id="navItem4">
-                                <Link
-                                    to={`${AuthRoutes.dashboard}${companyID}/${company}${AuthRoutes.employees}`}
-                                    className="waves-effect waves-dark"
-                                >
+                                <a className="has-arrow waves-effect waves-dark" href="#employees">
                                     <i className="mdi mdi-account-group"></i>
                                     <span className="hide-menu">Employees</span>
-                                </Link>
+                                </a>
+                                <ul className="collapse">
+                                    <li className="nav-item">
+                                        <Link
+                                            to={`${AuthRoutes.dashboard}${companyID}/${company}${AuthRoutes.employees}`}
+                                            className="nav-link"
+                                        >
+                                            All Employees
+                                        </Link>
+                                    </li>
+                                </ul>
                             </li>
                         )}
                         <li className="listItem" onClick={toggleLink} data-id="navItem5">
@@ -108,18 +132,16 @@ const Sidebar: React.FC<SidebarProps> = ({ user }) => {
                                 <span className="hide-menu">Stocks</span>
                             </a>
                             <ul className="collapse">
-                                <li>
-                                    <a href="index.html">Minimal </a>
-                                </li>
-                                <li>
-                                    <a href="index2.html">Analytical</a>
-                                </li>
-                                <li>
-                                    <a href="index3.html">Demographical</a>
-                                </li>
-                                <li>
-                                    <a href="index4.html">Modern</a>
-                                </li>
+                                {isAdmin && (
+                                    <li className="nav-item">
+                                        <Link
+                                            to={`${AuthRoutes.dashboard}${companyID}/${company}${AuthRoutes.stocks}`}
+                                            className="nav-link"
+                                        >
+                                            All Stocks
+                                        </Link>
+                                    </li>
+                                )}
                             </ul>
                         </li>
                         <li className="listItem" onClick={toggleLink} data-id="navItem6">

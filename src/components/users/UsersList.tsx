@@ -84,7 +84,9 @@ const UsersList: React.FC<UsersListProp> = (props): JSX.Element => {
     return (
         <div className="list-table">
             <div className="list-table-inner">
-                {items?.data && (
+                {items?.data === undefined || items?.data.length < 0 ? (
+                    <h5>No Records Available!</h5>
+                ) : (
                     <DataTable
                         items={items}
                         deleteSelected={deleteSelected}

@@ -121,10 +121,10 @@ const SalesDetail: React.FC<SalesDetailProps> = (props): JSX.Element => {
                             {code} Sales Detail for {date}
                         </h5>
                         <div className="list-table-inner">
-                            {items?.data !== undefined ? (
-                                <DataTable items={items} deleteSelected={deleteSelected} handleEdit={handleEdit} />
+                            {items?.data === undefined || items?.data.length < 0 ? (
+                                <h5>No Records Available!</h5>
                             ) : (
-                                <h4>{items?.message}</h4>
+                                <DataTable items={items} deleteSelected={deleteSelected} handleEdit={handleEdit} />
                             )}
                         </div>
                         {!loading && (
