@@ -2,24 +2,24 @@
 import React, { useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { addToast } from '../../redux/toast/actions';
-import { Users, FETCH_USERS, UsersState } from '../../redux/users/types';
+import { Employees, FETCH_EMPLOYEES, EmployeesState } from '../../redux/employees/types';
 import { connect, useDispatch } from 'react-redux';
-import user from '../../api/user';
+import employee from '../../api/employee';
 import { useLocation, useParams, useHistory } from 'react-router-dom';
 import DataTable from '../../reusables/partials/DataTable';
 import { AppState } from '../../redux';
 
-interface UsersListProp {
-    users?: Users;
+interface EmployeesListProp {
+    employees?: Employees;
     addToast?: typeof addToast;
-    getUsers: () => void;
+    getEmployees: () => void;
     handleEdit: (value?: number) => void;
 }
 
-const UsersList: React.FC<UsersListProp> = (props): JSX.Element => {
-    const { users } = props;
+const EmployeesList: React.FC<EmployeesListProp> = (props): JSX.Element => {
+    const { employees } = props;
 
-    const items = users;
+    const items = employees;
     const count = Math.random() * 100 + 1;
 
     const history = useHistory();
@@ -35,16 +35,16 @@ const UsersList: React.FC<UsersListProp> = (props): JSX.Element => {
 
     const fetchData = useCallback(
         (pageNumber: number): any => {
-            user.getUsers(companyID, pageNumber).then((res) => {
+            employee.getEmployees(companyID, pageNumber).then((res) => {
                 dispatch({
-                    type: FETCH_USERS,
+                    type: FETCH_EMPLOYEES,
                     payload: {
-                        users: res.data,
+                        employees: res.data,
                     },
                 });
             });
 
-            history.push('/' + companyID + '/' + company + '/users?page=' + pageNumber);
+            history.push('/' + companyID + '/' + company + '/employees?page=' + pageNumber);
         },
         [dispatch, history, companyID, company],
     );
@@ -72,12 +72,12 @@ const UsersList: React.FC<UsersListProp> = (props): JSX.Element => {
     }, [page, changePage, fetchData]);
 
     const deleteSelected = (data?: any[]): void => {
-        user.deleteUser(data).then((res) => {
+        employee.deleteEmployee(data).then((res) => {
             addToast({
                 id: count,
                 message: res.data.status,
             });
-            props.getUsers();
+            props.getEmployees();
         });
     };
 
@@ -97,15 +97,15 @@ const UsersList: React.FC<UsersListProp> = (props): JSX.Element => {
     );
 };
 
-UsersList.propTypes = {
-    users: PropTypes.object,
+EmployeesList.propTypes = {
+    employees: PropTypes.object,
     addToast: PropTypes.any,
-    getUsers: PropTypes.any,
+    getEmployees: PropTypes.any,
     handleEdit: PropTypes.any,
 };
 
-const mapStateToProps = (state: AppState): UsersState => ({
-    users: state.usersRoot.users,
+const mapStateToProps = (state: AppState): EmployeesState => ({
+    employees: state.employeesRoot.employees,
 });
 
-export default connect(mapStateToProps, { addToast })(UsersList);
+export default connect(mapStateToProps, { addToast })(EmployeesList);

@@ -85,7 +85,12 @@ const ProductsList: React.FC<ProductsListProp> = (props): JSX.Element => {
         <div className="list-table">
             <div className="list-table-inner">
                 {items?.data && (
-                    <DataTable items={items} deleteSelected={deleteSelected} handleEdit={props.handleEdit} />
+                    <DataTable
+                        items={items}
+                        deleteSelected={deleteSelected}
+                        changePage={changePage}
+                        handleEdit={props.handleEdit}
+                    />
                 )}
             </div>
         </div>

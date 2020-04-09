@@ -91,7 +91,18 @@ const Sidebar: React.FC<SidebarProps> = ({ user }) => {
                                 </Link>
                             </li>
                         )}
-                        <li className="listItem" onClick={toggleLink} data-id="navItem4">
+                        {isAdmin && (
+                            <li className="listItem" onClick={toggleLink} data-id="navItem4">
+                                <Link
+                                    to={`${AuthRoutes.dashboard}${companyID}/${company}${AuthRoutes.employees}`}
+                                    className="waves-effect waves-dark"
+                                >
+                                    <i className="mdi mdi-account-group"></i>
+                                    <span className="hide-menu">Employees</span>
+                                </Link>
+                            </li>
+                        )}
+                        <li className="listItem" onClick={toggleLink} data-id="navItem5">
                             <a className="has-arrow waves-effect waves-dark" href="#stocks">
                                 <i className="mdi mdi-gauge"></i>
                                 <span className="hide-menu">Stocks</span>
@@ -111,7 +122,7 @@ const Sidebar: React.FC<SidebarProps> = ({ user }) => {
                                 </li>
                             </ul>
                         </li>
-                        <li className="listItem" onClick={toggleLink} data-id="navItem5">
+                        <li className="listItem" onClick={toggleLink} data-id="navItem6">
                             <a className="has-arrow waves-effect waves-dark" href="#supplies">
                                 <i className="mdi mdi-tanker-truck"></i>
                                 <span className="hide-menu">Supplies</span>
@@ -131,7 +142,7 @@ const Sidebar: React.FC<SidebarProps> = ({ user }) => {
                                 </li>
                             </ul>
                         </li>
-                        <li className="listItem" onClick={toggleLink} data-id="navItem6">
+                        <li className="listItem" onClick={toggleLink} data-id="navItem7">
                             <a className="has-arrow waves-effect waves-dark" href="#expenses">
                                 <i className="mdi mdi-cash-refund"></i>
                                 <span className="hide-menu">Expenses</span>
@@ -151,7 +162,7 @@ const Sidebar: React.FC<SidebarProps> = ({ user }) => {
                                 </li>
                             </ul>
                         </li>
-                        <li className="listItem" onClick={toggleLink} data-id="navItem7">
+                        <li className="listItem" onClick={toggleLink} data-id="navItem8">
                             <a className="has-arrow waves-effect waves-dark" href="#settings">
                                 <i className="mdi mdi-cog-outline"></i>
                                 <span className="hide-menu">Settings</span>

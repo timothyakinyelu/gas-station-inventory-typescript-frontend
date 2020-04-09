@@ -14,6 +14,7 @@ export enum AuthRoutes {
     sales = '/sales/',
     products = '/products/',
     users = '/users/',
+    employees = '/employees/',
     newsale = '/newsale',
 }
 
