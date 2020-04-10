@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-import { Switch, Route, useLocation, Redirect } from 'react-router-dom';
+import { Switch, Route, useLocation } from 'react-router-dom';
 import { NonAuthRoutes, AuthRoutes, UserRoles } from './constants';
 import Navbar from './reusables/navigation/Navbar';
 import Login from './components/auth/Login';
@@ -18,6 +18,9 @@ import Users from './pages/users/Users';
 import Employees from './pages/employees/Employees';
 import Stocks from './pages/stocks/Stocks';
 import Supplies from './pages/supplies/Supplies';
+import { Notfound } from './pages/Notfound';
+import ExpensesDetail from './pages/expenses/ExpensesDetail';
+import Expenses from './pages/expenses/Expenses';
 
 const Routes: React.FC = (): JSX.Element => {
     CheckResponse();
@@ -111,8 +114,27 @@ const Routes: React.FC = (): JSX.Element => {
                                     component={NewSale}
                                     requiredRoles={[String(UserRoles.user)]}
                                 />
+                                <AuthRoute
+                                    exact
+                                    path={`${AuthRoutes.dashboard}:companyID/:company${AuthRoutes.expenses}`}
+                                    component={Expenses}
+                                    requiredRoles={[String(UserRoles.admin)]}
+                                />
+                                <AuthRoute
+                                    exact
+                                    path={`${AuthRoutes.dashboard}:companyID/:company${AuthRoutes.expenses}:stationID/:stationName`}
+                                    component={Expenses}
+                                    requiredRoles={[String(UserRoles.admin)]}
+                                />
+                                <AuthRoute
+                                    exact
+                                    path={`${AuthRoutes.dashboard}:companyID/:company${AuthRoutes.expenses}:stationID/:stationName/:date`}
+                                    component={ExpensesDetail}
+                                    requiredRoles={[String(UserRoles.admin)]}
+                                />
                                 <Route path={`${NonAuthRoutes.unauthorized}`} component={Unauthorized} />
-                                {location.key === undefined && <Redirect to={`${NonAuthRoutes.unauthorized}`} />}
+                                <Route component={Notfound} />
+                                {/* {location.key === undefined && <Redirect to={`${NonAuthRoutes.unauthorized}`} />} */}
                             </Switch>
                         </div>
                     </div>

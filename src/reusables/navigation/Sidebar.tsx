@@ -168,18 +168,16 @@ const Sidebar: React.FC<SidebarProps> = ({ user }) => {
                                 <span className="hide-menu">Expenses</span>
                             </a>
                             <ul className="collapse">
-                                <li>
-                                    <a href="index.html">Minimal </a>
-                                </li>
-                                <li>
-                                    <a href="index2.html">Analytical</a>
-                                </li>
-                                <li>
-                                    <a href="index3.html">Demographical</a>
-                                </li>
-                                <li>
-                                    <a href="index4.html">Modern</a>
-                                </li>
+                                {isAdmin && (
+                                    <li className="nav-item">
+                                        <Link
+                                            to={`${AuthRoutes.dashboard}${companyID}/${company}${AuthRoutes.expenses}`}
+                                            className="nav-link"
+                                        >
+                                            All Expenses
+                                        </Link>
+                                    </li>
+                                )}
                             </ul>
                         </li>
                         <li className="listItem" onClick={toggleLink} data-id="navItem8">

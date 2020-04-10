@@ -1,45 +1,44 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useCallback, useEffect, useState } from 'react';
-import { fetchSalesDetails, fetchSaleToEdit } from '../../redux/sales/actions';
+import { fetchExpensesDetails, fetchExpenseToEdit } from '../../redux/expenses/actions';
 import { useParams } from 'react-router-dom';
-import sale from '../../api/sale';
+import expense from '../../api/expense';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { AppState } from '../../redux';
-import { Sales, SalesState, Sale } from '../../redux/sales/types';
+import { Expenses, ExpensesState, Expense } from '../../redux/expenses/types';
 import DataTable from '../../reusables/partials/DataTable';
 import Loader from '../../reusables/Loader';
 import { addToast } from '../../redux/toast/actions';
-import EditSaleModal from '../../components/sales/EditSaleModal';
-import product from '../../api/product';
+import EditExpenseModal from '../../components/expenses/EditExpenseModal';
 
-interface SalesDetailProps {
-    fetchSalesDetails: typeof fetchSalesDetails;
+interface ExpensesDetailProps {
+    fetchExpensesDetails: typeof fetchExpensesDetails;
     addToast: typeof addToast;
-    fetchSaleToEdit: typeof fetchSaleToEdit;
-    salesDetail?: Sales;
-    editSale?: Sale;
+    fetchExpenseToEdit: typeof fetchExpenseToEdit;
+    expensesDetail?: Expenses;
+    editExpense?: Expense;
 }
 
-const SalesDetail: React.FC<SalesDetailProps> = (props): JSX.Element => {
-    const { fetchSalesDetails, salesDetail, fetchSaleToEdit, editSale } = props;
+const ExpensesDetail: React.FC<ExpensesDetailProps> = (props): JSX.Element => {
+    const { fetchExpensesDetails, expensesDetail, fetchExpenseToEdit, editExpense } = props;
 
-    const { stationID, codeID, code, date } = useParams();
+    const { stationID, date } = useParams();
 
     const [isFetched, setIsFetched] = useState(false);
     const [editModalShow, setEditModalShow] = useState(false);
-    const [products, setProducts] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
 
     const count = Math.random() * 100 + 1;
 
-    const items = salesDetail;
+    const items = expensesDetail;
 
-    const getSalesDetail = useCallback((): any => {
-        sale.getSalesByDate(Number(stationID), Number(codeID), date)
+    const getExpensesDetail = useCallback((): any => {
+        expense
+            .getStationDayExpense(Number(stationID), date)
             .then((res) => {
-                fetchSalesDetails({
-                    salesDetail: res.data,
+                fetchExpensesDetails({
+                    expensesDetail: res.data,
                 });
                 setIsFetched(true);
             })
@@ -47,39 +46,33 @@ const SalesDetail: React.FC<SalesDetailProps> = (props): JSX.Element => {
                 console.log(err.response.data);
                 setIsFetched(false);
             });
-    }, [fetchSalesDetails, stationID, codeID, date]);
-
-    const getProducts = useCallback(() => {
-        product.getProducts().then((res) => {
-            setProducts(res.data.data);
-        });
-    }, []);
+    }, [fetchExpensesDetails, stationID, date]);
 
     useEffect(() => {
         const ac = new AbortController();
 
-        if (codeID === undefined) {
+        if (date === undefined) {
             return;
         }
 
-        getSalesDetail();
-        getProducts();
+        getExpensesDetail();
 
         return function cleanup(): void {
             setIsFetched(false);
             ac.abort();
         };
-    }, [codeID, getSalesDetail, getProducts]);
+    }, [date, getExpensesDetail]);
 
     const handleEdit = (id?: number): void => {
         setEditModalShow(true);
         setLoading(true);
         try {
-            sale.editDaySale(id)
+            expense
+                .editDayExpense(id)
                 .then((res) => {
                     // console.log(res.data.user)
-                    fetchSaleToEdit({
-                        editSale: res.data.sale,
+                    fetchExpenseToEdit({
+                        editExpense: res.data.sale,
                     });
                     setLoading(false);
                 })
@@ -100,12 +93,12 @@ const SalesDetail: React.FC<SalesDetailProps> = (props): JSX.Element => {
     };
 
     const deleteSelected = (data?: any[]): void => {
-        sale.deleteSale(data).then((res) => {
+        expense.deleteExpense(data).then((res) => {
             props.addToast({
                 id: count,
                 message: res.data.status,
             });
-            getSalesDetail();
+            getExpensesDetail();
         });
     };
 
@@ -117,7 +110,7 @@ const SalesDetail: React.FC<SalesDetailProps> = (props): JSX.Element => {
                 <>
                     <div className="list-table">
                         <h5 title="sales-detail" className="sales-table-header">
-                            {code} Sales Detail for {date}
+                            Expense Detail for {date}
                         </h5>
                         <div className="list-table-inner">
                             {items?.data === undefined || items?.data.length < 0 ? (
@@ -127,12 +120,11 @@ const SalesDetail: React.FC<SalesDetailProps> = (props): JSX.Element => {
                             )}
                         </div>
                         {!loading && (
-                            <EditSaleModal
+                            <EditExpenseModal
                                 show={editModalShow}
                                 onHide={handleHide}
-                                showEdit={editSale}
-                                handleLoad={getSalesDetail}
-                                products={products}
+                                showEdit={editExpense}
+                                handleLoad={getExpensesDetail}
                             />
                         )}
                     </div>
@@ -142,17 +134,17 @@ const SalesDetail: React.FC<SalesDetailProps> = (props): JSX.Element => {
     );
 };
 
-SalesDetail.propTypes = {
-    fetchSalesDetails: PropTypes.any,
-    salesDetail: PropTypes.any,
-    fetchSaleToEdit: PropTypes.any,
+ExpensesDetail.propTypes = {
+    fetchExpensesDetails: PropTypes.any,
+    expensesDetail: PropTypes.any,
+    fetchExpenseToEdit: PropTypes.any,
     addToast: PropTypes.any,
-    editSale: PropTypes.any,
+    editExpense: PropTypes.any,
 };
 
-const mapStateToProps = (state: AppState): SalesState => ({
-    salesDetail: state.salesRoot.salesDetail,
-    editSale: state.salesRoot.editSale,
+const mapStateToProps = (state: AppState): ExpensesState => ({
+    expensesDetail: state.expensesRoot.expensesDetail,
+    editExpense: state.expensesRoot.editExpense,
 });
 
-export default connect(mapStateToProps, { fetchSalesDetails, fetchSaleToEdit, addToast })(SalesDetail);
+export default connect(mapStateToProps, { fetchExpensesDetails, fetchExpenseToEdit, addToast })(ExpensesDetail);

@@ -17,6 +17,7 @@ export enum AuthRoutes {
     employees = '/employees/',
     stocks = '/stocks/',
     supplies = '/supplies/',
+    expenses = '/expenses/',
     newsale = '/newsale',
 }
 
