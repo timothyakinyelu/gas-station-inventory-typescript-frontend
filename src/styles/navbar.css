@@ -146,4 +146,10 @@ button.alt-out:focus {
     .navbar .navbar-brand-wrapper {
         background-color: #00c4cc;
     }
+    .hamburger-menu {
+        position: absolute;
+        align-self: center;
+        left: 80px;
+        font-size: 2em;
+    }
 }

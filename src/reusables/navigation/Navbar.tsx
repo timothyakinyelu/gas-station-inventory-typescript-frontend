@@ -23,6 +23,9 @@ const Navbar: React.FC<NavbarProps> = ({ endSession, isLoggedIn, user }): JSX.El
     const { width } = useWindowResize();
     const [letter, setLetter] = useState<string | undefined>('');
     const [str, setStr] = useState<string | undefined>('');
+    const [hidden, setHidden] = useState<boolean>(true);
+    const [show, setShow] = useState<boolean>(true);
+
     useEffect(() => {
         if (!isLoggedIn) {
             return;
@@ -42,6 +45,19 @@ const Navbar: React.FC<NavbarProps> = ({ endSession, isLoggedIn, user }): JSX.El
             isLoggedIn: false,
             user: {},
         });
+    };
+
+    const toggleSidebar = (e: React.MouseEvent<HTMLElement, MouseEvent>): void => {
+        e.preventDefault();
+        setHidden(!hidden);
+        setShow(!show);
+
+        const side = document.getElementById('root');
+        if (show === true) {
+            side?.classList.add('show-sidebar');
+        } else {
+            side?.classList.remove('show-sidebar');
+        }
     };
 
     return (
@@ -65,6 +81,15 @@ const Navbar: React.FC<NavbarProps> = ({ endSession, isLoggedIn, user }): JSX.El
                     </Link>
                 </div>
             </div>
+            {width < 768 && (
+                <div className="hamburger-menu">
+                    {show ? (
+                        <i className="mdi mdi-sort-variant" onClick={toggleSidebar}></i>
+                    ) : (
+                        <i className="mdi mdi-close" onClick={toggleSidebar}></i>
+                    )}
+                </div>
+            )}
             <div
                 className="navbar-menu-wrapper d-flex 
                 align-items-center 

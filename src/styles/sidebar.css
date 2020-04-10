@@ -178,7 +178,7 @@
     transition: all .3s ease-out;
     overflow: scroll;
     -webkit-overflow-scrolling: touch;
-    position: absolute;
+    /* position: absolute; */
 }
 .sidebar-nav {
     background: #fff;
@@ -229,8 +229,11 @@
     font-weight: 400;
 }
 .sidebar-nav ul li ul li a {
-    color: #adb5bd;
+    color: #374554;
     font-weight: 200;
+}
+.sidebar-nav ul li ul li a.active, .sidebar-nav ul li ul li a:hover  {
+    font-weight: 600;
 }
 .sidebar-nav ul li a.active, .sidebar-nav ul li a:hover, .sidebar-nav ul li a:hover > i {
     color: #00c4cc;
@@ -346,6 +349,9 @@
 }
 
 @media (max-width: 990px) {
+    .mini-sidebar .sidebar-nav > ul > li.active > ul > li > a {
+        color: #e9ecef;
+    }
     .sidebar-nav ul li ul li > a:hover {
         color: #ffffff;
         font-weight: 600;
@@ -356,10 +362,19 @@
 }
 
 @media (max-width: 767px) {
+    .mini-sidebar .sidebar-nav > ul > li.active > ul > li > a {
+        color: #374554;
+    }
     .mini-sidebar .left-sidebar, .mini-sidebar .sidebar-footer {
         left: -240px;
     }
     .mini-sidebar .left-sidebar {
         position: fixed;
+    }
+    .mini-sidebar.show-sidebar .left-sidebar, .mini-sidebar.show-sidebar .sidebar-footer {
+        left: 0px;
+    }
+    .scroller {
+        overflow: overlay;
     }
 }
