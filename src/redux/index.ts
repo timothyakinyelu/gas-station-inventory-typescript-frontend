@@ -11,6 +11,7 @@ import { ProductsReducer } from './products/reducers';
 import { UsersReducer } from './users/reducers';
 import { EmployeesReducer } from './employees/reducers';
 import { StocksReducer } from './stocks/reducers';
+import { SuppliesReducer } from './supplies/reducers';
 
 declare global {
     interface Window {
@@ -28,6 +29,7 @@ const appReducer = combineReducers({
     usersRoot: UsersReducer,
     employeesRoot: EmployeesReducer,
     stocksRoot: StocksReducer,
+    suppliesRoot: SuppliesReducer,
 });
 
 const rootReducer = (state: any, actions: any) => {

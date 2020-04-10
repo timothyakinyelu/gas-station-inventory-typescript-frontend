@@ -17,6 +17,7 @@ import Products from './pages/products/Products';
 import Users from './pages/users/Users';
 import Employees from './pages/employees/Employees';
 import Stocks from './pages/stocks/Stocks';
+import Supplies from './pages/supplies/Supplies';
 
 const Routes: React.FC = (): JSX.Element => {
     CheckResponse();
@@ -90,6 +91,18 @@ const Routes: React.FC = (): JSX.Element => {
                                     exact
                                     path={`${AuthRoutes.dashboard}:companyID/:company${AuthRoutes.stocks}:stationID/:stationName`}
                                     component={Stocks}
+                                    requiredRoles={[String(UserRoles.admin)]}
+                                />
+                                <AuthRoute
+                                    exact
+                                    path={`${AuthRoutes.dashboard}:companyID/:company${AuthRoutes.supplies}`}
+                                    component={Supplies}
+                                    requiredRoles={[String(UserRoles.admin)]}
+                                />
+                                <AuthRoute
+                                    exact
+                                    path={`${AuthRoutes.dashboard}:companyID/:company${AuthRoutes.supplies}:stationID/:stationName`}
+                                    component={Supplies}
                                     requiredRoles={[String(UserRoles.admin)]}
                                 />
                                 <AuthRoute
