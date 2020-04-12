@@ -60,6 +60,7 @@
     ]
   },
   "devDependencies": {
+    "@types/express": "^4.17.6",
     "eslint-plugin-prettier": "^3.1.2"
   }
 }
