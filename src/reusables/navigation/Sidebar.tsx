@@ -93,7 +93,7 @@ const Sidebar: React.FC<SidebarProps> = ({ user }) => {
                                 {isUser && (
                                     <li className="nav-item">
                                         <Link
-                                            to={`${AuthRoutes.dashboard}${companyID}/${company}/${stationID}/${station}${AuthRoutes.sales}`}
+                                            to={`${AuthRoutes.dashboard}${companyID}/${company}/${stationID}/${station}${AuthRoutes.newsale}`}
                                             className="nav-link"
                                         >
                                             New Sale

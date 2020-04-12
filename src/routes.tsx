@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-import { Switch, Route, useLocation } from 'react-router-dom';
+import { Switch, Route, useLocation, Redirect } from 'react-router-dom';
 import { NonAuthRoutes, AuthRoutes, UserRoles } from './constants';
 import Navbar from './reusables/navigation/Navbar';
 import Login from './components/auth/Login';
@@ -21,8 +21,15 @@ import Supplies from './pages/supplies/Supplies';
 import { Notfound } from './pages/Notfound';
 import ExpensesDetail from './pages/expenses/ExpensesDetail';
 import Expenses from './pages/expenses/Expenses';
+import { AppState } from './redux';
+import { AuthState } from './redux/auth/types';
+import { connect } from 'react-redux';
 
-const Routes: React.FC = (): JSX.Element => {
+interface RoutesProp {
+    isLoggedIn: boolean;
+}
+
+const Routes: React.FC<RoutesProp> = (props): JSX.Element => {
     CheckResponse();
     const location = useLocation();
     const { height } = useWindowResize();
@@ -139,7 +146,11 @@ const Routes: React.FC = (): JSX.Element => {
                                     requiredRoles={[String(UserRoles.user)]}
                                 />
                                 <Route path={`${NonAuthRoutes.unauthorized}`} component={Unauthorized} />
-                                <Route component={Notfound} />
+                                {props.isLoggedIn ? (
+                                    <Route component={Notfound} />
+                                ) : (
+                                    <Redirect to={NonAuthRoutes.login} />
+                                )}
                                 {/* {location.key === undefined && <Redirect to={`${NonAuthRoutes.unauthorized}`} />} */}
                             </Switch>
                         </div>
@@ -150,4 +161,9 @@ const Routes: React.FC = (): JSX.Element => {
     );
 };
 
-export default Routes;
+const mapStateToProps = (state: AppState): AuthState => ({
+    isLoggedIn: state.auth.isLoggedIn,
+    user: state.auth.user,
+});
+
+export default connect(mapStateToProps)(Routes);
