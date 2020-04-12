@@ -107,7 +107,6 @@ const EmployeeModal: React.FC<EmployeeModalProps> = (props): JSX.Element => {
             alert(e);
             setIsLoading(false);
         }
-        // props.onHide();
         setIsLoading(true);
     }
 

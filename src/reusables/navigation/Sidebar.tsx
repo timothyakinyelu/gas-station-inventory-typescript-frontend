@@ -210,6 +210,16 @@ const Sidebar: React.FC<SidebarProps> = ({ user }) => {
                                         </Link>
                                     </li>
                                 )}
+                                {isUser && (
+                                    <li className="nav-item">
+                                        <Link
+                                            to={`${AuthRoutes.dashboard}${companyID}/${company}/${stationID}/${station}${AuthRoutes.newexpense}`}
+                                            className="nav-link"
+                                        >
+                                            New Expense
+                                        </Link>
+                                    </li>
+                                )}
                             </ul>
                         </li>
                         {isAdmin && (

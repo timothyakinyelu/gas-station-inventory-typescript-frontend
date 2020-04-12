@@ -21,6 +21,7 @@ export enum AuthRoutes {
     newsale = '/newsale/',
     newstock = '/newstock/',
     newsupply = '/newsupply/',
+    newexpense = '/newexpense/',
 }
 
 export enum NonAuthRoutes {

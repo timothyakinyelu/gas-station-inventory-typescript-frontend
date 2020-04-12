@@ -21,14 +21,8 @@ const MonthExpenses: React.FC<MonthExpensesProps> = ({ expense }): JSX.Element =
                         expense.data.map((item: Data, index: number) => {
                             return (
                                 <div key={index}>
-                                    <div className="widget-numbers">
+                                    <div id={'perf' + index} className="widget-numbers">
                                         ₦{item.totalExpense?.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}
-                                    </div>
-                                    <div className="widget-description opacity-8 text-focus">
-                                        <div className="d-inline text-danger pr-1">
-                                            {/* <i aria-hidden="true" className="fa fa-angle-down"></i> */}
-                                            {/* <span className="pl-1">{ item.product_type }</span> */}
-                                        </div>
                                     </div>
                                 </div>
                             );

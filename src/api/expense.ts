@@ -36,7 +36,7 @@ export default {
 
         return await inTreeApi.post('/expenses/expense', fd);
     },
-    getDayExpenses: async function (stationID?: number, dateOfExpense?: string): Promise<any> {
+    getDayExpenses: async function (stationID?: string, dateOfExpense?: string): Promise<any> {
         return await inTreeApi.get('/expenses/expense/' + stationID + '/' + dateOfExpense);
     },
     deleteExpense: async function (expenseID?: any[]): Promise<any> {

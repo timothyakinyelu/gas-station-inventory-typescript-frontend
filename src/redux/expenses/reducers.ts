@@ -4,12 +4,16 @@ import {
     FETCH_STATION_EXPENSES,
     FETCH_EXPENSES_DETAILS,
     FETCH_EXPENSE_TO_EDIT,
+    ADD_EXPENSE,
+    FETCH_DAY_EXPENSES,
 } from './types';
 
 const initialState: ExpensesState = {
     expenses: {},
     expensesDetail: {},
     editExpense: {},
+    expense: {},
+    dayExpenses: {},
 };
 
 export function ExpensesReducer(state = initialState, actions: ExpensesActionTypes): ExpensesState {
@@ -25,6 +29,16 @@ export function ExpensesReducer(state = initialState, actions: ExpensesActionTyp
                 ...actions.payload,
             };
         case FETCH_EXPENSE_TO_EDIT:
+            return {
+                ...state,
+                ...actions.payload,
+            };
+        case ADD_EXPENSE:
+            return {
+                ...state,
+                ...actions.payload,
+            };
+        case FETCH_DAY_EXPENSES:
             return {
                 ...state,
                 ...actions.payload,
