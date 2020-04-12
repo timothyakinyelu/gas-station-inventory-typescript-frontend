@@ -25,6 +25,7 @@ import { AppState } from './redux';
 import { AuthState } from './redux/auth/types';
 import { connect } from 'react-redux';
 import NewStock from './pages/stocks/NewStock';
+import NewSupply from './pages/supplies/NewSupply';
 
 interface RoutesProp {
     isLoggedIn: boolean;
@@ -156,6 +157,18 @@ const Routes: React.FC<RoutesProp> = (props): JSX.Element => {
                                     exact
                                     path={`${AuthRoutes.dashboard}:companyID/:company/:stationID/:station${AuthRoutes.newstock}:codeID/:codeName`}
                                     component={NewStock}
+                                    requiredRoles={[String(UserRoles.user)]}
+                                />
+                                <AuthRoute
+                                    exact
+                                    path={`${AuthRoutes.dashboard}:companyID/:company/:stationID/:station${AuthRoutes.newsupply}`}
+                                    component={NewSupply}
+                                    requiredRoles={[String(UserRoles.user)]}
+                                />
+                                <AuthRoute
+                                    exact
+                                    path={`${AuthRoutes.dashboard}:companyID/:company/:stationID/:station${AuthRoutes.newsupply}:codeID/:codeName`}
+                                    component={NewSupply}
                                     requiredRoles={[String(UserRoles.user)]}
                                 />
                                 <Route path={`${NonAuthRoutes.unauthorized}`} component={Unauthorized} />
