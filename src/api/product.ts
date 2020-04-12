@@ -11,6 +11,9 @@ export default {
     getProducts: async function (companyID?: string, currentPage?: number): Promise<any> {
         return await inTreeApi.get('/products/' + companyID + '?page=' + currentPage);
     },
+    getProductByCodeId: async function (productCodeID?: number): Promise<any> {
+        return await inTreeApi.get('/productCode/products/' + productCodeID);
+    },
     storeProduct: async function (type?: any, code?: any, name?: any, price?: any): Promise<any> {
         const fd = new FormData();
 

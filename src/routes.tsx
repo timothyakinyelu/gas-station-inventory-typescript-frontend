@@ -110,12 +110,6 @@ const Routes: React.FC = (): JSX.Element => {
                                 />
                                 <AuthRoute
                                     exact
-                                    path={`${AuthRoutes.dashboard}:companyID/:company${AuthRoutes.newsale}`}
-                                    component={NewSale}
-                                    requiredRoles={[String(UserRoles.user)]}
-                                />
-                                <AuthRoute
-                                    exact
                                     path={`${AuthRoutes.dashboard}:companyID/:company${AuthRoutes.expenses}`}
                                     component={Expenses}
                                     requiredRoles={[String(UserRoles.admin)]}
@@ -131,6 +125,18 @@ const Routes: React.FC = (): JSX.Element => {
                                     path={`${AuthRoutes.dashboard}:companyID/:company${AuthRoutes.expenses}:stationID/:stationName/:date`}
                                     component={ExpensesDetail}
                                     requiredRoles={[String(UserRoles.admin)]}
+                                />
+                                <AuthRoute
+                                    exact
+                                    path={`${AuthRoutes.dashboard}:companyID/:company/:stationID/:station${AuthRoutes.newsale}`}
+                                    component={NewSale}
+                                    requiredRoles={[String(UserRoles.user)]}
+                                />
+                                <AuthRoute
+                                    exact
+                                    path={`${AuthRoutes.dashboard}:companyID/:company/:stationID/:station${AuthRoutes.newsale}:codeID/:codeName`}
+                                    component={NewSale}
+                                    requiredRoles={[String(UserRoles.user)]}
                                 />
                                 <Route path={`${NonAuthRoutes.unauthorized}`} component={Unauthorized} />
                                 <Route component={Notfound} />

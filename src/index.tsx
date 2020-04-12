@@ -13,6 +13,9 @@ import authenticate from './api/authenticate';
 import { useWindowResize } from './useWindowResize';
 import center from './api/center';
 import { FETCH_STATIONS } from './redux/central/types';
+import { UserRoles } from './constants';
+import product from './api/product';
+import { FETCH_PRODUCT_CODES } from './redux/products/types';
 
 const store = configureStore();
 
@@ -52,6 +55,17 @@ const getStations = (id: string) => {
     });
 };
 
+const getProductCodes = () => {
+    product.getProductCodes().then((res) => {
+        store.dispatch({
+            type: FETCH_PRODUCT_CODES,
+            payload: {
+                productCodes: res.data,
+            },
+        });
+    });
+};
+
 const token = authHelper.get();
 if (token) {
     authenticate
@@ -66,7 +80,13 @@ if (token) {
             });
 
             const companyID = res.data.companyID;
-            getStations(companyID);
+            const permission = res.data.permission;
+            if (permission === UserRoles.admin) {
+                getStations(companyID);
+            }
+            if (permission === UserRoles.user) {
+                getProductCodes();
+            }
             render();
         })
         .catch((err) => {

@@ -14,10 +14,13 @@ import { addToast } from '../../redux/toast/actions';
 import center from '../../api/center';
 import { fetchStations } from '../../redux/central/actions';
 import { UserRoles } from '../../constants';
+import product from '../../api/product';
+import { fetchProductCodes } from '../../redux/products/actions';
 
 interface LoginProps extends RouteComponentProps {
     startSession: typeof startSession;
     fetchStations: typeof fetchStations;
+    fetchProductCodes: typeof fetchProductCodes;
     history: any;
     location: any;
     addToast: typeof addToast;
@@ -49,6 +52,14 @@ const Login: React.FC<LoginProps> = (props): JSX.Element => {
         });
     };
 
+    const getProductCodes = (): void => {
+        product.getProductCodes().then((res) => {
+            props.fetchProductCodes({
+                productCodes: res.data,
+            });
+        });
+    };
+
     const handleLogin = (e: FormEvent<HTMLFormElement>): void => {
         e.preventDefault();
 
@@ -70,7 +81,12 @@ const Login: React.FC<LoginProps> = (props): JSX.Element => {
                     if (user.permission === UserRoles.admin) {
                         handleStations(user.companyID);
                     }
-                    props.history.push(redirect(user.permission, user.company, user.companyID));
+                    if (user.permission === UserRoles.user) {
+                        getProductCodes();
+                    }
+                    props.history.push(
+                        redirect(user.permission, user.company, user.companyID, user.station, user.stationID),
+                    );
                 }
             })
             .catch((err) => {
@@ -153,6 +169,7 @@ Login.propTypes = {
     location: PropTypes.any.isRequired,
     addToast: PropTypes.any.isRequired,
     fetchStations: PropTypes.any,
+    fetchProductCodes: PropTypes.any,
 };
 
-export default connect(null, { startSession, addToast, fetchStations })(Login);
+export default connect(null, { startSession, addToast, fetchStations, fetchProductCodes })(Login);

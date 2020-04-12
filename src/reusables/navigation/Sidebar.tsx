@@ -15,10 +15,12 @@ interface SidebarProps {
 
 const Sidebar: React.FC<SidebarProps> = ({ user }) => {
     const isAdmin = user.permission === UserRoles.admin;
-    // const isUser = user.permission == UserRoles.user;
+    const isUser = user.permission === UserRoles.user;
 
     const company = user.company;
     const companyID = user.companyID;
+    const station = user.station;
+    const stationID = user.stationID;
 
     const { width } = useWindowResize();
     const toggleLink = (event: React.MouseEvent<HTMLLIElement, MouseEvent>): void => {
@@ -85,6 +87,16 @@ const Sidebar: React.FC<SidebarProps> = ({ user }) => {
                                             className="nav-link"
                                         >
                                             All Sales
+                                        </Link>
+                                    </li>
+                                )}
+                                {isUser && (
+                                    <li className="nav-item">
+                                        <Link
+                                            to={`${AuthRoutes.dashboard}${companyID}/${company}/${stationID}/${station}${AuthRoutes.sales}`}
+                                            className="nav-link"
+                                        >
+                                            New Sale
                                         </Link>
                                     </li>
                                 )}
@@ -180,28 +192,30 @@ const Sidebar: React.FC<SidebarProps> = ({ user }) => {
                                 )}
                             </ul>
                         </li>
-                        <li className="listItem" onClick={toggleLink} data-id="navItem8">
-                            <a className="has-arrow waves-effect waves-dark" href="#settings">
-                                <i className="mdi mdi-cog-outline"></i>
-                                <span className="hide-menu">Settings</span>
-                            </a>
-                            <ul className="collapse">
-                                <li>
-                                    <Link
-                                        to={`${AuthRoutes.dashboard}${companyID}/${company}${AuthRoutes.users}`}
-                                        className="nav-link"
-                                    >
-                                        {' '}
-                                        All Users{' '}
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link to="/settings/send-password-reset-link" className="nav-link">
-                                        Reset User Passwords
-                                    </Link>
-                                </li>
-                            </ul>
-                        </li>
+                        {isAdmin && (
+                            <li className="listItem" onClick={toggleLink} data-id="navItem8">
+                                <a className="has-arrow waves-effect waves-dark" href="#settings">
+                                    <i className="mdi mdi-cog-outline"></i>
+                                    <span className="hide-menu">Settings</span>
+                                </a>
+                                <ul className="collapse">
+                                    <li>
+                                        <Link
+                                            to={`${AuthRoutes.dashboard}${companyID}/${company}${AuthRoutes.users}`}
+                                            className="nav-link"
+                                        >
+                                            {' '}
+                                            All Users{' '}
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link to="/settings/send-password-reset-link" className="nav-link">
+                                            Reset User Passwords
+                                        </Link>
+                                    </li>
+                                </ul>
+                            </li>
+                        )}
                     </ul>
                 </nav>
             </div>

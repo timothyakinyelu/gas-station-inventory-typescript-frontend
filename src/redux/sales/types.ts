@@ -37,11 +37,15 @@ export interface SalesState {
     sales?: Sales;
     salesDetail?: Sales;
     editSale?: Sale;
+    sale?: Sale;
+    daySales?: Sales;
 }
 
 export const FETCH_STATION_SALES = 'FETCH_STATION_SALES';
 export const FETCH_SALES_DETAILS = 'FETCH_SALES_DETAILS';
 export const FETCH_SALE_TO_EDIT = 'FETCH_SALE_TO_EDIT';
+export const FETCH_DAY_SALES = 'FETCH_DAY_SALES';
+export const ADD_SALE = 'ADD_SALE';
 
 export interface SalesAvgAction {
     type: typeof FETCH_STATION_SALES;
@@ -53,9 +57,19 @@ export interface SalesDetailAction {
     payload: SalesState;
 }
 
+export interface DaySalesAction {
+    type: typeof FETCH_DAY_SALES;
+    payload: SalesState;
+}
+
 export interface EditSaleAction {
     type: typeof FETCH_SALE_TO_EDIT;
     payload: SalesState;
 }
 
-export type SalesActionTypes = SalesAvgAction | SalesDetailAction | EditSaleAction;
+export interface AddSaleAction {
+    type: typeof ADD_SALE;
+    payload: SalesState;
+}
+
+export type SalesActionTypes = SalesAvgAction | SalesDetailAction | DaySalesAction | EditSaleAction | AddSaleAction;

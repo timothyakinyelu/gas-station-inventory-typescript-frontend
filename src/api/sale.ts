@@ -8,6 +8,50 @@ export default {
     getSalesByDate: async function (stationID?: number, id?: number, date?: string): Promise<any> {
         return await inTreeApi.get('/salesbydate/' + stationID + '/' + id + '/' + date);
     },
+    storeNewWetSale: async function (
+        stationID?: any,
+        codeID?: any,
+        productID?: any,
+        unitPrice?: any,
+        dateOfSale?: any,
+        foreCourts?: any[],
+    ): Promise<any> {
+        const fd = new FormData();
+
+        fd.append('station_id', stationID);
+        fd.append('product_code_id', codeID);
+        fd.append('product_id', productID);
+        fd.append('unit_price', unitPrice);
+        fd.append('date_of_entry', dateOfSale);
+        fd.append('foreCourts', JSON.stringify(foreCourts));
+
+        return await inTreeApi.post('/sales/sale/wet', fd);
+    },
+    storeNewDrySale: async function (
+        stationID?: any,
+        codeID?: any,
+        dateOfSale?: any,
+        foreCourts?: any[],
+    ): Promise<any> {
+        const fd = new FormData();
+
+        fd.append('station_id', stationID);
+        fd.append('product_code_id', codeID);
+        fd.append('date_of_entry', dateOfSale);
+        fd.append('foreCourts', JSON.stringify(foreCourts));
+
+        return await inTreeApi.post('/sales/sale/dry', fd);
+    },
+    getDaySalesByProductID: async function (stationID?: string, productID?: number, dateOfSale?: string): Promise<any> {
+        return await inTreeApi.get('/sales/sale/wet/' + stationID + '/' + productID + '/' + dateOfSale);
+    },
+    getDaySalesByProductCodeID: async function (
+        stationID?: string,
+        productCodeID?: string,
+        dateOfSale?: string,
+    ): Promise<any> {
+        return await inTreeApi.get('/sales/sale/dry/' + stationID + '/' + productCodeID + '/' + dateOfSale);
+    },
     editDaySale: async function (saleID?: number): Promise<any> {
         return await inTreeApi.get('/sales/' + saleID + '/edit');
     },

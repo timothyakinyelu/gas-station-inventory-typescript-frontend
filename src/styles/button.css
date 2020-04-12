@@ -37,12 +37,13 @@ span.success-msg {
     top: 45px;
 }
 .small {
-    margin-top: 30px;
+    margin-top: 32px;
 }
 
 .btnRemove, .btnRemove:hover, .btnRemove.btn-primary:focus {
     background-color: #e3342f;
     border-color: #e3342f;
+    font-size: 0.7em;
 }
 
 .btnSubmit, .btnSubmit:hover, .btnSubmit.btn-primary:focus {
@@ -65,6 +66,14 @@ span.success-msg {
 @media (min-width: 768px) {
     .addNew {
         left: 690px;
+    }
+}
+
+@media (max-width: 768px) {
+    .addBtn {
+        position: absolute;
+        bottom: 74px;
+        right: 16px;
     }
 }
 

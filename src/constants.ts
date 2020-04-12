@@ -18,10 +18,17 @@ export enum AuthRoutes {
     stocks = '/stocks/',
     supplies = '/supplies/',
     expenses = '/expenses/',
-    newsale = '/newsale',
+    newsale = '/newsale/',
 }
 
 export enum NonAuthRoutes {
     login = '/login',
     unauthorized = '/unauthorized',
+}
+
+export enum codes {
+    PMS = 1,
+    AGO = 2,
+    LPG = 3,
+    LUBE = 4,
 }
