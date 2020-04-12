@@ -66,15 +66,15 @@ export default {
         return await inTreeApi.post('/stocks/stock/dry', fd);
     },
     getDayStocksByProductID: async function (
-        stationID?: number,
+        stationID?: string,
         productID?: number,
         dateOfInventory?: string,
     ): Promise<any> {
         return await inTreeApi.get('/stocks/stock/wet/' + stationID + '/' + productID + '/' + dateOfInventory);
     },
     getDayStocksByProductCodeID: async function (
-        stationID?: number,
-        productCodeID?: number,
+        stationID?: string,
+        productCodeID?: string,
         dateOfInventory?: string,
     ): Promise<any> {
         return await inTreeApi.get('/stocks/stock/dry/' + stationID + '/' + productCodeID + '/' + dateOfInventory);

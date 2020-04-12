@@ -1,22 +1,22 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState, useEffect, useCallback } from 'react';
-import WetSalesForm from './WetSalesForm';
-import DrySalesForm from './DrySalesForm';
+import WetStocksForm from './WetStocksForm';
+import DryStocksForm from './DryStocksForm';
 import { useParams } from 'react-router-dom';
 import { codes } from '../../constants';
 import { addToast } from '../../redux/toast/actions';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import product from '../../api/product';
-import sale from '../../api/sale';
+import stock from '../../api/stock';
 
-interface SalesFormProps {
+interface StocksFormProps {
     addToast: typeof addToast;
-    getDayWetSales: (stationID?: string, productID?: number, dateOfSale?: string) => any;
-    getDayDrySales: (stationID?: string, codeID?: string, dateOfSale?: string) => any;
+    getDayWetStocks: (stationID?: string, productID?: number, dateOfInventory?: string) => any;
+    getDayDryStocks: (stationID?: string, codeID?: string, dateOfInventory?: string) => any;
 }
 
-const SalesFormPage: React.FC<SalesFormProps> = (props): JSX.Element => {
+const StocksFormPage: React.FC<StocksFormProps> = (props): JSX.Element => {
     const { addToast } = props;
 
     const { companyID, codeID } = useParams();
@@ -53,17 +53,17 @@ const SalesFormPage: React.FC<SalesFormProps> = (props): JSX.Element => {
         stationID?: string,
         codeID?: string,
         productID?: number,
-        unitPrice?: number,
-        dateOfSale?: string,
-        foreCourts?: any[],
+        dateOfInventory?: string,
+        items?: any[],
     ): void => {
-        sale.storeNewWetSale(stationID, codeID, productID, unitPrice, dateOfSale, foreCourts)
+        stock
+            .storeNewWetStock(stationID, codeID, productID, dateOfInventory, items)
             .then((res) => {
                 addToast({
                     id: count,
                     message: res.data.success,
                 });
-                props.getDayWetSales(stationID, productID, dateOfSale);
+                props.getDayWetStocks(stationID, productID, dateOfInventory);
             })
             .catch((err) => {
                 addToast({
@@ -73,14 +73,15 @@ const SalesFormPage: React.FC<SalesFormProps> = (props): JSX.Element => {
             });
     };
 
-    const handleDrySubmit = (stationID?: string, codeID?: string, dateOfSale?: string, foreCourts?: any[]): void => {
-        sale.storeNewDrySale(stationID, codeID, dateOfSale, foreCourts)
+    const handleDrySubmit = (stationID?: string, codeID?: string, dateOfInventory?: string, items?: any[]): void => {
+        stock
+            .storeNewDryStock(stationID, codeID, dateOfInventory, items)
             .then((res) => {
                 addToast({
                     id: count,
                     message: res.data.success,
                 });
-                props.getDayDrySales(stationID, codeID, dateOfSale);
+                props.getDayDryStocks(stationID, codeID, dateOfInventory);
             })
             .catch((err) => {
                 addToast({
@@ -95,9 +96,9 @@ const SalesFormPage: React.FC<SalesFormProps> = (props): JSX.Element => {
             <div className="list-table">
                 <div className="form-container">
                     {Number(codeID) === codes.PMS || Number(codeID) === codes.AGO ? (
-                        <WetSalesForm products={products} handleSubmit={handleWetSubmit} />
+                        <WetStocksForm products={products} handleSubmit={handleWetSubmit} />
                     ) : Number(codeID) === codes.LPG || Number(codeID) === codes.LUBE ? (
-                        <DrySalesForm products={products} handleSubmit={handleDrySubmit} />
+                        <DryStocksForm products={products} handleSubmit={handleDrySubmit} />
                     ) : (
                         <h5>Please select a product code!</h5>
                     )}
@@ -107,10 +108,10 @@ const SalesFormPage: React.FC<SalesFormProps> = (props): JSX.Element => {
     );
 };
 
-SalesFormPage.propTypes = {
+StocksFormPage.propTypes = {
     addToast: PropTypes.any,
-    getDayWetSales: PropTypes.any,
-    getDayDrySales: PropTypes.any,
+    getDayWetStocks: PropTypes.any,
+    getDayDryStocks: PropTypes.any,
 };
 
-export default connect(null, { addToast })(SalesFormPage);
+export default connect(null, { addToast })(StocksFormPage);

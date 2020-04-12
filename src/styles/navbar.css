@@ -151,5 +151,6 @@ button.alt-out:focus {
         align-self: center;
         left: 80px;
         font-size: 2em;
+        color: #545b62;
     }
 }

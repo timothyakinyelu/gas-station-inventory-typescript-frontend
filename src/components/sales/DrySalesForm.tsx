@@ -162,7 +162,7 @@ const DrySalesForm: React.FC<DrySalesFormProps> = (props): JSX.Element => {
                         <Form.Control value={foreCourt.unitPrice.toString() || ''} readOnly />
                     </Form.Group>
                     <Form.Group className="col-lg-3 col-sm-3" controlId="qTS">
-                        <Form.Label>Litres Sold</Form.Label>
+                        <Form.Label>Quantity Sold</Form.Label>
                         <Form.Control
                             type="text"
                             value={foreCourt.quantitySold.toString() || ''}

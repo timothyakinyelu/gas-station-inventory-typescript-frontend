@@ -23,10 +23,14 @@ export interface Stocks {
 export interface StocksState {
     stocks?: Stocks;
     editStock?: Stock;
+    stock?: Stock;
+    dayStocks?: Stocks;
 }
 
 export const FETCH_STATION_STOCKS = 'FETCH_STATION_STOCKS';
 export const FETCH_STOCK_TO_EDIT = 'FETCH_STOCK_TO_EDIT';
+export const FETCH_DAY_STOCKS = 'FETCH_DAY_STOCKS';
+export const ADD_STOCK = 'ADD_STOCK';
 
 export interface FetchStocksAction {
     type: typeof FETCH_STATION_STOCKS;
@@ -38,4 +42,14 @@ export interface EditStockAction {
     payload: StocksState;
 }
 
-export type StocksActionTypes = FetchStocksAction | EditStockAction;
+export interface DayStocksAction {
+    type: typeof FETCH_DAY_STOCKS;
+    payload: StocksState;
+}
+
+export interface AddStockAction {
+    type: typeof ADD_STOCK;
+    payload: StocksState;
+}
+
+export type StocksActionTypes = FetchStocksAction | EditStockAction | DayStocksAction | AddStockAction;

@@ -154,6 +154,16 @@ const Sidebar: React.FC<SidebarProps> = ({ user }) => {
                                         </Link>
                                     </li>
                                 )}
+                                {isUser && (
+                                    <li className="nav-item">
+                                        <Link
+                                            to={`${AuthRoutes.dashboard}${companyID}/${company}/${stationID}/${station}${AuthRoutes.newstock}`}
+                                            className="nav-link"
+                                        >
+                                            New Stock
+                                        </Link>
+                                    </li>
+                                )}
                             </ul>
                         </li>
                         <li className="listItem" onClick={toggleLink} data-id="navItem6">
