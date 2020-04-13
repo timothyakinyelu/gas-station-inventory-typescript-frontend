@@ -8,7 +8,7 @@ switch (process.env.NODE_ENV) {
         url = `http://localhost:8000/api/v2`;
         break;
     case 'production':
-        url = `/api/v2`;
+        url = `https://intree-demo.herokuapp.com/api/v2`;
         break;
     default:
         break;
