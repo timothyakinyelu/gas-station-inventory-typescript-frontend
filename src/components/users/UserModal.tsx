@@ -91,7 +91,7 @@ const UserModal: React.FC<UserModalProps> = (props): JSX.Element => {
                     setPermission(Number(''));
                     addToast({
                         id: count,
-                        message: res.data.success,
+                        message: res.data,
                     });
 
                     getUsers();
@@ -203,7 +203,7 @@ const UserModal: React.FC<UserModalProps> = (props): JSX.Element => {
                             value={employeeName || ''}
                             onChange={searchEmployees}
                         />
-                        <Form.Control type="hidden" defaultValue={employeeID} />
+                        <Form.Control type="hidden" style={{ cursor: 'pointer' }} defaultValue={employeeID} />
                         {employeeName !== undefined
                             ? employeeName?.length > 0 &&
                               showAutoComplete && <div className="company-autocomplete-container">{getEmployees()}</div>
@@ -223,6 +223,7 @@ const UserModal: React.FC<UserModalProps> = (props): JSX.Element => {
                     <Form.Group controlId="3">
                         <Form.Label>Permission</Form.Label>
                         <Form.Control
+                            className="modalSelect"
                             value={permission?.toString() || ''}
                             as="select"
                             onChange={(e: React.ChangeEvent<HTMLSelectElement>): void =>

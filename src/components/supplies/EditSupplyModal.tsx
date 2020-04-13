@@ -92,6 +92,7 @@ const EditSupplyModal: React.FC<EditSupplyModalProps> = (props): JSX.Element => 
                     <Form.Group controlId="2">
                         <Form.Label>Product</Form.Label>
                         <Form.Control
+                            className="modalSelect"
                             value={productID?.toString() || ''}
                             as="select"
                             onChange={(e: React.ChangeEvent<HTMLSelectElement>): void =>
