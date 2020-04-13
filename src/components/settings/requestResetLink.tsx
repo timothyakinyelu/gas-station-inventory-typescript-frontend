@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Form, Button, Spinner } from 'react-bootstrap';
 import settings from '../../api/settings';
-import '../../styles/Login.css';
 import { connect } from 'react-redux';
 import { addToast } from '../../redux/toast/actions';
 
@@ -49,7 +48,9 @@ function RequestResetLink(props: ResetLinkProps): JSX.Element {
         <div className="changeWrapper container align-content-center">
             <div className="Login align-items-center">
                 <div className="card ">
-                    <div className="card-header">Reset Password</div>
+                    <div className="card-header" style={{ fontSize: '1.4em' }}>
+                        Reset Password
+                    </div>
                     <div className="card-body">
                         <Form onSubmit={handleSubmit}>
                             <Form.Group>
@@ -64,7 +65,7 @@ function RequestResetLink(props: ResetLinkProps): JSX.Element {
                                 />
                             </Form.Group>
                             <Form.Group>
-                                <Button className="btn-signin" disabled={!validateForm()} type="submit">
+                                <Button className="btnSubmit" disabled={!validateForm()} type="submit">
                                     {isLoading && (
                                         <Spinner
                                             as="span"

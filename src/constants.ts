@@ -22,11 +22,13 @@ export enum AuthRoutes {
     newstock = '/newstock/',
     newsupply = '/newsupply/',
     newexpense = '/newexpense/',
+    resetlink = '/settings/send-password-reset-link',
 }
 
 export enum NonAuthRoutes {
     login = '/login',
     unauthorized = '/unauthorized',
+    resetpassword = '/settings/reset-password/:token',
 }
 
 export enum codes {

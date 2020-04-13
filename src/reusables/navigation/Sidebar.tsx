@@ -239,7 +239,10 @@ const Sidebar: React.FC<SidebarProps> = ({ user }) => {
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link to="/settings/send-password-reset-link" className="nav-link">
+                                        <Link
+                                            to={`${AuthRoutes.dashboard}${companyID}/${company}${AuthRoutes.resetlink}`}
+                                            className="nav-link"
+                                        >
                                             Reset User Passwords
                                         </Link>
                                     </li>

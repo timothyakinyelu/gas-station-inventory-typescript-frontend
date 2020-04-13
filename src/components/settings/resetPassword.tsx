@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Form, Button, Spinner } from 'react-bootstrap';
 import settings from '../../api/settings';
-import '../../styles/Login.css';
 import { Link, useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { addToast } from '../../redux/toast/actions';
@@ -101,7 +100,7 @@ function ResetPassword(props: ResetPasswordProps): JSX.Element {
                             </Form.Group>
                             <Form.Row>
                                 <Form.Group className="col-md-4">
-                                    <Button className="btn-signin" disabled={!validateForm()} type="submit">
+                                    <Button className="btnSubmit" disabled={!validateForm()} type="submit">
                                         {isLoading && (
                                             <Spinner
                                                 as="span"
