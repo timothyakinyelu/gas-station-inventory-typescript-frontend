@@ -74,7 +74,6 @@ const UserModal: React.FC<UserModalProps> = (props): JSX.Element => {
     };
 
     function selectEmployee(employee: any): void {
-        // console.log(employee)
         setShowAutoComplete(false);
         setEmployeeName(employee.name);
         setEmployeeID(employee.id);
@@ -106,7 +105,6 @@ const UserModal: React.FC<UserModalProps> = (props): JSX.Element => {
             alert(e);
             setIsLoading(false);
         }
-        // props.onHide();
         setIsLoading(true);
     }
 
