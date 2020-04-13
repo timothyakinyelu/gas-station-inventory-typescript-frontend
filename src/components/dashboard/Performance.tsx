@@ -23,7 +23,7 @@ const Performance: React.FC<PerformanceProps> = ({ cMonthSales, cMonthExpenses }
                         font-weight-normal"
                     >
                         <i className="header-icon"></i>
-                        Service Outlets Performance for {cMonthSales[1].data[1].month}
+                        Service Outlets Performance for current month
                     </div>
                 </div>
                 <div className="no-gutters row">
