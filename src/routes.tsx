@@ -27,6 +27,8 @@ import { connect } from 'react-redux';
 import NewStock from './pages/stocks/NewStock';
 import NewSupply from './pages/supplies/NewSupply';
 import NewExpense from './pages/expenses/NewExpense';
+import RequestResetLink from './components/settings/RequestResetLink';
+import ResetPassword from './components/settings/ResetPassword';
 
 interface RoutesProp {
     isLoggedIn: boolean;
@@ -40,7 +42,10 @@ const Routes: React.FC<RoutesProp> = (props): JSX.Element => {
     return (
         <>
             {location.pathname === NonAuthRoutes.login ? (
-                <Route exact path={NonAuthRoutes.login} component={Login} />
+                <>
+                    <Route exact path={NonAuthRoutes.login} component={Login} />
+                    <Route exact path={NonAuthRoutes.resetpassword} component={ResetPassword} />
+                </>
             ) : (
                 <>
                     {location.pathname !== NonAuthRoutes.login && location.pathname !== NonAuthRoutes.unauthorized && (
@@ -183,6 +188,12 @@ const Routes: React.FC<RoutesProp> = (props): JSX.Element => {
                                     path={`${AuthRoutes.dashboard}:companyID/:company/:stationID/:station${AuthRoutes.newexpense}:codeID/:codeName`}
                                     component={NewExpense}
                                     requiredRoles={[String(UserRoles.user)]}
+                                />
+                                <AuthRoute
+                                    exact
+                                    path={`${AuthRoutes.dashboard}:companyID/:company${AuthRoutes.resetlink}`}
+                                    component={RequestResetLink}
+                                    requiredRoles={[String(UserRoles.admin)]}
                                 />
                                 <Route path={`${NonAuthRoutes.unauthorized}`} component={Unauthorized} />
                                 {props.isLoggedIn ? (

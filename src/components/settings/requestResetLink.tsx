@@ -64,7 +64,7 @@ function RequestResetLink(props: ResetLinkProps): JSX.Element {
                                 />
                             </Form.Group>
                             <Form.Group>
-                                <Button className="btn-signin" disabled={!validateForm()} type="submit">
+                                <Button className="btnSubmit" disabled={!validateForm()} type="submit">
                                     {isLoading && (
                                         <Spinner
                                             as="span"

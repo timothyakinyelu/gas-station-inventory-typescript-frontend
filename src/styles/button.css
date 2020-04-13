@@ -46,7 +46,7 @@ span.success-msg {
     font-size: 0.7em;
 }
 
-.btnSubmit, .btnSubmit:hover, .btnSubmit.btn-primary:focus {
+.btnSubmit, .btnSubmit:hover, .btnSubmit.btn-primary, .btnSubmit.btn-primary:focus {
     background-color: #00c4cc;
     border-color: #00c4cc;
 }
