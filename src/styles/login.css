@@ -41,7 +41,7 @@
     width: 250px;
     border-color: #ff914d;
 }
-.loginWrapper .inputBox button[type="submit"]:active, .inputBox button[type="submit"] {
+.loginWrapper .inputBox button[type="submit"]:active, .inputBox button[type="submit"], .inputBox button[type="submit"]:focus {
     border: 0;
     background: none;
     display: block;

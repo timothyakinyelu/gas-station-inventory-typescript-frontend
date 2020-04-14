@@ -1,0 +1,141 @@
+.termInput {
+    position: relative;
+    display: inline-block;
+    padding: 0.5em;
+    border: 1px solid #ddd;
+    outline: none;
+    transition: box-shadow 200ms, border-color 200ms;
+    border-radius: 5px;
+}
+.termInput.active {
+    border-color: #137bb5;
+    box-shadow: inset 0 -3px 0 #137bb5;
+}
+.termInput .fa {
+    color: #2b88bc;
+}
+.termInputControl {
+    display: inline-block;
+    min-width: 5em;
+    padding: 3px;
+    text-align: center;
+    background-color: #eee;
+    border-radius: 1em;
+    cursor: pointer;
+}
+.termInputControl.selecting {
+    color: white;
+}
+.termInputControl.selecting.isStartMonth {
+    background-color: #137bb5;
+}
+.termInputControl.selecting.isEndMonth {
+    background-color: #ff2d55;
+}
+.picker {
+    position: absolute;
+    display: block;
+    right: 0;
+    top: 2.9em;
+    min-width: 300px;
+    padding: 10px;
+    background-color: white;
+    border-radius: 3px;
+    box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.2);
+    box-sizing: border-box;
+    /* -webkit-touch-callout: none;
+    user-select: none; */
+    z-index: 999;
+}
+.pickerCaret {
+    display: none;
+    position: absolute;
+    top: -0.9em;
+    width: 1.5em;
+    height: 1.5em;
+    background-size: contain;
+    background-repeat: no-repeat;
+    transition: left 500ms;
+    /* background-image: url(data:image/png;
+        base64,iVBORw0KGgoAAAANSUhEUgAAAG4AAABMCAMAAAC74XL0AAAA+VBMVEX///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADw8PAAAADj4+MAAAAAAAAAAAAAAAAAAACxsbEAAAAAAACAgID39/d1dXVra2vMzMy+vr719fXw8PCdnZ2amprCwsK8vLy3t7e0tLTm5ubd3d3JycnHx8fX19fV1dXS0tL8/Pz39/fj4+Pf39/d3d3b29vq6urk5OTj4+P////y8vLr6+vp6en////u7u79/f36+vrx8fH5+fn39/f19fX////39/f+/v79/f37+/v6+vr5+fn////8/Pz////+/v7///+FGs6FAAAAUnRSTlMAAQIDBAUGBwgJCgsMDQ4PEBEREhITFBUWFxcYGSAhIyYoKzIzNDU/QUNER0pRUl9gYWFjbG5vcHp9foCHi4yQmqGjqbS2t8DG0dLT1NXg4/DxJjbxaAAAAtxJREFUeNrt2el6k0AUgGHTsIQdxEyCVMUtilqtW7QubTSaRqXGOfd/MTKheqoDHZbxR2K/G3gfeDgHJrl00f9U70zbwyG1cxqS28AVVL+vKGqeovT7BbkN3C9K03R9kKfrmqYoCG4qh5iq6rpp2raTZ1mGUYCbzvXyGDYYWJbr+n6Q53m2zcDigdlMjseCgJDRiJDh0Pc5cCO5nR1FYQ+J64YhIeNxlDcaDYfshg4Gqtrv9/I2jUNM00zTcdiNjKI43t2NYwaGoedZFgfK5Saz5XIxTWRzON6aZhiO4/vsRsYzWLdKi+tzXcvSdRx3yVyuFdFUNocjYNueNxzm1zaF362SKCIkCBzHNHGdSeVSCtiC5ySNt+eF4WgUJSdwtsN4PCbE9x0Hx10mt4A/25fG4Xiz1bXGokP4KzrJr48bd0ncHnBlCc/JGm8KfHM524XnkgzKeing2m6TOZT3gNsuMrgpVEQTjuu+TVKobBnjuOM4dOISCtXNeK7beEcncF776+1SfEyoKoJtuRmcG015rsM2eQWCTpLW24XnUgqiFu04HAHcJskKxL3hpq8tt4A67TXn8OhhGLZ9uk0OoVZ0wq4vCFwXX7YtuH2oWcZzLbYJhbrN4ygSvGxFXJJB/aYCTjxxc2gQTQXjIOIOoFGrpAGHL1R2rGLX9hgatqx+t4u5hELT3pdz4hdqFMUZNO8pt13qcnNoEb0r4ASngaZlpycHbhyEp4F2zXlOPALJCtp2sJ4+3+fHoZpbQvtSnqt8TIIAD43twk9B0yweFxH3BDqViTm8lYTcp9CtGSFhiMvsfO5GBl17UZfz/fAzdI7eCwJuVZdzr0FC366JOfbJ4DwCKX1ybZs9KgLuFgU5veM4/qffwdWvIKuHBsNwEMq4jyAtehO5ij8knoPEvuBfG+XcHZDahzIOwSs/QG7PECvhjkF2t5HjyCOQ3vfLDCvt+vE/6G3OXbQF/QSAiT/qMlFuagAAAABJRU5ErkJggg==
+    ); */
+}
+.pickerControl {
+    width: 2.9166666667em;
+    height: 2.9166666667em;
+    margin: 0 auto;
+    font-size: 0.8em;
+    font-weight: bold;
+    line-height: 2.9166666667;
+    cursor: pointer;
+    transition: background-color 200ms, box-shadow 200ms;
+}
+.pickerControlInner {
+    border-radius: 50%;
+    transition: background-color 200ms;
+}
+.pickerControlInner:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+    color: black;
+}
+.pickerControl.selected.isStartMonth {
+    box-shadow: inset -20px 0 0 0 #e8e8e8;
+}
+.pickerControl.selected.isStartMonth .pickerControlInner {
+    background-color: #137bb5;
+}
+.pickerControl.selected.isEndMonth {
+    box-shadow: inset 20px 0 0 0 #e8e8e8, -10px 0 0 0 #e8e8e8;
+}
+.pickerControl.selected.isEndMonth .pickerControlInner {
+    background-color: #ff2d55;
+}
+.pickerControl.selected .pickerControlInner {
+    color: white;
+}
+.picker th svg {
+    display: block;
+    width: 15%;
+    margin: 0 auto;
+    fill: #666;
+    cursor: pointer;
+}
+.picker th svg:hover {
+    fill: black;
+}
+.picker .yearOneContext, .picker .yearTwoContext {
+    float: left;
+    width: calc(50% - .25em);
+}
+.picker .yearOneContext table, .picker .yearTwoContext table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.picker .yearOneContext tr + tr td, .picker .yearTwoContext tr + tr td {
+    padding-top: 5px;
+}
+.picker .yearOneContext td, .picker .yearTwoContext td, .picker .yearOneContext th, .picker .yearTwoContext th {
+    text-align: center;
+    color: #666;
+    font-weight: normal;
+}
+.picker .yearOneContext th, .picker .yearTwoContext th {
+    font-size: 0.875em;
+    letter-spacing: 2px;
+}
+.picker .yearOneContext td.cellWithinRange .pickerControl, .picker .yearTwoContext td.cellWithinRange .pickerControl {
+    background-color: #e8e8e8;
+    color: #aaa;
+}
+.picker .yearOneContext td.cellWithinRange:not(:first-child) .pickerControl, .picker .yearTwoContext td.cellWithinRange:not(:first-child) .pickerControl {
+    box-shadow: -10px 0 0 0 #e8e8e8;
+}
+.picker .yearTwoContext {
+    margin-left: 0.5em;
+}
+
+@media (max-width: 768px) {
+    .datePicker {
+        justify-content: flex-end;
+    }
+}
