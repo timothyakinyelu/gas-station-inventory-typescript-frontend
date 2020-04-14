@@ -19,13 +19,21 @@ const Graph: React.FC<GraphProps> = ({ chartInfo }): JSX.Element => {
     };
 
     useEffect(() => {
-        if (chartInfo === []) {
+        const ac = new AbortController();
+
+        if (!chartInfo) {
             return;
         }
 
         setDataSet(charts());
         setIsloading(false);
+
+        return function cleanup(): void {
+            setIsloading(true);
+            ac.abort();
+        };
     }, [chartInfo]);
+
     return (
         <>
             <div className="row justify-content-center card-body">

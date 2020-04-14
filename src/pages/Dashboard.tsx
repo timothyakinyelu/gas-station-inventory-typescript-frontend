@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useCallback, useState } from 'react';
 import metric from '../api/metric';
 import { currentMonthSales, currentMonthExpenses, chartInfo } from '../redux/dashboard/actions';
@@ -78,9 +79,9 @@ const Dashboard: React.FC<DashboardProps> = ({ currentMonthExpenses, currentMont
 };
 
 Dashboard.propTypes = {
-    currentMonthSales: PropTypes.any.isRequired,
-    currentMonthExpenses: PropTypes.any.isRequired,
-    chartInfo: PropTypes.any.isRequired,
+    currentMonthSales: PropTypes.any,
+    currentMonthExpenses: PropTypes.any,
+    chartInfo: PropTypes.any,
 };
 
 export default connect(null, { currentMonthSales, currentMonthExpenses, chartInfo })(Dashboard);
