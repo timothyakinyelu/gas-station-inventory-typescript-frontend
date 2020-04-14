@@ -9,7 +9,7 @@ interface ResetLinkProps {
     addToast: typeof addToast;
 }
 
-function RequestResetLink(props: ResetLinkProps): JSX.Element {
+function PasswordResetLink(props: ResetLinkProps): JSX.Element {
     const [email, setEmail] = useState('');
     const [isLoading, setIsLoading] = useState(false);
 
@@ -85,4 +85,4 @@ function RequestResetLink(props: ResetLinkProps): JSX.Element {
     );
 }
 
-export default connect(null, { addToast })(RequestResetLink);
+export default connect(null, { addToast })(PasswordResetLink);
