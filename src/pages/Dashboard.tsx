@@ -17,7 +17,6 @@ interface DashboardProps {
 }
 
 const Dashboard: React.FC<DashboardProps> = ({ currentMonthExpenses, currentMonthSales, chartInfo }): JSX.Element => {
-    console.log('re-run');
     const { companyID } = useParams();
     const [isSet, setIsSet] = useState<boolean>(false);
     const [hasLoaded, setHasLoaded] = useState(false);
