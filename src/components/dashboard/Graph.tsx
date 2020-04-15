@@ -29,7 +29,6 @@ const Graph: React.FC<GraphProps> = ({ chartInfo }): JSX.Element => {
         setIsloading(false);
 
         return function cleanup(): void {
-            setIsloading(true);
             ac.abort();
         };
     }, [chartInfo]);

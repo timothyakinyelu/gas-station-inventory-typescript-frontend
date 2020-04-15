@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import MonthExpenses from './MonthExpenses';
 
 interface MonthExpensesListProps {
-    currentexpenses: Metric[];
+    currentexpenses?: Metric[];
 }
 
 const MonthExpensesList: React.FC<MonthExpensesListProps> = ({ currentexpenses }): JSX.Element => {

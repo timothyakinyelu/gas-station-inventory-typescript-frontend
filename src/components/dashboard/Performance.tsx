@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import React, { useEffect, useCallback } from 'react';
 import { AppState } from '../../redux';
-import { Metric } from '../../redux/dashboard/types';
+import { Metric, MetricState } from '../../redux/dashboard/types';
 import { connect } from 'react-redux';
 import MonthSalesList from './sales/MonthSalesList';
 import PropTypes from 'prop-types';
@@ -13,8 +13,8 @@ import metric from '../../api/metric';
 import { useParams } from 'react-router-dom';
 
 interface PerformanceProps {
-    cMonthSales: Metric[];
-    cMonthExpenses: Metric[];
+    cMonthSales?: Metric[];
+    cMonthExpenses?: Metric[];
     currentMonthSales: typeof currentMonthSales;
     currentMonthExpenses: typeof currentMonthExpenses;
 }
@@ -114,7 +114,7 @@ Performance.propTypes = {
     currentMonthExpenses: PropTypes.any,
 };
 
-const mapStateToProps = (state: AppState) => ({
+const mapStateToProps = (state: AppState): MetricState => ({
     cMonthSales: state.metric.cMonthSales,
     cMonthExpenses: state.metric.cMonthExpenses,
 });
