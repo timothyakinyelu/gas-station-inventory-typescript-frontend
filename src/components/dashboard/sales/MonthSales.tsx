@@ -8,7 +8,7 @@ interface MonthSalesProps {
 
 const MonthSales: React.FC<MonthSalesProps> = ({ sale }): JSX.Element => {
     return (
-        <div className="col-sm-12 col-md-6">
+        <div className="col-sm-12 col-md-6 salePadding">
             <h6 className="outlet-name">{sale.name}</h6>
             <div className="card no-shadow rm-border bg-transparent widget-chart text-left">
                 <div className="widget-chart-content">

@@ -50,14 +50,6 @@ const dateToLocalMidnightDateTime = (date: string | number | Date) =>
         new Date(date).setTime(new Date(date).getTime() + (new Date(date).getTimezoneOffset() / 60) * 60 * 60 * 1000),
     );
 
-//Props:
-// - onChange (Function)
-// - startName (String)
-// - defaultStartValue (ISO Date)
-// - endName (String)
-// - defaultEndValue (ISO Date)
-// - dayOfMonth (Number)
-
 interface MyProps {
     onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
     startName?: string;
@@ -91,7 +83,7 @@ export default class TermPicker extends React.Component<MyProps, MyState> {
             currentDate = new Date(),
             startDate = defaultStartValue
                 ? dateToLocalMidnightDateTime(defaultStartValue)
-                : new Date(new Date(currentDate).setMonth(currentDate.getMonth() + 1)),
+                : new Date(new Date(currentDate).setMonth(currentDate.getMonth())),
             endDate = defaultEndValue
                 ? dateToLocalMidnightDateTime(defaultEndValue)
                 : new Date(new Date(currentDate).setMonth(currentDate.getMonth() + 12));

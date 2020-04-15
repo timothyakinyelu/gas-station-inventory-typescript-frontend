@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Form, Button, Spinner } from 'react-bootstrap';
 import settings from '../../api/settings';
-import '../../styles/Login.css';
+import '../../styles/login.css';
 import { Link, useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { addToast } from '../../redux/toast/actions';

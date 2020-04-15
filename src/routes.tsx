@@ -29,6 +29,7 @@ import NewSupply from './pages/supplies/NewSupply';
 import NewExpense from './pages/expenses/NewExpense';
 import PasswordResetLink from './components/settings/PasswordResetLink';
 import PasswordReset from './components/settings/PasswordReset';
+import Footer from './reusables/navigation/Footer';
 
 interface RoutesProp {
     isLoggedIn: boolean;
@@ -204,6 +205,7 @@ const Routes: React.FC<RoutesProp> = (props): JSX.Element => {
                                 {/* {location.key === undefined && <Redirect to={`${NonAuthRoutes.unauthorized}`} />} */}
                             </Switch>
                         </div>
+                        <Footer />
                     </div>
                 </>
             )}
