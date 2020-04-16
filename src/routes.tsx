@@ -27,8 +27,8 @@ import { connect } from 'react-redux';
 import NewStock from './pages/stocks/NewStock';
 import NewSupply from './pages/supplies/NewSupply';
 import NewExpense from './pages/expenses/NewExpense';
-import RequestResetLink from './components/settings/RequestResetLink';
-import ResetPassword from './components/settings/ResetPassword';
+import PasswordResetLink from './components/settings/PasswordResetLink';
+import PasswordReset from './components/settings/PasswordReset';
 
 interface RoutesProp {
     isLoggedIn: boolean;
@@ -44,7 +44,7 @@ const Routes: React.FC<RoutesProp> = (props): JSX.Element => {
             {location.pathname === NonAuthRoutes.login || location.pathname === NonAuthRoutes.resetpassword ? (
                 <>
                     <Route exact path={NonAuthRoutes.login} component={Login} />
-                    <Route exact path={NonAuthRoutes.resetpassword} component={ResetPassword} />
+                    <Route exact path={NonAuthRoutes.resetpassword} component={PasswordReset} />
                 </>
             ) : (
                 <>
@@ -192,7 +192,7 @@ const Routes: React.FC<RoutesProp> = (props): JSX.Element => {
                                 <AuthRoute
                                     exact
                                     path={`${AuthRoutes.dashboard}:companyID/:company${AuthRoutes.resetlink}`}
-                                    component={RequestResetLink}
+                                    component={PasswordResetLink}
                                     requiredRoles={[String(UserRoles.admin)]}
                                 />
                                 <Route path={`${NonAuthRoutes.unauthorized}`} component={Unauthorized} />

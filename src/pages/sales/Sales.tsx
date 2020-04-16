@@ -88,7 +88,6 @@ const Sales: React.FC<SalesProps> = ({ setStation, station, history, fetchStatio
         <div className="sales-header">
             <h3 className="signage">Service Station Sales</h3>
             <Stations selectedStation={station} handleSelect={handleSelect} />
-
             {!isFetched ? (
                 <div className="list-table">
                     <Loader />

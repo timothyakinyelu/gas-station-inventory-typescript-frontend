@@ -9,7 +9,7 @@ interface ResetPasswordProps {
     addToast: typeof addToast;
 }
 
-function ResetPassword(props: ResetPasswordProps): JSX.Element {
+function PasswordReset(props: ResetPasswordProps): JSX.Element {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [passwordConfirmation, setPasswordConfirmation] = useState('');
@@ -131,4 +131,4 @@ function ResetPassword(props: ResetPasswordProps): JSX.Element {
     );
 }
 
-export default connect(null, { addToast })(ResetPassword);
+export default connect(null, { addToast })(PasswordReset);
