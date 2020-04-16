@@ -1,4 +1,4 @@
-import { CentralState, FETCH_STATIONS, CentralActionTypes, SET_STATION, Station } from './types';
+import { CentralState, FETCH_STATIONS, CentralActionTypes, SET_STATION, Station, SET_SIDEBAR } from './types';
 
 export function fetchStations(stations: CentralState): CentralActionTypes {
     return {
@@ -11,5 +11,12 @@ export function setStation(selectedStation: Station): CentralActionTypes {
     return {
         type: SET_STATION,
         payload: selectedStation,
+    };
+}
+
+export function setSidebar(sidebarToggle: boolean): CentralActionTypes {
+    return {
+        type: SET_SIDEBAR,
+        payload: sidebarToggle,
     };
 }

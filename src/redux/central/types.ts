@@ -8,10 +8,12 @@ export interface Station {
 export interface CentralState {
     stations?: Station[];
     station?: Station;
+    sidebarToggle?: boolean;
 }
 
 export const FETCH_STATIONS = 'FETCH_STATIONS';
 export const SET_STATION = 'SET_STATION';
+export const SET_SIDEBAR = 'SET_SIDEBAR';
 
 export interface FetchStationsAction {
     type: typeof FETCH_STATIONS;
@@ -23,4 +25,9 @@ export interface SetStationAction {
     payload: Station;
 }
 
-export type CentralActionTypes = FetchStationsAction | SetStationAction;
+export interface SetSidebarAction {
+    type: typeof SET_SIDEBAR;
+    payload: boolean;
+}
+
+export type CentralActionTypes = FetchStationsAction | SetStationAction | SetSidebarAction;

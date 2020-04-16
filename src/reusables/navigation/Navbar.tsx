@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import React, { useEffect, useState } from 'react';
 import { endSession } from '../../redux/auth/actions';
 import { Dropdown } from 'react-bootstrap';
-import { User, AuthState } from '../../redux/auth/types';
+import { User } from '../../redux/auth/types';
 import { Link } from 'react-router-dom';
 import navLogo from '../../images/logo.png';
 import mobileLogo from '../../images/inTree.png';
@@ -12,19 +13,23 @@ import authHelper from '../../authHelper';
 import PropTypes from 'prop-types';
 import { useWindowResize } from '../../useWindowResize';
 import '../../styles/navbar.css';
+import { setSidebar } from '../../redux/central/actions';
 
 interface NavbarProps {
     endSession: typeof endSession;
+    setSidebar: typeof setSidebar;
+    sidebarToggle: boolean;
     isLoggedIn: boolean;
     user: User;
 }
 
-const Navbar: React.FC<NavbarProps> = ({ endSession, isLoggedIn, user }): JSX.Element => {
+const Navbar: React.FC<NavbarProps> = (props): JSX.Element => {
+    const { endSession, isLoggedIn, user } = props;
+
     const { width } = useWindowResize();
     const [letter, setLetter] = useState<string | undefined>('');
     const [str, setStr] = useState<string | undefined>('');
     const [hidden, setHidden] = useState<boolean>(true);
-    const [show, setShow] = useState<boolean>(true);
 
     useEffect(() => {
         if (!isLoggedIn) {
@@ -50,10 +55,11 @@ const Navbar: React.FC<NavbarProps> = ({ endSession, isLoggedIn, user }): JSX.El
     const toggleSidebar = (e: React.MouseEvent<HTMLElement, MouseEvent>): void => {
         e.preventDefault();
         setHidden(!hidden);
-        setShow(!show);
+
+        props.setSidebar(!props.sidebarToggle);
 
         const side = document.getElementById('root');
-        if (show === true) {
+        if (props.sidebarToggle === true) {
             side?.classList.add('show-sidebar');
         } else {
             side?.classList.remove('show-sidebar');
@@ -83,7 +89,7 @@ const Navbar: React.FC<NavbarProps> = ({ endSession, isLoggedIn, user }): JSX.El
             </div>
             {width < 768 && (
                 <div className="hamburger-menu">
-                    {show ? (
+                    {props.sidebarToggle ? (
                         <i className="mdi mdi-sort-variant" onClick={toggleSidebar}></i>
                     ) : (
                         <i className="mdi mdi-close" onClick={toggleSidebar}></i>
@@ -124,15 +130,18 @@ const Navbar: React.FC<NavbarProps> = ({ endSession, isLoggedIn, user }): JSX.El
 
 Navbar.propTypes = {
     endSession: PropTypes.any.isRequired,
+    setSidebar: PropTypes.any,
+    sidebarToggle: PropTypes.any,
     isLoggedIn: PropTypes.bool.isRequired,
     user: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = (state: AppState): AuthState => {
+const mapStateToProps = (state: AppState) => {
     return {
         isLoggedIn: state.auth.isLoggedIn,
         user: state.auth.user,
+        sidebarToggle: state.center.sidebarToggle,
     };
 };
 
-export default connect(mapStateToProps, { endSession })(Navbar);
+export default connect(mapStateToProps, { endSession, setSidebar })(Navbar);

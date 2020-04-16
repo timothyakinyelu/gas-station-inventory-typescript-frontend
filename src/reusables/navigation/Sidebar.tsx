@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import React from 'react';
 import { useWindowResize } from '../../useWindowResize';
@@ -6,14 +7,19 @@ import { Link } from 'react-router-dom';
 import { AuthRoutes, UserRoles } from '../../constants';
 import { connect } from 'react-redux';
 import { AppState } from '../../redux';
-import { AuthState, User } from '../../redux/auth/types';
+import { User } from '../../redux/auth/types';
 import PropTypes from 'prop-types';
+import { setSidebar } from '../../redux/central/actions';
 
 interface SidebarProps {
     user: User;
+    setSidebar: typeof setSidebar;
+    sidebarToggle: boolean;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ user }) => {
+const Sidebar: React.FC<SidebarProps> = (props) => {
+    const { user } = props;
+
     const isAdmin = user.permission === UserRoles.admin;
     const isUser = user.permission === UserRoles.user;
 
@@ -23,6 +29,7 @@ const Sidebar: React.FC<SidebarProps> = ({ user }) => {
     const stationID = user.stationID;
 
     const { width } = useWindowResize();
+
     const toggleLink = (event: React.MouseEvent<HTMLLIElement, MouseEvent>): void => {
         event.preventDefault();
 
@@ -51,6 +58,16 @@ const Sidebar: React.FC<SidebarProps> = ({ user }) => {
         }
     };
 
+    const toggleSidebar = (e: React.MouseEvent<HTMLElement, MouseEvent>): void => {
+        e.preventDefault();
+
+        const side = document.getElementById('root');
+        if (!props.sidebarToggle) {
+            side?.classList.remove('show-sidebar');
+            props.setSidebar(!props.sidebarToggle);
+        }
+    };
+
     return (
         <aside className="left-sidebar">
             <div className="scroll-sidebar scroller">
@@ -63,7 +80,7 @@ const Sidebar: React.FC<SidebarProps> = ({ user }) => {
                                     <span className="hide-menu">Dashboard</span>
                                 </a>
                                 <ul className="collapse">
-                                    <li className="nav-item">
+                                    <li className="nav-item" onClick={toggleSidebar}>
                                         <Link
                                             to={`${AuthRoutes.dashboard}${companyID}/${company}`}
                                             className="nav-link"
@@ -81,7 +98,7 @@ const Sidebar: React.FC<SidebarProps> = ({ user }) => {
                             </a>
                             <ul className="collapse">
                                 {isAdmin && (
-                                    <li className="nav-item">
+                                    <li className="nav-item" onClick={toggleSidebar}>
                                         <Link
                                             to={`${AuthRoutes.dashboard}${companyID}/${company}${AuthRoutes.sales}`}
                                             className="nav-link"
@@ -91,7 +108,7 @@ const Sidebar: React.FC<SidebarProps> = ({ user }) => {
                                     </li>
                                 )}
                                 {isUser && (
-                                    <li className="nav-item">
+                                    <li className="nav-item" onClick={toggleSidebar}>
                                         <Link
                                             to={`${AuthRoutes.dashboard}${companyID}/${company}/${stationID}/${station}${AuthRoutes.newsale}`}
                                             className="nav-link"
@@ -109,7 +126,7 @@ const Sidebar: React.FC<SidebarProps> = ({ user }) => {
                                     <span className="hide-menu">Products</span>
                                 </a>
                                 <ul className="collapse">
-                                    <li className="nav-item">
+                                    <li className="nav-item" onClick={toggleSidebar}>
                                         <Link
                                             to={`${AuthRoutes.dashboard}${companyID}/${company}${AuthRoutes.products}`}
                                             className="nav-link"
@@ -127,7 +144,7 @@ const Sidebar: React.FC<SidebarProps> = ({ user }) => {
                                     <span className="hide-menu">Employees</span>
                                 </a>
                                 <ul className="collapse">
-                                    <li className="nav-item">
+                                    <li className="nav-item" onClick={toggleSidebar}>
                                         <Link
                                             to={`${AuthRoutes.dashboard}${companyID}/${company}${AuthRoutes.employees}`}
                                             className="nav-link"
@@ -145,7 +162,7 @@ const Sidebar: React.FC<SidebarProps> = ({ user }) => {
                             </a>
                             <ul className="collapse">
                                 {isAdmin && (
-                                    <li className="nav-item">
+                                    <li className="nav-item" onClick={toggleSidebar}>
                                         <Link
                                             to={`${AuthRoutes.dashboard}${companyID}/${company}${AuthRoutes.stocks}`}
                                             className="nav-link"
@@ -155,7 +172,7 @@ const Sidebar: React.FC<SidebarProps> = ({ user }) => {
                                     </li>
                                 )}
                                 {isUser && (
-                                    <li className="nav-item">
+                                    <li className="nav-item" onClick={toggleSidebar}>
                                         <Link
                                             to={`${AuthRoutes.dashboard}${companyID}/${company}/${stationID}/${station}${AuthRoutes.newstock}`}
                                             className="nav-link"
@@ -173,7 +190,7 @@ const Sidebar: React.FC<SidebarProps> = ({ user }) => {
                             </a>
                             <ul className="collapse">
                                 {isAdmin && (
-                                    <li>
+                                    <li className="nav-item" onClick={toggleSidebar}>
                                         <Link
                                             to={`${AuthRoutes.dashboard}${companyID}/${company}${AuthRoutes.supplies}`}
                                             className="nav-link"
@@ -183,7 +200,7 @@ const Sidebar: React.FC<SidebarProps> = ({ user }) => {
                                     </li>
                                 )}
                                 {isUser && (
-                                    <li className="nav-item">
+                                    <li className="nav-item" onClick={toggleSidebar}>
                                         <Link
                                             to={`${AuthRoutes.dashboard}${companyID}/${company}/${stationID}/${station}${AuthRoutes.newsupply}`}
                                             className="nav-link"
@@ -201,7 +218,7 @@ const Sidebar: React.FC<SidebarProps> = ({ user }) => {
                             </a>
                             <ul className="collapse">
                                 {isAdmin && (
-                                    <li className="nav-item">
+                                    <li className="nav-item" onClick={toggleSidebar}>
                                         <Link
                                             to={`${AuthRoutes.dashboard}${companyID}/${company}${AuthRoutes.expenses}`}
                                             className="nav-link"
@@ -211,7 +228,7 @@ const Sidebar: React.FC<SidebarProps> = ({ user }) => {
                                     </li>
                                 )}
                                 {isUser && (
-                                    <li className="nav-item">
+                                    <li className="nav-item" onClick={toggleSidebar}>
                                         <Link
                                             to={`${AuthRoutes.dashboard}${companyID}/${company}/${stationID}/${station}${AuthRoutes.newexpense}`}
                                             className="nav-link"
@@ -229,16 +246,15 @@ const Sidebar: React.FC<SidebarProps> = ({ user }) => {
                                     <span className="hide-menu">Settings</span>
                                 </a>
                                 <ul className="collapse">
-                                    <li>
+                                    <li className="nav-item" onClick={toggleSidebar}>
                                         <Link
                                             to={`${AuthRoutes.dashboard}${companyID}/${company}${AuthRoutes.users}`}
                                             className="nav-link"
                                         >
-                                            {' '}
-                                            All Users{' '}
+                                            All Users
                                         </Link>
                                     </li>
-                                    <li>
+                                    <li className="nav-item" onClick={toggleSidebar}>
                                         <Link
                                             to={`${AuthRoutes.dashboard}${companyID}/${company}${AuthRoutes.resetlink}`}
                                             className="nav-link"
@@ -258,13 +274,16 @@ const Sidebar: React.FC<SidebarProps> = ({ user }) => {
 
 Sidebar.propTypes = {
     user: PropTypes.object.isRequired,
+    setSidebar: PropTypes.any,
+    sidebarToggle: PropTypes.any,
 };
 
-const mapStateToProps = (state: AppState): AuthState => {
+const mapStateToProps = (state: AppState) => {
     return {
         isLoggedIn: state.auth.isLoggedIn,
         user: state.auth.user,
+        sidebarToggle: state.center.sidebarToggle,
     };
 };
 
-export default connect(mapStateToProps)(Sidebar);
+export default connect(mapStateToProps, { setSidebar })(Sidebar);

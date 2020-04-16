@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { CentralState, CentralActionTypes, FETCH_STATIONS, SET_STATION } from './types';
+import { CentralState, CentralActionTypes, FETCH_STATIONS, SET_STATION, SET_SIDEBAR } from './types';
 
 const initialState: CentralState = {
     stations: [],
     station: {},
+    sidebarToggle: true,
 };
 
 export function CentralReducer(state = initialState, actions: CentralActionTypes): any {
@@ -17,6 +18,11 @@ export function CentralReducer(state = initialState, actions: CentralActionTypes
             return {
                 ...state,
                 station: actions.payload,
+            };
+        case SET_SIDEBAR:
+            return {
+                ...state,
+                sidebarToggle: actions.payload,
             };
         default:
             return state;
