@@ -87,6 +87,13 @@ span.success-msg {
         bottom: 74px;
         right: 16px;
     }
+
+    .search-wrapper {
+        position: unset;
+        top: 0px;
+        right: 0px;
+        width: unset;
+    }
 }
 
 @media (max-width:620px) {
