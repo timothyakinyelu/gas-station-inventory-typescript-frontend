@@ -1,16 +1,21 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useEffect, useCallback } from 'react';
+import React, { useEffect, useCallback, useState } from 'react';
 import { Station } from '../../redux/central/types';
 import PropTypes from 'prop-types';
 import { AppState } from '../../redux';
-import { SuppliesState, Supplies, FETCH_STATION_SUPPLIES } from '../../redux/supplies/types';
-import { connect, useDispatch } from 'react-redux';
+import { SuppliesState, Supplies } from '../../redux/supplies/types';
+import { connect } from 'react-redux';
 import DataTable from '../../reusables/partials/DataTable';
 import supply from '../../api/supply';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
 import { addToast } from '../../redux/toast/actions';
+import Search from '../../reusables/partials/Search';
+import { inTreeApi } from '../../config';
+import { debounce } from 'lodash';
+import { fetchStationSupplies } from '../../redux/supplies/actions';
 
 interface SuppliesListProps {
+    fetchStationSupplies: typeof fetchStationSupplies;
     station?: Station;
     supplies?: Supplies;
     getSupplies: (value?: number) => void;
@@ -18,7 +23,7 @@ interface SuppliesListProps {
     addToast: typeof addToast;
 }
 const SuppliesList: React.FC<SuppliesListProps> = (props): JSX.Element => {
-    const { supplies, station } = props;
+    const { supplies, station, fetchStationSupplies } = props;
     const str = station?.slug;
 
     const name = str?.replace(/-/, ' ').toLocaleUpperCase();
@@ -26,8 +31,9 @@ const SuppliesList: React.FC<SuppliesListProps> = (props): JSX.Element => {
     const count = Math.random() * 100 + 1;
 
     const history = useHistory();
-    const dispatch = useDispatch();
+
     const { companyID, company, stationID, stationName } = useParams();
+    const [term, setTerm] = useState<string | undefined>('');
 
     function useQuery(): any {
         return new URLSearchParams(useLocation().search);
@@ -39,19 +45,16 @@ const SuppliesList: React.FC<SuppliesListProps> = (props): JSX.Element => {
     const fetchData = useCallback(
         (pageNumber: number): any => {
             supply.getSuppliesByStation(Number(stationID), pageNumber).then((res) => {
-                dispatch({
-                    type: FETCH_STATION_SUPPLIES,
-                    payload: {
-                        supplies: res.data,
-                    },
+                fetchStationSupplies({
+                    supplies: res.data,
                 });
             });
 
             history.push(
-                '/' + companyID + '/' + company + '/stocks/' + stationID + '/' + stationName + '?page=' + pageNumber,
+                '/' + companyID + '/' + company + '/supplies/' + stationID + '/' + stationName + '?page=' + pageNumber,
             );
         },
-        [dispatch, history, companyID, company, stationID, stationName],
+        [history, companyID, company, stationID, stationName],
     );
 
     const changePage = useCallback(
@@ -62,6 +65,32 @@ const SuppliesList: React.FC<SuppliesListProps> = (props): JSX.Element => {
         },
         [fetchData],
     );
+
+    const sendQuery = (query: string): void => {
+        if (term === undefined) return;
+        if (term?.length > -1) {
+            const requestOptions = {
+                params: {
+                    search: query,
+                },
+            };
+            inTreeApi.get('/suppliesbystation/' + stationID, requestOptions).then(function (response) {
+                fetchStationSupplies({
+                    supplies: response.data,
+                });
+            });
+        }
+    };
+
+    const delayedQuery = useCallback(
+        debounce((q: string) => sendQuery(q), 500),
+        [],
+    );
+
+    const searchSupplies = (e: React.ChangeEvent<HTMLInputElement>): void => {
+        setTerm(e.target.value);
+        delayedQuery(e.target.value);
+    };
 
     useEffect(() => {
         const ac = new AbortController();
@@ -94,6 +123,7 @@ const SuppliesList: React.FC<SuppliesListProps> = (props): JSX.Element => {
                         {name} Supplies Table
                     </h5>
                     <div className="list-table-inner">
+                        <Search handleSearch={searchSupplies} />
                         {items?.data === undefined || items?.data.length < 0 ? (
                             <h5>No Records Available!</h5>
                         ) : (
@@ -113,6 +143,7 @@ const SuppliesList: React.FC<SuppliesListProps> = (props): JSX.Element => {
 };
 
 SuppliesList.propTypes = {
+    fetchStationSupplies: PropTypes.any,
     station: PropTypes.any,
     supplies: PropTypes.any,
     addToast: PropTypes.any,
@@ -124,4 +155,4 @@ const mapStateToProps = (state: AppState): SuppliesState => ({
     supplies: state.suppliesRoot.supplies,
 });
 
-export default connect(mapStateToProps, { addToast })(SuppliesList);
+export default connect(mapStateToProps, { addToast, fetchStationSupplies })(SuppliesList);

@@ -1,16 +1,21 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useEffect, useCallback } from 'react';
+import React, { useEffect, useCallback, useState } from 'react';
 import { Station } from '../../redux/central/types';
 import PropTypes from 'prop-types';
 import { AppState } from '../../redux';
-import { StocksState, Stocks, FETCH_STATION_STOCKS } from '../../redux/stocks/types';
-import { connect, useDispatch } from 'react-redux';
+import { StocksState, Stocks } from '../../redux/stocks/types';
+import { connect } from 'react-redux';
 import DataTable from '../../reusables/partials/DataTable';
 import stock from '../../api/stock';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
 import { addToast } from '../../redux/toast/actions';
+import Search from '../../reusables/partials/Search';
+import { inTreeApi } from '../../config';
+import { debounce } from 'lodash';
+import { fetchStationStocks } from '../../redux/stocks/actions';
 
 interface StocksListProps {
+    fetchStationStocks: typeof fetchStationStocks;
     station?: Station;
     stocks?: Stocks;
     getStocks: (value?: number) => void;
@@ -18,7 +23,7 @@ interface StocksListProps {
     addToast: typeof addToast;
 }
 const StocksList: React.FC<StocksListProps> = (props): JSX.Element => {
-    const { stocks, station } = props;
+    const { stocks, station, fetchStationStocks } = props;
     const str = station?.slug;
 
     const name = str?.replace(/-/, ' ').toLocaleUpperCase();
@@ -26,8 +31,9 @@ const StocksList: React.FC<StocksListProps> = (props): JSX.Element => {
     const count = Math.random() * 100 + 1;
 
     const history = useHistory();
-    const dispatch = useDispatch();
+
     const { companyID, company, stationID, stationName } = useParams();
+    const [term, setTerm] = useState<string | undefined>('');
 
     function useQuery(): any {
         return new URLSearchParams(useLocation().search);
@@ -39,11 +45,8 @@ const StocksList: React.FC<StocksListProps> = (props): JSX.Element => {
     const fetchData = useCallback(
         (pageNumber: number): any => {
             stock.getStocksByStation(Number(stationID), pageNumber).then((res) => {
-                dispatch({
-                    type: FETCH_STATION_STOCKS,
-                    payload: {
-                        stocks: res.data,
-                    },
+                fetchStationStocks({
+                    stocks: res.data,
                 });
             });
 
@@ -51,7 +54,7 @@ const StocksList: React.FC<StocksListProps> = (props): JSX.Element => {
                 '/' + companyID + '/' + company + '/stocks/' + stationID + '/' + stationName + '?page=' + pageNumber,
             );
         },
-        [dispatch, history, companyID, company, stationID, stationName],
+        [history, companyID, company, stationID, stationName],
     );
 
     const changePage = useCallback(
@@ -62,6 +65,32 @@ const StocksList: React.FC<StocksListProps> = (props): JSX.Element => {
         },
         [fetchData],
     );
+
+    const sendQuery = (query: string): void => {
+        if (term === undefined) return;
+        if (term?.length > -1) {
+            const requestOptions = {
+                params: {
+                    search: query,
+                },
+            };
+            inTreeApi.get('/stocksbystation/' + stationID, requestOptions).then(function (response) {
+                fetchStationStocks({
+                    stocks: response.data,
+                });
+            });
+        }
+    };
+
+    const delayedQuery = useCallback(
+        debounce((q: string) => sendQuery(q), 500),
+        [],
+    );
+
+    const searchStocks = (e: React.ChangeEvent<HTMLInputElement>): void => {
+        setTerm(e.target.value);
+        delayedQuery(e.target.value);
+    };
 
     useEffect(() => {
         const ac = new AbortController();
@@ -94,6 +123,7 @@ const StocksList: React.FC<StocksListProps> = (props): JSX.Element => {
                         {name} Stocks Table
                     </h5>
                     <div className="list-table-inner">
+                        <Search handleSearch={searchStocks} />
                         {items?.data === undefined || items?.data.length < 0 ? (
                             <h5>No Records Available!</h5>
                         ) : (
@@ -113,6 +143,7 @@ const StocksList: React.FC<StocksListProps> = (props): JSX.Element => {
 };
 
 StocksList.propTypes = {
+    fetchStationStocks: PropTypes.any,
     station: PropTypes.any,
     stocks: PropTypes.any,
     addToast: PropTypes.any,
@@ -124,4 +155,4 @@ const mapStateToProps = (state: AppState): StocksState => ({
     stocks: state.stocksRoot.stocks,
 });
 
-export default connect(mapStateToProps, { addToast })(StocksList);
+export default connect(mapStateToProps, { addToast, fetchStationStocks })(StocksList);
