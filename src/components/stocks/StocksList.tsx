@@ -54,7 +54,7 @@ const StocksList: React.FC<StocksListProps> = (props): JSX.Element => {
                 '/' + companyID + '/' + company + '/stocks/' + stationID + '/' + stationName + '?page=' + pageNumber,
             );
         },
-        [history, companyID, company, stationID, stationName],
+        [history, companyID, company, stationID, stationName, fetchStationStocks],
     );
 
     const changePage = useCallback(

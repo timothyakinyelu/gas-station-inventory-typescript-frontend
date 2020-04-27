@@ -14,10 +14,6 @@ const Graph: React.FC<GraphProps> = ({ chartInfo }): JSX.Element => {
     const [isLoading, setIsloading] = useState<boolean>(true);
     const [dataSet, setDataSet] = useState<Metric[]>([]);
 
-    const charts = (): any => {
-        return chartInfo?.map((charts: Metric) => charts);
-    };
-
     useEffect(() => {
         const ac = new AbortController();
 
@@ -25,7 +21,7 @@ const Graph: React.FC<GraphProps> = ({ chartInfo }): JSX.Element => {
             return;
         }
 
-        setDataSet(charts());
+        setDataSet(chartInfo?.map((charts: Metric) => charts));
         setIsloading(false);
 
         return function cleanup(): void {

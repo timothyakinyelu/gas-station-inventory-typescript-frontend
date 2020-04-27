@@ -10,17 +10,12 @@ interface MonthExpensesListProps {
 
 const MonthExpensesList: React.FC<MonthExpensesListProps> = ({ currentexpenses }): JSX.Element => {
     const [expenses, setExpenses] = useState<Metric[]>([]);
-    // const [key, setkey] = useState(false);
-    // const size = useWindowSize();
 
-    const figs = (): any => {
-        return currentexpenses?.map((expense: Metric) => expense);
-    };
     useEffect(() => {
         if (currentexpenses === undefined) {
             return;
         }
-        setExpenses(figs());
+        setExpenses(currentexpenses?.map((expense: Metric) => expense));
     }, [currentexpenses]);
 
     return (

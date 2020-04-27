@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-import React, { useEffect, useCallback } from 'react';
+import React, { useEffect, useCallback, useState } from 'react';
 import { AppState } from '../../redux';
 import { Metric, MetricState } from '../../redux/dashboard/types';
 import { connect } from 'react-redux';
@@ -26,6 +26,7 @@ const Performance: React.FC<PerformanceProps> = ({
     currentMonthSales,
 }): JSX.Element => {
     const { companyID } = useParams();
+    const [date, setDate] = useState<string | undefined>('');
 
     const getStationExpensesByDate = useCallback(
         (range: any[]): void => {
@@ -47,6 +48,8 @@ const Performance: React.FC<PerformanceProps> = ({
             metric.getStationSalesByDate(companyID, from, to).then((res) => {
                 currentMonthSales(res.data);
             });
+
+            setDate(new Date(from).toLocaleDateString('en-NG', { month: 'long', year: 'numeric' }));
         },
         [currentMonthSales, companyID],
     );
@@ -79,7 +82,7 @@ const Performance: React.FC<PerformanceProps> = ({
                         font-weight-normal"
                     >
                         <i className="header-icon"></i>
-                        Service Outlets Performance for current month
+                        Service Outlets Performance for {date === '' ? 'current month' : date}
                     </div>
                     <TermPicker
                         onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => handleSelection(e)}

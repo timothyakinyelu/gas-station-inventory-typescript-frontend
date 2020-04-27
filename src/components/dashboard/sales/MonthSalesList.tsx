@@ -10,17 +10,16 @@ interface MonthSalesListProps {
 
 const MonthSalesList: React.FC<MonthSalesListProps> = ({ currentsales }): JSX.Element => {
     const [sales, setSales] = useState<Metric[]>([]);
-    // const [key, setkey] = useState(false);
-    // const size = useWindowSize();
 
-    const figs = (): any => {
-        return currentsales?.map((sale: Metric) => sale);
-    };
+    // const figs = (): any => {
+    //     return currentsales?.map((sale: Metric) => sale);
+    // };
+
     useEffect(() => {
         if (currentsales === undefined) {
             return;
         }
-        setSales(figs());
+        setSales(currentsales?.map((sale: Metric) => sale));
     }, [currentsales]);
 
     return (

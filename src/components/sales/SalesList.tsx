@@ -47,7 +47,7 @@ const SalesList: React.FC<SalesListProps> = ({ station, sales, fetchStationSales
                 '/' + companyID + '/' + company + '/sales/' + stationID + '/' + stationName + '?page=' + pageNumber,
             );
         },
-        [history, companyID, company, stationID, stationName],
+        [history, companyID, company, stationID, stationName, fetchStationSales],
     );
 
     const changePage = useCallback(
