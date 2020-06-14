@@ -24,7 +24,7 @@ interface SalesDetailProps {
 const SalesDetail: React.FC<SalesDetailProps> = (props): JSX.Element => {
     const { fetchSalesDetails, salesDetail, fetchSaleToEdit, editSale } = props;
 
-    const { stationID, codeID, code, date } = useParams();
+    const { companyID, stationID, codeID, code, date } = useParams();
 
     const [isFetched, setIsFetched] = useState(false);
     const [editModalShow, setEditModalShow] = useState(false);
@@ -50,7 +50,7 @@ const SalesDetail: React.FC<SalesDetailProps> = (props): JSX.Element => {
     }, [fetchSalesDetails, stationID, codeID, date]);
 
     const getProducts = useCallback(() => {
-        product.getProducts().then((res) => {
+        product.getProducts(companyID).then((res) => {
             setProducts(res.data.data);
         });
     }, []);
