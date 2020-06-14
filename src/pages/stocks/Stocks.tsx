@@ -117,24 +117,24 @@ const Stocks: React.FC<StocksProps> = (props): JSX.Element => {
     const handleEdit = (id?: number): void => {
         setModalShow(true);
         setLoading(true);
-        try {
-            stock
-                .editStock(id)
-                .then((res) => {
-                    fetchStockToEdit({
-                        editStock: res.data.stock,
-                    });
-                    setLoading(false);
-                })
-                .catch((err) => {
-                    props.addToast({
-                        id: count,
-                        message: err.response.data.error,
-                    });
+        // try {
+        stock
+            .editStock(id)
+            .then((res) => {
+                fetchStockToEdit({
+                    editStock: res.data.stock,
                 });
-        } catch (e) {
-            console.log(e.response);
-        }
+                setLoading(false);
+            })
+            .catch((err) => {
+                props.addToast({
+                    id: count,
+                    message: err.response.data.error,
+                });
+            });
+        // } catch (e) {
+        //     console.log(e.response);
+        // }
     };
 
     return (

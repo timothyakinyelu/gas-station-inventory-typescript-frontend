@@ -117,24 +117,24 @@ const Supplies: React.FC<SuppliesProps> = (props): JSX.Element => {
     const handleEdit = (id?: number): void => {
         setModalShow(true);
         setLoading(true);
-        try {
-            supply
-                .editSupply(id)
-                .then((res) => {
-                    fetchSupplyToEdit({
-                        editSupply: res.data.supply,
-                    });
-                    setLoading(false);
-                })
-                .catch((err) => {
-                    props.addToast({
-                        id: count,
-                        message: err.response.data.error,
-                    });
+        // try {
+        supply
+            .editSupply(id)
+            .then((res) => {
+                fetchSupplyToEdit({
+                    editSupply: res.data.supply,
                 });
-        } catch (e) {
-            console.log(e.response);
-        }
+                setLoading(false);
+            })
+            .catch((err) => {
+                props.addToast({
+                    id: count,
+                    message: err.response.data.error,
+                });
+            });
+        // } catch (e) {
+        //     console.log(e.response);
+        // }
     };
 
     return (

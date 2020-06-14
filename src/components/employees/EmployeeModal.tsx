@@ -157,7 +157,7 @@ const EmployeeModal: React.FC<EmployeeModalProps> = (props): JSX.Element => {
                     });
                 });
         } catch (e) {
-            alert(e);
+            // alert(e);
             setIsLoading(false);
         }
 

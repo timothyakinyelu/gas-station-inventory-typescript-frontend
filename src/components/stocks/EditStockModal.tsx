@@ -86,7 +86,7 @@ const EditStockModal: React.FC<EditStockModalProps> = (props): JSX.Element => {
                     });
                 });
         } catch (e) {
-            alert(e);
+            // alert(e);
             setIsLoading(false);
         }
 

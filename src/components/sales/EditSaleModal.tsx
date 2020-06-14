@@ -109,7 +109,7 @@ const EditSaleModal: React.FC<EditSaleModalProps> = (props): JSX.Element => {
                     });
                 });
         } catch (e) {
-            alert(e);
+            // alert(e);
             setIsLoading(false);
         }
         // props.onHide();

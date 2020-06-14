@@ -58,7 +58,7 @@ const EditExpenseModal: React.FC<EditExpenseModalProps> = (props): JSX.Element =
                     });
                 });
         } catch (e) {
-            alert(e);
+            // alert(e);
             setIsLoading(false);
         }
         setIsLoading(true);

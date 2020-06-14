@@ -69,23 +69,23 @@ const Users: React.FC<UsersProp> = (props): JSX.Element => {
     const handleEdit = (id?: number): void => {
         setModalShow(true);
         setLoading(true);
-        try {
-            user.editUser(id)
-                .then((res) => {
-                    fetchUserToEdit({
-                        editUser: res.data.user,
-                    });
-                    setLoading(false);
-                })
-                .catch((err) => {
-                    props.addToast({
-                        id: count,
-                        message: err.response.data.error,
-                    });
+        // try {
+        user.editUser(id)
+            .then((res) => {
+                fetchUserToEdit({
+                    editUser: res.data.user,
                 });
-        } catch (e) {
-            console.log(e.response);
-        }
+                setLoading(false);
+            })
+            .catch((err) => {
+                props.addToast({
+                    id: count,
+                    message: err.response.data.error,
+                });
+            });
+        // } catch (e) {
+        //     console.log(e.response);
+        // }
     };
 
     return (

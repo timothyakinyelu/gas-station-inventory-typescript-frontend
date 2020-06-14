@@ -69,25 +69,25 @@ const Employees: React.FC<EmployeesProp> = (props): JSX.Element => {
     const handleEdit = (id?: number): void => {
         setModalShow(true);
         setLoading(true);
-        try {
-            employee
-                .editEmployee(id)
-                .then((res) => {
-                    console.log(res.data);
-                    fetchEmployeeToEdit({
-                        editEmployee: res.data.employee,
-                    });
-                    setLoading(false);
-                })
-                .catch((err) => {
-                    props.addToast({
-                        id: count,
-                        message: err.response.data.error,
-                    });
+        // try {
+        employee
+            .editEmployee(id)
+            .then((res) => {
+                console.log(res.data);
+                fetchEmployeeToEdit({
+                    editEmployee: res.data.employee,
                 });
-        } catch (e) {
-            console.log(e.response);
-        }
+                setLoading(false);
+            })
+            .catch((err) => {
+                props.addToast({
+                    id: count,
+                    message: err.response.data.error,
+                });
+            });
+        // } catch (e) {
+        //     console.log(e.response);
+        // }
     };
 
     return (

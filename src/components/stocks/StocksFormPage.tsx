@@ -24,21 +24,21 @@ const StocksFormPage: React.FC<StocksFormProps> = (props): JSX.Element => {
     const count = Math.random() * 100 + 1;
 
     const getProductsByCodeId = useCallback((id) => {
-        try {
-            product
-                .getProductByCodeId(id, companyID)
-                .then((res) => {
-                    setProducts(res.data.products);
-                })
-                .catch((err) => {
-                    addToast({
-                        id: count,
-                        message: err.response.data.error,
-                    });
+        // try {
+        product
+            .getProductByCodeId(id, companyID)
+            .then((res) => {
+                setProducts(res.data.products);
+            })
+            .catch((err) => {
+                addToast({
+                    id: count,
+                    message: err.response.data.error,
                 });
-        } catch (e) {
-            console.log(e);
-        }
+            });
+        // } catch (e) {
+        //     // console.log(e);
+        // }
     }, []);
 
     useEffect(() => {

@@ -75,7 +75,7 @@ const EditSupplyModal: React.FC<EditSupplyModalProps> = (props): JSX.Element => 
                     });
                 });
         } catch (e) {
-            alert(e);
+            // alert(e);
             setIsLoading(false);
         }
 

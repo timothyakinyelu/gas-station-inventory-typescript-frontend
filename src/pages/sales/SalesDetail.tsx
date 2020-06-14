@@ -74,24 +74,24 @@ const SalesDetail: React.FC<SalesDetailProps> = (props): JSX.Element => {
     const handleEdit = (id?: number): void => {
         setEditModalShow(true);
         setLoading(true);
-        try {
-            sale.editDaySale(id)
-                .then((res) => {
-                    // console.log(res.data.user)
-                    fetchSaleToEdit({
-                        editSale: res.data.sale,
-                    });
-                    setLoading(false);
-                })
-                .catch((err) => {
-                    props.addToast({
-                        id: count,
-                        message: err.response.data.error,
-                    });
+        // try {
+        sale.editDaySale(id)
+            .then((res) => {
+                // console.log(res.data.user)
+                fetchSaleToEdit({
+                    editSale: res.data.sale,
                 });
-        } catch (e) {
-            console.log(e.response);
-        }
+                setLoading(false);
+            })
+            .catch((err) => {
+                props.addToast({
+                    id: count,
+                    message: err.response.data.error,
+                });
+            });
+        // } catch (e) {
+        //     console.log(e.response);
+        // }
     };
 
     const handleHide = (): void => {

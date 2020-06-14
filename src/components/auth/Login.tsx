@@ -90,7 +90,7 @@ const Login: React.FC<LoginProps> = (props): JSX.Element => {
                 }
             })
             .catch((err) => {
-                console.log(err);
+                // console.log(err);
                 props.addToast({
                     id: count,
                     message: err.response.data.error,

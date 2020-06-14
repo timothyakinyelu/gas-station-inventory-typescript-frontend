@@ -83,24 +83,24 @@ const Products: React.FC<ProductsProp> = (props): JSX.Element => {
     const handleEdit = (id?: number): void => {
         setModalShow(true);
         setLoading(true);
-        try {
-            product
-                .editProduct(id)
-                .then((res) => {
-                    fetchProductToEdit({
-                        editProduct: res.data.product,
-                    });
-                    setLoading(false);
-                })
-                .catch((err) => {
-                    props.addToast({
-                        id: count,
-                        message: err.response.data.error,
-                    });
+        // try {
+        product
+            .editProduct(id)
+            .then((res) => {
+                fetchProductToEdit({
+                    editProduct: res.data.product,
                 });
-        } catch (e) {
-            console.log(e.response);
-        }
+                setLoading(false);
+            })
+            .catch((err) => {
+                props.addToast({
+                    id: count,
+                    message: err.response.data.error,
+                });
+            });
+        // } catch (e) {
+        //     console.log(e.response);
+        // }
     };
 
     return (

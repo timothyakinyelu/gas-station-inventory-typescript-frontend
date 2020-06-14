@@ -66,25 +66,25 @@ const ExpensesDetail: React.FC<ExpensesDetailProps> = (props): JSX.Element => {
     const handleEdit = (id?: number): void => {
         setEditModalShow(true);
         setLoading(true);
-        try {
-            expense
-                .editDayExpense(id)
-                .then((res) => {
-                    // console.log(res.data.user)
-                    fetchExpenseToEdit({
-                        editExpense: res.data.sale,
-                    });
-                    setLoading(false);
-                })
-                .catch((err) => {
-                    props.addToast({
-                        id: count,
-                        message: err.response.data.error,
-                    });
+        // try {
+        expense
+            .editDayExpense(id)
+            .then((res) => {
+                // console.log(res.data.user)
+                fetchExpenseToEdit({
+                    editExpense: res.data.sale,
                 });
-        } catch (e) {
-            console.log(e.response);
-        }
+                setLoading(false);
+            })
+            .catch((err) => {
+                props.addToast({
+                    id: count,
+                    message: err.response.data.error,
+                });
+            });
+        // } catch (e) {
+        //     console.log(e.response);
+        // }
     };
 
     const handleHide = (): void => {

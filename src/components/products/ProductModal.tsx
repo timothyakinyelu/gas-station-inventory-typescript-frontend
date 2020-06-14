@@ -93,7 +93,7 @@ const ProductModal: React.FC<ProductModalProps> = (props): JSX.Element => {
                     });
                 });
         } catch (e) {
-            alert(e);
+            // alert(e);
             setIsLoading(false);
         }
         setIsLoading(true);
