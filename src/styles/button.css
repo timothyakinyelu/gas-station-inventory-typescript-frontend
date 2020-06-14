@@ -2,8 +2,8 @@
     position: absolute;
 }
 .addNew {
-    position: relative;
-    top: -30px;
+    position: absolute;
+    top: 39px;
     font-size: 4em;
     z-index: 9;
     color: #ff914d;
@@ -77,7 +77,7 @@ span.success-msg {
 
 @media (min-width: 768px) {
     .addNew {
-        left: 690px;
+        right: 30px;
     }
 }
 
