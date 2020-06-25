@@ -36,8 +36,8 @@ export default {
         stationID?: any,
         codeID?: any,
         productID?: any,
-        supplyPrice?: any,
         dateOfSupply?: any,
+        supplyPrice?: any,
         items?: any,
     ): Promise<any> {
         const fd = new FormData();
