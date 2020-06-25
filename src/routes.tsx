@@ -197,12 +197,12 @@ const Routes: React.FC<RoutesProp> = (props): JSX.Element => {
                                     requiredRoles={[String(UserRoles.admin)]}
                                 />
                                 <Route path={`${NonAuthRoutes.unauthorized}`} component={Unauthorized} />
-                                {props.isLoggedIn ? (
+                                {/* {props.isLoggedIn ? (
                                     <Route component={Notfound} />
                                 ) : (
                                     <Redirect to={NonAuthRoutes.login} />
-                                )}
-                                {/* {location.key === undefined && <Redirect to={`${NonAuthRoutes.unauthorized}`} />} */}
+                                )} */}
+                                {location.key === undefined && <Redirect to={`${NonAuthRoutes.unauthorized}`} />}
                             </Switch>
                         </div>
                         <Footer />
