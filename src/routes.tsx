@@ -18,7 +18,7 @@ import Users from './pages/users/Users';
 import Employees from './pages/employees/Employees';
 import Stocks from './pages/stocks/Stocks';
 import Supplies from './pages/supplies/Supplies';
-import { Notfound } from './pages/Notfound';
+// import { Notfound } from './pages/Notfound';
 import ExpensesDetail from './pages/expenses/ExpensesDetail';
 import Expenses from './pages/expenses/Expenses';
 import { AppState } from './redux';
