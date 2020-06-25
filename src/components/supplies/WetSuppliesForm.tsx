@@ -58,7 +58,7 @@ const WetSuppliesForm: React.FC<WetSuppliesFormProps> = (props): JSX.Element => 
             if (idx !== sidx) return item;
             return {
                 ...item,
-                pumpCode: evt.target.value,
+                tankCode: evt.target.value,
             };
         });
 
