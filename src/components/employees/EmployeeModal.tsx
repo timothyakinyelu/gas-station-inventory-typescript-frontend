@@ -92,7 +92,7 @@ const EmployeeModal: React.FC<EmployeeModalProps> = (props): JSX.Element => {
                     setIsLoading(false);
                     addToast({
                         id: count,
-                        message: res.data.success,
+                        message: res.data.data,
                     });
 
                     getEmployees();
@@ -145,7 +145,7 @@ const EmployeeModal: React.FC<EmployeeModalProps> = (props): JSX.Element => {
 
                     addToast({
                         id: count,
-                        message: res.data.success,
+                        message: res.data.data,
                     });
 
                     getEmployees();
