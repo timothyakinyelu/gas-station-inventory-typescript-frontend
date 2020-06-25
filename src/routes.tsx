@@ -35,7 +35,7 @@ interface RoutesProp {
     isLoggedIn: boolean;
 }
 
-const Routes: React.FC<RoutesProp> = (props): JSX.Element => {
+const Routes: React.FC<RoutesProp> = (): JSX.Element => {
     CheckResponse();
     const location = useLocation();
     const { height } = useWindowResize();
