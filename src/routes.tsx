@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Switch, Route, useLocation, Redirect } from 'react-router-dom';
 import { NonAuthRoutes, AuthRoutes, UserRoles } from './constants';
 import Navbar from './reusables/navigation/Navbar';
@@ -18,7 +18,7 @@ import Users from './pages/users/Users';
 import Employees from './pages/employees/Employees';
 import Stocks from './pages/stocks/Stocks';
 import Supplies from './pages/supplies/Supplies';
-// import { Notfound } from './pages/Notfound';
+import { Notfound } from './pages/Notfound';
 import ExpensesDetail from './pages/expenses/ExpensesDetail';
 import Expenses from './pages/expenses/Expenses';
 import { AppState } from './redux';
@@ -35,7 +35,7 @@ interface RoutesProp {
     isLoggedIn: boolean;
 }
 
-const Routes: React.FC<RoutesProp> = (): JSX.Element => {
+const Routes: React.FC<RoutesProp> = (props): JSX.Element => {
     CheckResponse();
     const location = useLocation();
     const { height } = useWindowResize();
@@ -49,12 +49,14 @@ const Routes: React.FC<RoutesProp> = (): JSX.Element => {
                 </>
             ) : (
                 <>
-                    {location.pathname !== NonAuthRoutes.login && location.pathname !== NonAuthRoutes.unauthorized && (
-                        <>
-                            <Navbar />
-                            <Sidebar />
-                        </>
-                    )}
+                    {location.pathname !== NonAuthRoutes.login &&
+                        location.pathname !== NonAuthRoutes.unauthorized &&
+                        location.pathname !== NonAuthRoutes.resetpassword && (
+                            <>
+                                <Navbar />
+                                <Sidebar />
+                            </>
+                        )}
                     <div className="appWrapper" style={{ minHeight: height }}>
                         <div className="container-fluid">
                             <Switch>
@@ -197,12 +199,18 @@ const Routes: React.FC<RoutesProp> = (): JSX.Element => {
                                     requiredRoles={[String(UserRoles.admin)]}
                                 />
                                 <Route path={`${NonAuthRoutes.unauthorized}`} component={Unauthorized} />
-                                {/* {props.isLoggedIn ? (
+                                {props.isLoggedIn ? (
                                     <Route component={Notfound} />
                                 ) : (
-                                    <Redirect to={NonAuthRoutes.login} />
-                                )} */}
-                                {location.key === undefined && <Redirect to={`${NonAuthRoutes.unauthorized}`} />}
+                                    <Fragment>
+                                        {location.pathname !== NonAuthRoutes.resetpassword ? (
+                                            <Redirect to={NonAuthRoutes.login} />
+                                        ) : (
+                                            <Redirect to={NonAuthRoutes.resetpassword} />
+                                        )}
+                                    </Fragment>
+                                )}
+                                {/* {location.key === undefined && <Redirect to={`${NonAuthRoutes.unauthorized}`} />} */}
                             </Switch>
                         </div>
                         <Footer />
