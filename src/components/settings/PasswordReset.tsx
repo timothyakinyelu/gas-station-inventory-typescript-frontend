@@ -5,6 +5,7 @@ import '../../styles/login.css';
 import { Link, useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { addToast } from '../../redux/toast/actions';
+import '../../styles/password.css';
 
 interface ResetPasswordProps {
     addToast: typeof addToast;
@@ -60,74 +61,60 @@ function PasswordReset(props: ResetPasswordProps): JSX.Element {
     }
 
     return (
-        <div className="changeWrapper container align-content-center">
-            <div className="Login align-items-center">
-                <div className="card ">
-                    <div className="card-header">Change Password</div>
-                    <div className="card-body">
-                        <Form onSubmit={handleSubmit}>
-                            <Form.Group>
-                                <Form.Label>Email</Form.Label>
-                                <Form.Control
-                                    type="email"
-                                    placeholder="Enter a valid email"
-                                    value={email || ''}
-                                    onChange={(e: React.ChangeEvent<HTMLInputElement>): void =>
-                                        setEmail(e.target.value)
-                                    }
-                                />
-                            </Form.Group>
-                            <Form.Group>
-                                <Form.Label>Password</Form.Label>
-                                <Form.Control
-                                    type="password"
-                                    placeholder="Enter a secure password"
-                                    value={password || ''}
-                                    onChange={(e: React.ChangeEvent<HTMLInputElement>): void =>
-                                        setPassword(e.target.value)
-                                    }
-                                />
-                            </Form.Group>
-                            <Form.Group>
-                                <Form.Label>Confirm Password</Form.Label>
-                                <Form.Control
-                                    type="password"
-                                    placeholder="password must the same as above"
-                                    value={passwordConfirmation || ''}
-                                    onChange={(e: React.ChangeEvent<HTMLInputElement>): void =>
-                                        setPasswordConfirmation(e.target.value)
-                                    }
-                                />
-                            </Form.Group>
-                            <Form.Row>
-                                <Form.Group className="col-md-4">
-                                    <Button className="btnSubmit" disabled={!validateForm()} type="submit">
-                                        {isLoading && (
-                                            <Spinner
-                                                as="span"
-                                                animation="border"
-                                                size="sm"
-                                                role="status"
-                                                aria-hidden="true"
-                                            />
-                                        )}
-                                        Reset
-                                    </Button>
-                                </Form.Group>
-                                <Form.Group className="col-md-4 offset-md-6" style={{ paddingLeft: '0px' }}>
-                                    {isShown && (
-                                        <Button className="lg-show">
-                                            <Link type="button" className="lg-text" to="/login">
-                                                Login
-                                            </Link>
-                                        </Button>
-                                    )}
-                                </Form.Group>
-                            </Form.Row>
-                        </Form>
-                    </div>
+        <div className="wrap-login100 p-t-30 p-b-50">
+            <span className="login100-form-title p-b-41">Reset Password</span>
+            <Form className="login100-form validate-form p-b-33 p-t-5" onSubmit={handleSubmit}>
+                <div className="wrap-input100 validate-input" data-validate="Enter username">
+                    <Form.Control
+                        className="input100"
+                        type="email"
+                        placeholder="Enter a valid email"
+                        value={email || ''}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>): void => setEmail(e.target.value)}
+                    />
                 </div>
-            </div>
+                <div className="wrap-input100 validate-input" data-validate="Enter username">
+                    <Form.Control
+                        className="input100"
+                        type="password"
+                        placeholder="Enter a secure password"
+                        value={password || ''}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>): void => setPassword(e.target.value)}
+                    />
+                </div>
+                <div className="wrap-input100 validate-input" data-validate="Enter username">
+                    <Form.Control
+                        className="input100"
+                        type="password"
+                        placeholder="Enter password again"
+                        value={passwordConfirmation || ''}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>): void =>
+                            setPasswordConfirmation(e.target.value)
+                        }
+                    />
+                </div>
+                <div className="container-login100-form-btn m-t-32">
+                    <Form.Row>
+                        <Form.Group className="col-md-4">
+                            <Button className="btnSubmit login100-form-btn" disabled={!validateForm()} type="submit">
+                                {isLoading && (
+                                    <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" />
+                                )}
+                                Reset Password
+                            </Button>
+                        </Form.Group>
+                        <Form.Group className="col-md-4 offset-md-6" style={{ paddingLeft: '0px' }}>
+                            {isShown && (
+                                <Button className="lg-show">
+                                    <Link type="button" className="lg-text" to="/login">
+                                        Login
+                                    </Link>
+                                </Button>
+                            )}
+                        </Form.Group>
+                    </Form.Row>
+                </div>
+            </Form>
         </div>
     );
 }
