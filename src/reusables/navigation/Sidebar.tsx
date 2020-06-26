@@ -82,7 +82,7 @@ const Sidebar: React.FC<SidebarProps> = (props) => {
                                 <ul className="collapse">
                                     <li className="nav-item" onClick={toggleSidebar}>
                                         <Link
-                                            to={`${AuthRoutes.dashboard}${companyID}/${company}`}
+                                            to={`${AuthRoutes.home}${companyID}/${company}/${AuthRoutes.dashboard}`}
                                             className="nav-link"
                                         >
                                             Charts
@@ -100,7 +100,7 @@ const Sidebar: React.FC<SidebarProps> = (props) => {
                                 {isAdmin && (
                                     <li className="nav-item" onClick={toggleSidebar}>
                                         <Link
-                                            to={`${AuthRoutes.dashboard}${companyID}/${company}${AuthRoutes.sales}`}
+                                            to={`${AuthRoutes.home}${companyID}/${company}/${AuthRoutes.sales}`}
                                             className="nav-link"
                                         >
                                             All Sales
@@ -110,7 +110,7 @@ const Sidebar: React.FC<SidebarProps> = (props) => {
                                 {isUser && (
                                     <li className="nav-item" onClick={toggleSidebar}>
                                         <Link
-                                            to={`${AuthRoutes.dashboard}${companyID}/${company}/${stationID}/${station}${AuthRoutes.newsale}`}
+                                            to={`${AuthRoutes.home}${companyID}/${company}/${stationID}/${station}/${AuthRoutes.newsale}`}
                                             className="nav-link"
                                         >
                                             New Sale
@@ -128,7 +128,7 @@ const Sidebar: React.FC<SidebarProps> = (props) => {
                                 <ul className="collapse">
                                     <li className="nav-item" onClick={toggleSidebar}>
                                         <Link
-                                            to={`${AuthRoutes.dashboard}${companyID}/${company}${AuthRoutes.products}`}
+                                            to={`${AuthRoutes.home}${companyID}/${company}/${AuthRoutes.products}`}
                                             className="nav-link"
                                         >
                                             All Products
@@ -146,7 +146,7 @@ const Sidebar: React.FC<SidebarProps> = (props) => {
                                 <ul className="collapse">
                                     <li className="nav-item" onClick={toggleSidebar}>
                                         <Link
-                                            to={`${AuthRoutes.dashboard}${companyID}/${company}${AuthRoutes.employees}`}
+                                            to={`${AuthRoutes.home}${companyID}/${company}/${AuthRoutes.employees}`}
                                             className="nav-link"
                                         >
                                             All Employees
@@ -164,7 +164,7 @@ const Sidebar: React.FC<SidebarProps> = (props) => {
                                 {isAdmin && (
                                     <li className="nav-item" onClick={toggleSidebar}>
                                         <Link
-                                            to={`${AuthRoutes.dashboard}${companyID}/${company}${AuthRoutes.stocks}`}
+                                            to={`${AuthRoutes.home}${companyID}/${company}/${AuthRoutes.stocks}`}
                                             className="nav-link"
                                         >
                                             All Stocks
@@ -174,7 +174,7 @@ const Sidebar: React.FC<SidebarProps> = (props) => {
                                 {isUser && (
                                     <li className="nav-item" onClick={toggleSidebar}>
                                         <Link
-                                            to={`${AuthRoutes.dashboard}${companyID}/${company}/${stationID}/${station}${AuthRoutes.newstock}`}
+                                            to={`${AuthRoutes.home}${companyID}/${company}/${stationID}/${station}/${AuthRoutes.newstock}`}
                                             className="nav-link"
                                         >
                                             New Stock
@@ -192,7 +192,7 @@ const Sidebar: React.FC<SidebarProps> = (props) => {
                                 {isAdmin && (
                                     <li className="nav-item" onClick={toggleSidebar}>
                                         <Link
-                                            to={`${AuthRoutes.dashboard}${companyID}/${company}${AuthRoutes.supplies}`}
+                                            to={`${AuthRoutes.home}${companyID}/${company}/${AuthRoutes.supplies}`}
                                             className="nav-link"
                                         >
                                             All Supplies
@@ -202,7 +202,7 @@ const Sidebar: React.FC<SidebarProps> = (props) => {
                                 {isUser && (
                                     <li className="nav-item" onClick={toggleSidebar}>
                                         <Link
-                                            to={`${AuthRoutes.dashboard}${companyID}/${company}/${stationID}/${station}${AuthRoutes.newsupply}`}
+                                            to={`${AuthRoutes.home}${companyID}/${company}/${stationID}/${station}/${AuthRoutes.newsupply}`}
                                             className="nav-link"
                                         >
                                             New Supply
@@ -220,7 +220,7 @@ const Sidebar: React.FC<SidebarProps> = (props) => {
                                 {isAdmin && (
                                     <li className="nav-item" onClick={toggleSidebar}>
                                         <Link
-                                            to={`${AuthRoutes.dashboard}${companyID}/${company}${AuthRoutes.expenses}`}
+                                            to={`${AuthRoutes.home}${companyID}/${company}/${AuthRoutes.expenses}`}
                                             className="nav-link"
                                         >
                                             All Expenses
@@ -230,7 +230,7 @@ const Sidebar: React.FC<SidebarProps> = (props) => {
                                 {isUser && (
                                     <li className="nav-item" onClick={toggleSidebar}>
                                         <Link
-                                            to={`${AuthRoutes.dashboard}${companyID}/${company}/${stationID}/${station}${AuthRoutes.newexpense}`}
+                                            to={`${AuthRoutes.home}${companyID}/${company}/${stationID}/${station}/${AuthRoutes.newexpense}`}
                                             className="nav-link"
                                         >
                                             New Expense
@@ -248,7 +248,7 @@ const Sidebar: React.FC<SidebarProps> = (props) => {
                                 <ul className="collapse">
                                     <li className="nav-item" onClick={toggleSidebar}>
                                         <Link
-                                            to={`${AuthRoutes.dashboard}${companyID}/${company}${AuthRoutes.users}`}
+                                            to={`${AuthRoutes.home}${companyID}/${company}/${AuthRoutes.users}`}
                                             className="nav-link"
                                         >
                                             All Users
@@ -256,7 +256,7 @@ const Sidebar: React.FC<SidebarProps> = (props) => {
                                     </li>
                                     <li className="nav-item" onClick={toggleSidebar}>
                                         <Link
-                                            to={`${AuthRoutes.dashboard}${companyID}/${company}${AuthRoutes.resetlink}`}
+                                            to={`${AuthRoutes.home}${companyID}/${company}/${AuthRoutes.resetlink}`}
                                             className="nav-link"
                                         >
                                             Reset User Passwords
