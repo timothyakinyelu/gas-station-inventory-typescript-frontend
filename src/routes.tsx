@@ -40,18 +40,17 @@ const Routes: React.FC<RoutesProp> = (props): JSX.Element => {
     const location = useLocation();
     const { height } = useWindowResize();
 
+    console.log(location.pathname.includes(NonAuthRoutes.resetpassword), `{${NonAuthRoutes.resetpassword}:token}`);
+
     return (
-        <>
+        <Fragment>
             {location.pathname === NonAuthRoutes.login ? (
-                <>
-                    <Route exact path={NonAuthRoutes.login} component={Login} />
-                    <Route exact path={NonAuthRoutes.resetpassword} component={PasswordReset} />
-                </>
+                <Route exact path={NonAuthRoutes.login} component={Login} />
             ) : (
-                <>
+                <Fragment>
                     {location.pathname !== NonAuthRoutes.login &&
                         location.pathname !== NonAuthRoutes.unauthorized &&
-                        location.pathname !== NonAuthRoutes.resetpassword && (
+                        !location.pathname.includes(NonAuthRoutes.resetpassword) && (
                             <>
                                 <Navbar />
                                 <Sidebar />
@@ -62,151 +61,152 @@ const Routes: React.FC<RoutesProp> = (props): JSX.Element => {
                             <Switch>
                                 <AuthRoute
                                     exact
-                                    path={`${AuthRoutes.dashboard}:companyID/:company`}
+                                    path={`${AuthRoutes.home}:companyID/:company/${AuthRoutes.dashboard}`}
                                     component={Dashboard}
                                     requiredRoles={[String(UserRoles.admin)]}
                                 />
                                 <AuthRoute
                                     exact
-                                    path={`${AuthRoutes.dashboard}:companyID/:company${AuthRoutes.sales}`}
+                                    path={`${AuthRoutes.home}:companyID/:company/${AuthRoutes.sales}`}
                                     component={Sales}
                                     requiredRoles={[String(UserRoles.admin)]}
                                 />
                                 <AuthRoute
                                     exact
-                                    path={`${AuthRoutes.dashboard}:companyID/:company${AuthRoutes.sales}:stationID/:stationName`}
+                                    path={`${AuthRoutes.home}:companyID/:company/${AuthRoutes.sales}:stationID/:stationName`}
                                     component={Sales}
                                     requiredRoles={[String(UserRoles.admin)]}
                                 />
                                 <AuthRoute
                                     exact
-                                    path={`${AuthRoutes.dashboard}:companyID/:company${AuthRoutes.sales}:stationID/:stationName/:codeID/:code/:date`}
+                                    path={`${AuthRoutes.home}:companyID/:company/${AuthRoutes.sales}:stationID/:stationName/:codeID/:code/:date`}
                                     component={SalesDetail}
                                     requiredRoles={[String(UserRoles.admin)]}
                                 />
                                 <AuthRoute
                                     exact
-                                    path={`${AuthRoutes.dashboard}:companyID/:company${AuthRoutes.products}`}
+                                    path={`${AuthRoutes.home}:companyID/:company/${AuthRoutes.products}`}
                                     component={Products}
                                     requiredRoles={[String(UserRoles.admin)]}
                                 />
                                 <AuthRoute
                                     exact
-                                    path={`${AuthRoutes.dashboard}:companyID/:company${AuthRoutes.users}`}
+                                    path={`${AuthRoutes.home}:companyID/:company/${AuthRoutes.users}`}
                                     component={Users}
                                     requiredRoles={[String(UserRoles.admin)]}
                                 />
                                 <AuthRoute
                                     exact
-                                    path={`${AuthRoutes.dashboard}:companyID/:company${AuthRoutes.employees}`}
+                                    path={`${AuthRoutes.home}:companyID/:company/${AuthRoutes.employees}`}
                                     component={Employees}
                                     requiredRoles={[String(UserRoles.admin)]}
                                 />
                                 <AuthRoute
                                     exact
-                                    path={`${AuthRoutes.dashboard}:companyID/:company${AuthRoutes.stocks}`}
+                                    path={`${AuthRoutes.home}:companyID/:company/${AuthRoutes.stocks}`}
                                     component={Stocks}
                                     requiredRoles={[String(UserRoles.admin)]}
                                 />
                                 <AuthRoute
                                     exact
-                                    path={`${AuthRoutes.dashboard}:companyID/:company${AuthRoutes.stocks}:stationID/:stationName`}
+                                    path={`${AuthRoutes.home}:companyID/:company/${AuthRoutes.stocks}:stationID/:stationName`}
                                     component={Stocks}
                                     requiredRoles={[String(UserRoles.admin)]}
                                 />
                                 <AuthRoute
                                     exact
-                                    path={`${AuthRoutes.dashboard}:companyID/:company${AuthRoutes.supplies}`}
+                                    path={`${AuthRoutes.home}:companyID/:company/${AuthRoutes.supplies}`}
                                     component={Supplies}
                                     requiredRoles={[String(UserRoles.admin)]}
                                 />
                                 <AuthRoute
                                     exact
-                                    path={`${AuthRoutes.dashboard}:companyID/:company${AuthRoutes.supplies}:stationID/:stationName`}
+                                    path={`${AuthRoutes.home}:companyID/:company/${AuthRoutes.supplies}:stationID/:stationName`}
                                     component={Supplies}
                                     requiredRoles={[String(UserRoles.admin)]}
                                 />
                                 <AuthRoute
                                     exact
-                                    path={`${AuthRoutes.dashboard}:companyID/:company${AuthRoutes.expenses}`}
+                                    path={`${AuthRoutes.home}:companyID/:company/${AuthRoutes.expenses}`}
                                     component={Expenses}
                                     requiredRoles={[String(UserRoles.admin)]}
                                 />
                                 <AuthRoute
                                     exact
-                                    path={`${AuthRoutes.dashboard}:companyID/:company${AuthRoutes.expenses}:stationID/:stationName`}
+                                    path={`${AuthRoutes.home}:companyID/:company/${AuthRoutes.expenses}:stationID/:stationName`}
                                     component={Expenses}
                                     requiredRoles={[String(UserRoles.admin)]}
                                 />
                                 <AuthRoute
                                     exact
-                                    path={`${AuthRoutes.dashboard}:companyID/:company${AuthRoutes.expenses}:stationID/:stationName/:date`}
+                                    path={`${AuthRoutes.home}:companyID/:company/${AuthRoutes.expenses}:stationID/:stationName/:date`}
                                     component={ExpensesDetail}
                                     requiredRoles={[String(UserRoles.admin)]}
                                 />
                                 <AuthRoute
                                     exact
-                                    path={`${AuthRoutes.dashboard}:companyID/:company/:stationID/:station${AuthRoutes.newsale}`}
+                                    path={`${AuthRoutes.home}:companyID/:company/:stationID/:station/${AuthRoutes.newsale}`}
                                     component={NewSale}
                                     requiredRoles={[String(UserRoles.user)]}
                                 />
                                 <AuthRoute
                                     exact
-                                    path={`${AuthRoutes.dashboard}:companyID/:company/:stationID/:station${AuthRoutes.newsale}:codeID/:codeName`}
+                                    path={`${AuthRoutes.home}:companyID/:company/:stationID/:station/${AuthRoutes.newsale}:codeID/:codeName`}
                                     component={NewSale}
                                     requiredRoles={[String(UserRoles.user)]}
                                 />
                                 <AuthRoute
                                     exact
-                                    path={`${AuthRoutes.dashboard}:companyID/:company/:stationID/:station${AuthRoutes.newstock}`}
+                                    path={`${AuthRoutes.home}:companyID/:company/:stationID/:station/${AuthRoutes.newstock}`}
                                     component={NewStock}
                                     requiredRoles={[String(UserRoles.user)]}
                                 />
                                 <AuthRoute
                                     exact
-                                    path={`${AuthRoutes.dashboard}:companyID/:company/:stationID/:station${AuthRoutes.newstock}:codeID/:codeName`}
+                                    path={`${AuthRoutes.home}:companyID/:company/:stationID/:station/${AuthRoutes.newstock}:codeID/:codeName`}
                                     component={NewStock}
                                     requiredRoles={[String(UserRoles.user)]}
                                 />
                                 <AuthRoute
                                     exact
-                                    path={`${AuthRoutes.dashboard}:companyID/:company/:stationID/:station${AuthRoutes.newsupply}`}
+                                    path={`${AuthRoutes.home}:companyID/:company/:stationID/:station/${AuthRoutes.newsupply}`}
                                     component={NewSupply}
                                     requiredRoles={[String(UserRoles.user)]}
                                 />
                                 <AuthRoute
                                     exact
-                                    path={`${AuthRoutes.dashboard}:companyID/:company/:stationID/:station${AuthRoutes.newsupply}:codeID/:codeName`}
+                                    path={`${AuthRoutes.home}:companyID/:company/:stationID/:station/${AuthRoutes.newsupply}:codeID/:codeName`}
                                     component={NewSupply}
                                     requiredRoles={[String(UserRoles.user)]}
                                 />
                                 <AuthRoute
                                     exact
-                                    path={`${AuthRoutes.dashboard}:companyID/:company/:stationID/:station${AuthRoutes.newexpense}`}
+                                    path={`${AuthRoutes.home}:companyID/:company/:stationID/:station/${AuthRoutes.newexpense}`}
                                     component={NewExpense}
                                     requiredRoles={[String(UserRoles.user)]}
                                 />
                                 <AuthRoute
                                     exact
-                                    path={`${AuthRoutes.dashboard}:companyID/:company/:stationID/:station${AuthRoutes.newexpense}:codeID/:codeName`}
+                                    path={`${AuthRoutes.home}:companyID/:company/:stationID/:station/${AuthRoutes.newexpense}:codeID/:codeName`}
                                     component={NewExpense}
                                     requiredRoles={[String(UserRoles.user)]}
                                 />
                                 <AuthRoute
                                     exact
-                                    path={`${AuthRoutes.dashboard}:companyID/:company${AuthRoutes.resetlink}`}
+                                    path={`${AuthRoutes.home}:companyID/:company/${AuthRoutes.resetlink}`}
                                     component={PasswordResetLink}
                                     requiredRoles={[String(UserRoles.admin)]}
                                 />
+                                <Route exact path={`${NonAuthRoutes.resetpassword}:token`} component={PasswordReset} />
                                 <Route path={`${NonAuthRoutes.unauthorized}`} component={Unauthorized} />
                                 {props.isLoggedIn ? (
-                                    <Route component={Notfound} />
+                                    <Route path="*" component={Notfound} />
                                 ) : (
                                     <Fragment>
                                         {location.pathname !== NonAuthRoutes.resetpassword ? (
                                             <Redirect to={NonAuthRoutes.login} />
                                         ) : (
-                                            <Redirect to={NonAuthRoutes.resetpassword} />
+                                            <Redirect to={`${NonAuthRoutes.resetpassword}:token`} />
                                         )}
                                     </Fragment>
                                 )}
@@ -215,9 +215,9 @@ const Routes: React.FC<RoutesProp> = (props): JSX.Element => {
                         </div>
                         <Footer />
                     </div>
-                </>
+                </Fragment>
             )}
-        </>
+        </Fragment>
     );
 };
 
