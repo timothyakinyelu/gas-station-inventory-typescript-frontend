@@ -46,41 +46,29 @@ function PasswordResetLink(props: ResetLinkProps): JSX.Element {
     }
 
     return (
-        <div className="changeWrapper container align-content-center">
-            <div className="Login align-items-center">
-                <div className="card ">
-                    <div className="card-header">Reset Password</div>
-                    <div className="card-body">
-                        <Form onSubmit={handleSubmit}>
-                            <Form.Group>
-                                <Form.Label>Email</Form.Label>
-                                <Form.Control
-                                    type="email"
-                                    placeholder="Enter a valid email"
-                                    value={email || ''}
-                                    onChange={(e: React.ChangeEvent<HTMLInputElement>): void =>
-                                        setEmail(e.target.value)
-                                    }
-                                />
-                            </Form.Group>
-                            <Form.Group>
-                                <Button className="btnSubmit" disabled={!validateForm()} type="submit">
-                                    {isLoading && (
-                                        <Spinner
-                                            as="span"
-                                            animation="border"
-                                            size="sm"
-                                            role="status"
-                                            aria-hidden="true"
-                                        />
-                                    )}
-                                    Reset
-                                </Button>
-                            </Form.Group>
-                        </Form>
-                    </div>
+        <div className="wrap-login100 p-t-30 p-b-50">
+            <span className="login100-form-title p-b-41">Request Password Change</span>
+            <Form className="login100-form validate-form p-b-33 p-t-5" onSubmit={handleSubmit}>
+                <div className="wrap-input100 validate-input" data-validate="Enter username">
+                    <Form.Control
+                        className="input100"
+                        type="email"
+                        placeholder="Enter a valid email"
+                        value={email || ''}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>): void => setEmail(e.target.value)}
+                    />
                 </div>
-            </div>
+                <div className="container-login100-form-btn m-t-32">
+                    <Form.Group>
+                        <Button className="btnSubmit" disabled={!validateForm()} type="submit">
+                            {isLoading && (
+                                <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" />
+                            )}
+                            Request Link
+                        </Button>
+                    </Form.Group>
+                </div>
+            </Form>
         </div>
     );
 }
