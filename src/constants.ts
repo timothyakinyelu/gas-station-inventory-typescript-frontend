@@ -10,25 +10,26 @@ export const userRoles = {
 };
 
 export enum AuthRoutes {
-    dashboard = '/',
-    sales = '/sales/',
-    products = '/products/',
-    users = '/users/',
-    employees = '/employees/',
-    stocks = '/stocks/',
-    supplies = '/supplies/',
-    expenses = '/expenses/',
-    newsale = '/newsale/',
-    newstock = '/newstock/',
-    newsupply = '/newsupply/',
-    newexpense = '/newexpense/',
-    resetlink = '/settings/send-password-reset-link',
+    home = '/',
+    dashboard = 'dashboard',
+    sales = 'sales/',
+    products = 'products/',
+    users = 'users/',
+    employees = 'employees/',
+    stocks = 'stocks/',
+    supplies = 'supplies/',
+    expenses = 'expenses/',
+    newsale = 'newsale/',
+    newstock = 'newstock/',
+    newsupply = 'newsupply/',
+    newexpense = 'newexpense/',
+    resetlink = 'settings/send-password-reset-link',
 }
 
 export enum NonAuthRoutes {
     login = '/login',
     unauthorized = '/unauthorized',
-    resetpassword = '/settings/reset-password/:token',
+    resetpassword = '/settings/reset-password/',
 }
 
 export enum codes {
