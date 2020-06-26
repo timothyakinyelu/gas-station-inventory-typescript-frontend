@@ -45,6 +45,9 @@ function PasswordReset(props: ResetPasswordProps): JSX.Element {
                     message: res.data.status,
                 });
 
+                setEmail('');
+                setPassword('');
+                setPasswordConfirmation('');
                 setIsLoading(false);
                 setIsShown(true);
             })
