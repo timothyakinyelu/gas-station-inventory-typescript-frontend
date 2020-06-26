@@ -98,23 +98,35 @@ function PasswordReset(props: ResetPasswordProps): JSX.Element {
                 </div>
                 <div className="container-login100-form-btn m-t-32">
                     <Form.Row>
-                        <Form.Group className="col-md-4">
-                            <Button className="btnSubmit login100-form-btn" disabled={!validateForm()} type="submit">
-                                {isLoading && (
-                                    <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" />
-                                )}
-                                Reset Password
-                            </Button>
-                        </Form.Group>
-                        <Form.Group className="col-md-4 offset-md-6" style={{ paddingLeft: '0px' }}>
-                            {isShown && (
-                                <Button className="lg-show">
+                        {!isShown && (
+                            <Form.Group className="">
+                                <Button
+                                    className="btnSubmit login100-form-btn"
+                                    disabled={!validateForm()}
+                                    type="submit"
+                                >
+                                    {isLoading && (
+                                        <Spinner
+                                            as="span"
+                                            animation="border"
+                                            size="sm"
+                                            role="status"
+                                            aria-hidden="true"
+                                        />
+                                    )}
+                                    Reset Password
+                                </Button>
+                            </Form.Group>
+                        )}
+                        {isShown && (
+                            <Form.Group className="" style={{ paddingLeft: '0px' }}>
+                                <Button className="lg-show login100-form-btn">
                                     <Link type="button" className="lg-text" to="/login">
                                         Login
                                     </Link>
                                 </Button>
-                            )}
-                        </Form.Group>
+                            </Form.Group>
+                        )}
                     </Form.Row>
                 </div>
             </Form>
