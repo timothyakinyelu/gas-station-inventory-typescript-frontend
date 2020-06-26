@@ -40,8 +40,6 @@ const Routes: React.FC<RoutesProp> = (props): JSX.Element => {
     const location = useLocation();
     const { height } = useWindowResize();
 
-    console.log(location.pathname.includes(NonAuthRoutes.resetpassword), `{${NonAuthRoutes.resetpassword}:token}`);
-
     return (
         <Fragment>
             {location.pathname === NonAuthRoutes.login ? (

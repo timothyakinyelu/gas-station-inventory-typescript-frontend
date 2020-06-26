@@ -20,7 +20,6 @@ function PasswordReset(props: ResetPasswordProps): JSX.Element {
 
     const { token } = useParams();
     const count = Math.random() * 100 + 1;
-    console.log(token);
 
     function validateForm(): boolean {
         return email.length > 0;
