@@ -244,7 +244,17 @@ const DataTable: React.FC<DataTableProps> = (props): JSX.Element => {
         if (key !== 'isChecked' && key !== 'id' && key !== 'assigned') {
             return (
                 <td data-label={peg} key={index}>
-                    {key === 'total_sale' ? formatter.format(data[key]) : data[key]}
+                    {key === 'total_sale'
+                        ? formatter.format(data[key])
+                        : key === 'total_expense'
+                        ? formatter.format(data[key])
+                        : key === 'expense_amount'
+                        ? formatter.format(data[key])
+                        : key === 'price'
+                        ? formatter.format(data[key])
+                        : key === 'supply_price'
+                        ? formatter.format(data[key])
+                        : data[key]}
                 </td>
             );
         }
