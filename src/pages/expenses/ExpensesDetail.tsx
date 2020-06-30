@@ -70,9 +70,9 @@ const ExpensesDetail: React.FC<ExpensesDetailProps> = (props): JSX.Element => {
             expense
                 .editDayExpense(id)
                 .then((res) => {
-                    // console.log(res.data.user)
+                    // console.log(res.data);
                     fetchExpenseToEdit({
-                        editExpense: res.data.sale,
+                        editExpense: res.data.expense,
                     });
                     setLoading(false);
                 })
