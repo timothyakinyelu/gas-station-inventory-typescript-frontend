@@ -30,9 +30,9 @@ const EditExpenseModal: React.FC<EditExpenseModalProps> = (props): JSX.Element =
             return;
         }
 
-        setAmount(showEdit?.amount);
+        setAmount(showEdit?.expense_amount);
         setReference(showEdit?.description);
-        setExpenseDate(showEdit?.expense_date);
+        setExpenseDate(showEdit?.date_of_entry);
     }, [showEdit]);
 
     const handleSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
@@ -67,7 +67,7 @@ const EditExpenseModal: React.FC<EditExpenseModalProps> = (props): JSX.Element =
     return (
         <Modal {...rest} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
             <Modal.Header closeButton>
-                <Modal.Title id="contained-modal-title-vcenter">Edit Sale</Modal.Title>
+                <Modal.Title id="contained-modal-title-vcenter">Edit Expense</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <Form>
