@@ -4,7 +4,7 @@ export interface Expense {
     amount?: number;
     description?: string;
     reference?: string;
-    expense_date?: string;
+    date_of_entry?: string;
 }
 
 export interface Expenses {
