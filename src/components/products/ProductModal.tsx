@@ -110,7 +110,7 @@ const ProductModal: React.FC<ProductModalProps> = (props): JSX.Element => {
                     setIsLoading(false);
                     addToast({
                         id: count,
-                        message: res.data.sucess,
+                        message: res.data.success,
                     });
                     getProducts();
                 })
