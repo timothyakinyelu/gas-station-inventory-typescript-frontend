@@ -1,9 +1,10 @@
 .main-wrapper {
     position: absolute;
+    right: 0;
 }
 .addNew {
     position: relative;
-    top: -30px;
+    top: -40px;
     font-size: 4em;
     z-index: 9;
     color: #ff914d;
@@ -73,12 +74,6 @@ span.success-msg {
 .search input::placeholder {
     color: #adb5bd;
     opacity: 1;
-}
-
-@media (min-width: 768px) {
-    .addNew {
-        left: 690px;
-    }
 }
 
 @media (max-width: 768px) {
