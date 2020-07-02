@@ -1,6 +1,6 @@
 import cookie from 'js-cookie';
 
-const url = 'http://localhost:8000/api/v1';
+const url = 'https://intree-api.herokuapp.com/api/v2';
 export default {
     handle(TOKEN: string): void {
         this.set(TOKEN);
