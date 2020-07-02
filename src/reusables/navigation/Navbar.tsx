@@ -4,7 +4,7 @@ import { endSession } from '../../redux/auth/actions';
 import { Dropdown } from 'react-bootstrap';
 import { User } from '../../redux/auth/types';
 import { Link } from 'react-router-dom';
-import navLogo from '../../images/logo.png';
+import navLogo from '../../images/inventreed.png';
 import mobileLogo from '../../images/inTree.png';
 import Logout from '../../components/auth/Logout';
 import { AppState } from '../../redux';
