@@ -22,7 +22,8 @@ export default function Footer(): JSX.Element {
                 </div>
             </footer> */}
             <footer className="footer">
-                © {new Date().getFullYear()}, inTree. <a href="https://timothyakinyelu.herokuapp.com/">loverofMush</a>
+                © {new Date().getFullYear()}, inventreed{' '}
+                <a href="https://timothyakinyelu.herokuapp.com/">loverofMush</a>
             </footer>
         </>
     );
