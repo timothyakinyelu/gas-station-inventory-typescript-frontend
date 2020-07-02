@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/static/css/main.7625b39c.chunk.css",
+    "main.js": "/static/js/main.837e9ebe.chunk.js",
+    "main.js.map": "/static/js/main.837e9ebe.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.42c9d0bc.js",
+    "runtime-main.js.map": "/static/js/runtime-main.42c9d0bc.js.map",
+    "static/css/2.89f067aa.chunk.css": "/static/css/2.89f067aa.chunk.css",
+    "static/js/2.7185623d.chunk.js": "/static/js/2.7185623d.chunk.js",
+    "static/js/2.7185623d.chunk.js.map": "/static/js/2.7185623d.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.a3f1661a735d260d85ef3698767e01a6.js": "/precache-manifest.a3f1661a735d260d85ef3698767e01a6.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/2.89f067aa.chunk.css.map": "/static/css/2.89f067aa.chunk.css.map",
+    "static/css/main.7625b39c.chunk.css.map": "/static/css/main.7625b39c.chunk.css.map",
+    "static/js/2.7185623d.chunk.js.LICENSE.txt": "/static/js/2.7185623d.chunk.js.LICENSE.txt",
+    "static/media/inTree.png": "/static/media/inTree.830c476c.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.42c9d0bc.js",
+    "static/css/2.89f067aa.chunk.css",
+    "static/js/2.7185623d.chunk.js",
+    "static/css/main.7625b39c.chunk.css",
+    "static/js/main.837e9ebe.chunk.js"
+  ]
+}
