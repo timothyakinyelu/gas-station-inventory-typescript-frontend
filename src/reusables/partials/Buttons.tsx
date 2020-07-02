@@ -6,6 +6,7 @@ interface AddButtonProps {
     handleShow: () => void;
 }
 
+// AddButton component
 export const AddButton = ({ handleShow }: AddButtonProps): JSX.Element => {
     return <i onClick={handleShow} className="mdi mdi-plus-circle addNew"></i>;
 };
