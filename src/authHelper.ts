@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import cookie from 'js-cookie';
 
-const url = 'https://intree-api.herokuapp.com/api/v2';
+const url = 'https://api.inventreed.com/api/v2';
 export default {
     handle(TOKEN: string): void {
         this.set(TOKEN);
