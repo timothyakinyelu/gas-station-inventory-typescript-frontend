@@ -14,9 +14,10 @@ export default {
     getProductByCodeId: async function (productCodeID?: number, companyID?: string): Promise<any> {
         return await inTreeApi.get('/productCode/products/' + companyID + '/' + productCodeID);
     },
-    storeProduct: async function (type?: any, code?: any, name?: any, price?: any): Promise<any> {
+    storeProduct: async function (companyID?: any, type?: any, code?: any, name?: any, price?: any): Promise<any> {
         const fd = new FormData();
 
+        fd.append('company_id', companyID);
         fd.append('product_type_id', type);
         fd.append('product_code_id', code);
         fd.append('name', name);
