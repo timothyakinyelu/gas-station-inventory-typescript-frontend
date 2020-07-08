@@ -6,6 +6,7 @@ import { addToast } from '../../redux/toast/actions';
 import { connect } from 'react-redux';
 import product from '../../api/product';
 import { Product } from '../../redux/products/types';
+import { useParams } from 'react-router-dom';
 
 interface ProductModalProps {
     show?: boolean;
@@ -25,6 +26,7 @@ const ProductModal: React.FC<ProductModalProps> = (props): JSX.Element => {
     const [isLoading, setIsLoading] = useState(false);
 
     const { getProducts, productCodes, productTypes, addToast, editProduct, ...rest } = props;
+    const { companyID } = useParams();
     const count = Math.random() * 100 + 1;
     const id = editProduct?.id;
 
@@ -71,7 +73,7 @@ const ProductModal: React.FC<ProductModalProps> = (props): JSX.Element => {
 
         try {
             product
-                .storeProduct(productTypeId, productCodeId, name, price)
+                .storeProduct(companyID, productTypeId, productCodeId, name, price)
                 .then((res) => {
                     setIsLoading(false);
                     setProductTypeId(Number(''));
@@ -81,7 +83,7 @@ const ProductModal: React.FC<ProductModalProps> = (props): JSX.Element => {
 
                     addToast({
                         id: count,
-                        message: res.data.status,
+                        message: res.data.success,
                     });
 
                     getProducts();
