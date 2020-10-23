@@ -156,6 +156,10 @@ const Login: React.FC<LoginProps> = (props): JSX.Element => {
                                 Sign In
                             </Button>
                         </div>
+                        <p style={{ color: '#f8f9fa', fontSize: '1em', fontWeight: 700 }}>
+                            Email: hills.lauretta@xo.com
+                        </p>
+                        <p style={{ color: '#f8f9fa', fontSize: '1em', fontWeight: 700 }}>Password: password</p>
                     </Form>
                 </div>
             </div>
